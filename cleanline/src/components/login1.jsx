@@ -33,7 +33,7 @@ const Login1 = ({
             </div>
 
             <Input type="email" placeholder="Email corporativo" className="text-sm" required />
-            <Input type="password" placeholder="Senha" className="text-sm" required />
+            <Input type="password" placeholder="Senha" className=" text-sm" required />
             <Button type="submit" className=" w-60 h-11 text-lg ">
               {buttonText}
             </Button>
