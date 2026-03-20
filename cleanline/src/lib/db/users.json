@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Administrador CleanLine",
+      "email": "admin@cleanline.com",
+      "password": "123",
+      "cargo": "admin"
+    }
+  ]
+}

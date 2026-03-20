@@ -1,25 +1,40 @@
 import { NextResponse } from 'next/server';
-const pool = require('../../../lib/db/connection');
+import fs from 'fs/promises';
+import path from 'path';
 
 export async function POST(request) {
   try {
-    const { username, password } = await request.json();
+   
+    const body = await request.json();
+    const { email, senha } = body;
 
-    // Verificar credenciais no banco
-    const query = 'SELECT id, username FROM users WHERE username = ? AND password = ?';
-    const [rows] = await pool.execute(query, [username, password]);
+   
+    const filePath = path.join(process.cwd(), 'src', 'lib', 'db', 'users.json');
+    
+    //transforma em json
+    const fileData = await fs.readFile(filePath, 'utf-8');
+    const db = JSON.parse(fileData);
 
-    if (rows.length === 0) {
-      return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
+   
+    const user = db.users.find(u => u.email === email && u.senha === senha);
+
+    
+    if (!user) {
+      return NextResponse.json({ erro: 'Email ou senha incorretos' }, { status: 401 });
     }
 
-    const user = rows[0];
+    
+    return NextResponse.json({ 
+      mensagem: 'Login feito com sucesso!', 
+      user: { 
+        id: user.id, 
+        nome: user.nome, 
+        cargo: user.cargo
+      } 
+    }, { status: 200 });
 
-    // Aqui você pode gerar um token JWT se quiser
-    // Por enquanto, retornamos apenas o usuário
-    return NextResponse.json({ user: { id: user.id, username: user.username } });
   } catch (error) {
-    console.error('Erro no login:', error);
-    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
+    console.error("Erro na rota de login:", error);
+    return NextResponse.json({ erro: 'Erro interno no servidor' }, { status: 500 });
   }
 }
