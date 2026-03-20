@@ -11,9 +11,13 @@ ALTER TABLE
 ALTER TABLE
     `Pergunta` ADD CONSTRAINT `pergunta_id_setor_foreign` FOREIGN KEY(`Id_Setor`) REFERENCES `Setor`(`id`);
 ALTER TABLE
+    `Rota` ADD CONSTRAINT `rota_id_super_foreign` FOREIGN KEY(`Id_super`) REFERENCES `Supervisor`(`id`);
+ALTER TABLE
     `Vistoria` ADD CONSTRAINT `vistoria_id_super_foreign` FOREIGN KEY(`Id_Super`) REFERENCES `Supervisor`(`id`);
 ALTER TABLE
     `Vistoria` ADD CONSTRAINT `vistoria_id_setor_foreign` FOREIGN KEY(`Id_Setor`) REFERENCES `Setor`(`id`);
+ALTER TABLE
+    `Supervisor` ADD CONSTRAINT `supervisor_id_rota_foreign` FOREIGN KEY(`Id_Rota`) REFERENCES `Rota`(`id`);
 ALTER TABLE
     `RespostaVistoria` ADD CONSTRAINT `respostavistoria_id_vistoria_foreign` FOREIGN KEY(`Id_Vistoria`) REFERENCES `Vistoria`(`Id`);
 ALTER TABLE
