@@ -78,7 +78,7 @@ const Login1 = ({
             <Input 
               type="email" 
               placeholder="Email corporativo" 
-              className="text-sm w-full" 
+              className="text-sm w-full border-1 text-[2px]" 
               required 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -93,7 +93,7 @@ const Login1 = ({
               onChange={(e) => setSenha(e.target.value)}
             />
             
-            <Button type="submit" className=" w-60 h-11 text-lg ">
+            <Button type="submit" className=" w-60 h-11 bg-[#24bff6] text-white text-lg ">
               {buttonText}
             </Button>
           </form>
