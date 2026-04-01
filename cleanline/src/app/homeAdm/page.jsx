@@ -25,7 +25,7 @@ export default function HomeAdm() {
           </h1>
         </main>
 
-        <PontuacaoMedia />
+        <PontuacaoMedia/>
       </div>
     </div>
   );

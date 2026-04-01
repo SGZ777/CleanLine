@@ -1,6 +1,6 @@
 export const sidebarItems = [
   {
-    label: "Funcionarios",
+    label: "Funcionários",
     href: "/funcionarios",
     icon: "./icons/icon_funcionarios.png",
     alt: "Funcionarios",
@@ -18,7 +18,7 @@ export const sidebarItems = [
     alt: "Rotas",
   },
   {
-    label: "Gestao de Checklists",
+    label: "Gestão de Checklists",
     href: "/checklists",
     icon: "./icons/icon_checklists.png",
     alt: "Gestao de Checklists",
