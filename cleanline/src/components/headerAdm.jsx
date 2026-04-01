@@ -7,7 +7,7 @@ export default function HeaderAdm(){
             alt="Cleanline"
           />
           <p className="text-center text-2xl text-[#0d005d]">Área de administrador</p>
-          <img src="icon_logout.png" className="w-8 me-10" alt="Logout"/>
+          <button className="cursor-pointer" ><img src="./icons/icon_logout.png" className="w-8 me-10" alt="Logout"/></button>
         </header>
     )
 }
