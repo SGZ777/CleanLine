@@ -1,37 +1,44 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
-import jwt from 'jsonwebtoken'; // <<< Importamos o JWT
+import pool from '@/lib/db/connection'; // <<< É ESSA LINHA QUE PUXA O SEU POOL! (ajuste o caminho se sua pasta for diferente)
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
-// Essa chave secreta idealmente ficaria no seu .env.local (ex: JWT_SECRET=suachave)
-const SECRET_KEY = process.env.JWT_SECRET 
+const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
 
 export async function POST(request) {
   try {
     const { email, senha } = await request.json();
     
-    const filePath = path.join(process.cwd(), 'src', 'lib', 'db', 'users.json');
-    const fileData = await fs.readFile(filePath, 'utf-8');
-    const db = JSON.parse(fileData);
+    
+    const [rows] = await pool.query(
+      'SELECT id, Nome, Senha FROM ADM WHERE Email = ?', 
+      [email]
+    );
 
-    const user = db.users.find(u => u.email === email && u.senha === senha);
-
-    if (!user) {
+    if (rows.length === 0) {
       return NextResponse.json({ erro: 'Email ou senha incorretos' }, { status: 401 });
     }
 
-    // <<< A MÁGICA DO JWT ACONTECE AQUI >>>
-    // Criamos o token com o ID e a Role do cara, válido por 8 horas
+    const user = rows[0];
+
+    // Compara a senha q veio do front end com a do hash
+    const senhaValida = await bcrypt.compare(senha, user.Senha);
+
+    if (!senhaValida) {
+      return NextResponse.json({ erro: 'Email ou senha incorretos' }, { status: 401 });
+    }
+
+    // gera o token forçando o role a adm
     const token = jwt.sign(
-      { id: user.id, role: user.role }, 
+      { id: user.id, role: 'admin' }, 
       SECRET_KEY, 
       { expiresIn: '8h' }
     );
 
-    // De
     return NextResponse.json({ mensagem: 'Sucesso', token }, { status: 200 });
 
   } catch (error) {
-    return NextResponse.json({ erro: 'Erro no servidor' }, { status: 500 });
+    console.error("Erro no login com banco:", error);
+    return NextResponse.json({ erro: 'Erro interno no servidor' }, { status: 500 });
   }
 }
