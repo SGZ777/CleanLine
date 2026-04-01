@@ -1,6 +1,6 @@
 export default function Sidebar() {
     return (
-        <div className="w-sm h-[850px] bg-[#1c96c2] rounded-r-[20px] pt-5 flex">
+        <div className="w-2xs h-[850px] flex bg-[#1c96c2] rounded-r-[20px] pt-5">
             <ul className="flex w-auto flex-col gap-8 p-4">
                 <li className="text-white text-xl font-semibold flex"><img src="./icons/icon_funcionarios.png" className="w-7 me-7" alt="Funcionários"/>Funcionários</li>
                 <li className="text-white text-xl font-semibold flex"><img src="./icons/icon_setores.png" className="w-7 me-7" alt="Setores"/>Setores</li>
