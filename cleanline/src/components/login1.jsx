@@ -1,10 +1,15 @@
+"use client";
+
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 const Login1 = ({
   heading = "Fazer login",
-  heading2 = "Bem-vindo de volta!",
+  heading2 = "Bem-vindo",
+  heading2azul = "de volta!",
 
   logo = {
     src: "logoCleanline.png",
@@ -12,25 +17,55 @@ const Login1 = ({
     title: "shadcnblocks.com",
   },
 
-  buttonText = "Login",
+  buttonText = "Entrar",
   className
 }) => {
-  return (
-    <section className={cn("h-screen bg-muted flex justify-center", className)}>
+  const [showPassword, setShowPassword] = useState(false);
 
-      <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:justify-start">
+  return (
+    <section className={cn("h-screen bg-muted flex justify-center ", className)}>
+      <img src="home-background-image.png" className="w-full absolute mt-25 z-1" />
+
+      <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
         <img
           src={logo.src}
           alt={logo.alt}
           title={logo.title}
-          className="h-10 scale-150 justify-self-center"/>
+          className="h-10 scale-170 justify-self-center" />
         <div
-          className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md border border-muted bg-background px-6 py-8 shadow-md md:scale-120">
-          {heading && <h1 className=" text-3xl font-semibold">{heading}</h1>}
-          {heading2 && <h1 className=" text-2xl font-semibold">{heading2}</h1>}
-          <Input type="email" placeholder="Email" className="text-sm focus-visible:border-black focus-visible:ring-black" required />
-          <Input type="password" placeholder="Senha" className="text-sm focus-visible:border-blue-500" required />
-          <Button type="submit" className="w-50 h-10 text-lg">
+          className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md border border-muted bg-white px-6 py-8 shadow-md md:scale-120 lg:scale-140">
+          <div className=" flex flex-col items-center gap-0.5  ">
+            {heading && <h1 className=" text-3xl font-semibold mb-0 ">{heading}</h1>}
+            <div className=" flex justify-center gap-1.5 ">
+              {heading2 && <h1 className=" text-2xl font-semibold mt-0 ">{heading2}</h1>}
+              {heading2azul && <h1 className=" text-2xl font-semibold mt-0 text-[#24bff6] ">{heading2azul}</h1>}
+            </div>
+          </div>
+          <Input type="email" placeholder="Email" className="text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6]" required />
+
+
+          <div className="relative w-full">
+            <Input
+              type={showPassword ? "text" : "password"} // 👈 alterna o tipo
+              placeholder="Senha"
+              className="text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6] pr-10"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+            >
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
+            </button>
+          </div>
+
+          <Button type="submit" className="w-50 h-10 text-lg text-white bg-[#24bff6]">
             {buttonText}
           </Button>
         </div>
