@@ -1,7 +1,7 @@
 -- Criando a view para detalhar a vistoria
 -- Data: 01/04/2026
 
-CREATE VIEW `vw_detalhes_vistoria` AS
+CREATE VIEW `detalhes_vistoria` AS
 SELECT
     v.Id                        AS Id_Vistoria,
     v.Data_e_Hora               AS Data_e_Hora,
@@ -45,3 +45,4 @@ FROM `Vistoria` v
 --         resposta: row.Resposta
 --     }))
 -- };
+
