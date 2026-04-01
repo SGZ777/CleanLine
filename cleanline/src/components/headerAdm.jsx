@@ -7,7 +7,8 @@ export default function HeaderAdm(){
             alt="Cleanline"
           />
           <p className="text-center text-2xl text-[#0d005d]">Área de administrador</p>
-          <img src="icon_logout.png" className="w-8 me-10" alt="Logout"/>
+          <img src="icon_logout.png" 
+          className="w-8 me-10" alt="Logout"/>
         </header>
     )
 }
