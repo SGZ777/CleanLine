@@ -71,9 +71,9 @@ export function PontuacaoGrafico() {
     []
   );
   return (
-    <Card>
+    <Card className="w-full max-w-230 bg-white shadow-md">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
+        <div className="flex flex-1 flex-col justify-center gap-1 px-4 py-4 sm:py-5">
           <CardTitle>Média de pontuação de 5S mensal</CardTitle>
         
         </div>
@@ -84,7 +84,7 @@ export function PontuacaoGrafico() {
               <button
                 key={chart}
                 data-active={activeChart === chart}
-                className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+                className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-4 py-3 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6 sm:py-5"
                 onClick={() => setActiveChart(chart)}
               >
                 <span className="text-xs text-muted-foreground">
@@ -98,10 +98,10 @@ export function PontuacaoGrafico() {
           })}
         </div>
       </CardHeader>
-      <CardContent className="px-2 sm:p-2">
+      <CardContent className="px-2 py-3 sm:px-3 sm:py-2">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-62.5 w-full"
+          className="aspect-auto h-52 w-full"
         >
           <BarChart
             accessibilityLayer
