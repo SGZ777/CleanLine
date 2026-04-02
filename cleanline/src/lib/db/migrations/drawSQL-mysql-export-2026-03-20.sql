@@ -91,3 +91,5 @@ ALTER TABLE
     `RespostaVistoria` ADD CONSTRAINT `respostavistoria_id_pergunta_foreign` FOREIGN KEY(`Id_Pergunta`) REFERENCES `Pergunta`(`id`);
 ALTER TABLE
     `Func_Limpeza` ADD CONSTRAINT `func_limpeza_id_equipe_foreign` FOREIGN KEY(`Id_Equipe`) REFERENCES `Equipe_Limpeza`(`Id`);
+    
+insert into adm (Nome, Email, Senha, Tel) values ("Mateu s fusikawa", "adm@cleanline.com", "$2b$10$QiikhMQdiBA2llGm0yvMC..Y6WebiRB3SuoWjXbdg9mhbhWaazcmy", "0012345789")    

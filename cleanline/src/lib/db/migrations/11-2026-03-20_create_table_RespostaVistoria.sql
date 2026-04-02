@@ -5,7 +5,7 @@
 USE CleanLine;
 
 CREATE TABLE `RespostaVistoria`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `Id_Vistoria` INT NOT NULL,
     `Id_Pergunta` VARCHAR(255) NOT NULL,
     `Resposta` VARCHAR(255) NOT NULL
