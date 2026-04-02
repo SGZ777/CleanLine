@@ -4,6 +4,8 @@ import { useState } from "react";
 import HeaderAdm from "@/components/headerAdm";
 import PontuacaoMedia from "@/components/pontuacaomedia";
 import Sidebar from "@/components/Sidebar";
+import MaiorNotaDiaria from "@/components/maiornotadiaria";
+import { PontuacaoGrafico } from "@/components/pontuacaografico";
 
 export default function HomeAdm() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,8 +25,13 @@ export default function HomeAdm() {
             Olá, Usuário! | Visão Geral do{" "}
             <span className="text-[#24bff6]">5S</span>
           </h1>
+          <div className="lg:flex">
+            <PontuacaoMedia />
+            <MaiorNotaDiaria />
+           
+          </div>
+          <PontuacaoGrafico/>
         </main>
-        <PontuacaoMedia/>
       </div>
     </div>
   );
