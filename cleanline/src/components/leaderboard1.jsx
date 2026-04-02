@@ -27,7 +27,7 @@ const Leaderboard1 = ({
   const maxValue = items[0]?.value || 1;
 
   return (
-    <Card className={cn("w-full max-w-lg pb-6 bg-white ring-0 ", className)} >
+    <Card className={cn("w-full max-w-lg pb-6 bg-white ring-0 shadow-md m-5", className)} >
       <CardHeader>
         <CardTitle className={" text-4xl "} >{title}</CardTitle>
         <CardDescription className={" text-lg "}>{description}</CardDescription>

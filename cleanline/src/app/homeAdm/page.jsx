@@ -27,12 +27,13 @@ export default function HomeAdm() {
             <span className="text-[#24bff6]">5S</span>
           </h1>
           <div className="lg:flex">
-            <PontuacaoMedia />
-            <MaiorNotaDiaria />
-              <Leaderboard1/>
+            <div className="lg:flex">
+              <PontuacaoMedia />
+              <MaiorNotaDiaria />
+            </div>
+            <Leaderboard1 />
           </div>
-          <PontuacaoGrafico/>
-       
+          <PontuacaoGrafico />
         </main>
       </div>
     </div>
