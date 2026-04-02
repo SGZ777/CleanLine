@@ -38,7 +38,6 @@ export default function Funcionarios() {
 
 
 
-          <Leaderboard1 />
 
 
         </main>
