@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { Leaderboard1 } from "@/components/leaderboard1";
+import Table02 from "@/components/table-02";
 
 export default function Funcionarios() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function Funcionarios() {
         />
 
         <main className="flex-1 p-6 md:p-10">
-          <div className=" justify-between flex items-center ">
+          <div className=" justify-between flex items-center mb-10 ">
 
             <h1 className="text-3xl md:text-4xl font-inter">Funcionários</h1>
 
@@ -36,8 +37,7 @@ export default function Funcionarios() {
 
           </div>
 
-
-
+          <Table02 />
 
 
         </main>
