@@ -31,6 +31,7 @@ export default function HomeAdm() {
            
           </div>
           <PontuacaoGrafico/>
+          <
         </main>
       </div>
     </div>
