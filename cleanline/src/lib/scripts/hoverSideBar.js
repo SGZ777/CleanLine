@@ -1,4 +1,10 @@
 export const sidebarItems = [
+   {
+    label: "Visão Geral",
+    href: "/homeAdm",
+    icon: "./icons/icon_home.png",
+    alt: "Visão Geral",
+  },
   {
     label: "Funcionários",
     href: "/funcionarios",

@@ -23,7 +23,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
 
       <aside
         className={[
-          "fixed left-0 top-0 z-40 h-screen w-72 bg-[#1c96c2] pt-5 transition-transform duration-300 md:static md:min-h-[850px] md:w-2xs md:translate-x-0 md:rounded-r-[20px]",
+          "fixed left-0 top-0 z-40 h-screen w-72 bg-[#1c96c2] pt-5 transition-transform duration-300 md:static md:min-h-212.5 md:w-2xs md:translate-x-0 md:rounded-r-[20px]",
           isOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
       >
@@ -35,7 +35,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
             onClick={onClose}
             aria-label="Fechar sidebar"
           >
-            X
+            <img src="./icons/icon_close.png" className="w-8" alt="Fechar" />
           </button>
         </div>
 

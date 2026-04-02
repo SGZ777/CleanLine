@@ -24,15 +24,15 @@ export default function HeaderAdm({ onOpenSidebar = () => {} }) {
           <span className="mt-1 block h-0.5 w-5 bg-white" />
         </button>
 
-        <img
+        <a href="."><img
           src="logoCleanline.png"
           className="w-50 md:w-80 lg:ps-15 sm:ps-0"
           alt="Cleanline"
-        />
+        /></a>
       </div>
 
       <p className="hidden text-center text-2xl text-[#0d005d] md:block">
-        Area de administrador
+        Área de administrador
       </p>
 
       <button
