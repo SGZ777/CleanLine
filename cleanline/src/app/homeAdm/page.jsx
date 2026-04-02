@@ -6,6 +6,7 @@ import PontuacaoMedia from "@/components/pontuacaomedia";
 import Sidebar from "@/components/Sidebar";
 import MaiorNotaDiaria from "@/components/maiornotadiaria";
 import { PontuacaoGrafico } from "@/components/pontuacaografico";
+import { Leaderboard1 } from "@/components/leaderboard1";
 
 export default function HomeAdm() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -28,10 +29,10 @@ export default function HomeAdm() {
           <div className="lg:flex">
             <PontuacaoMedia />
             <MaiorNotaDiaria />
-           
+              <Leaderboard1/>
           </div>
           <PontuacaoGrafico/>
-          <
+       
         </main>
       </div>
     </div>
