@@ -26,6 +26,7 @@ export default function HomeAdm() {
         </main>
         <PontuacaoMedia/>
       </div>
+      {/*  */}
     </div>
   );
 }
