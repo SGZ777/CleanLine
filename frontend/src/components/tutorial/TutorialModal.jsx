@@ -12,25 +12,25 @@ const SLIDES = [
     description:
       "Comece a conhecer o funcionamento do sistema e aprenda a navegar pelo app com facilidade.",
     image: "/tutorial/intro.png",
-    imageAlt: "Tela de introducao do tutorial do aplicativo",
-    button: "Proximo",
+    imageAlt: "Tela de introdução do tutorial do aplicativo",
+    button: "Próximo",
   },
   {
     title: "Como utilizar o CleanLine",
-    subtitle: "Veja as principais funcoes do sistema",
+    subtitle: "Veja as principais funções do sistema",
     description: "Acompanhe o fluxo do app de forma simples e visual.",
     items: [
       {
         title: "Passo 1",
-        text: "Acesse a tela inicial e veja as opcoes disponiveis.",
+        text: "Acesse a tela inicial e veja as opções disponíveis.",
         image: "/tutorial/step1.png",
-        imageAlt: "Primeira tela do tutorial com as opcoes iniciais do sistema",
+        imageAlt: "Primeira tela do tutorial com as opções iniciais do sistema",
       },
       {
         title: "Passo 2",
-        text: "Escolha a funcao desejada para continuar no sistema.",
+        text: "Escolha a função desejada para continuar no sistema.",
         image: "/tutorial/step2.png",
-        imageAlt: "Tela de selecao de funcao no aplicativo",
+        imageAlt: "Tela de seleção de função no aplicativo",
       },
       {
         title: "Passo 3",
@@ -40,21 +40,21 @@ const SLIDES = [
       },
       {
         title: "Passo 4",
-        text: "Finalize a acao e acompanhe o resultado no app.",
+        text: "Finalize a ação e acompanhe o resultado no app.",
         image: "/tutorial/step4.png",
-        imageAlt: "Tela final com o resultado da acao realizada no aplicativo",
+        imageAlt: "Tela final com o resultado da ação realizada no aplicativo",
       },
     ],
-    button: "Proximo",
+    button: "Próximo",
   },
   {
     title: "Pronto!",
-    subtitle: "Tudo pronto para comecar",
+    subtitle: "Tudo pronto para começar",
     description:
-      "Agora voce ja pode acessar o sistema e utilizar todas as funcionalidades do aplicativo.",
+      "Agora você já pode acessar o sistema e utilizar todas as funcionalidades do aplicativo.",
     image: "/tutorial/final.png",
-    imageAlt: "Tela final do tutorial indicando que o usuario pode comecar",
-    button: "Comecar",
+    imageAlt: "Tela final do tutorial indicando que o usuário pode começar",
+    button: "Começar",
   },
 ];
 
@@ -65,7 +65,7 @@ function SlideIllustration({ slide, isOverview }) {
         {slide.items.map((item) => (
           <li
             key={item.title}
-            className="flex flex-col gap-3 rounded-[24px] border border-[#eadfce] bg-[#fffaf4] p-3 shadow-sm md:flex-row md:items-center md:p-4"
+            className="flex flex-col gap-3 rounded-3xl border border-[#eadfce] bg-[#fffaf4] p-3 shadow-sm md:flex-row md:items-center md:p-4"
           >
             <div className="relative h-40 overflow-hidden rounded-[18px] bg-white md:h-28 md:w-48 md:shrink-0">
               <Image
@@ -92,7 +92,7 @@ function SlideIllustration({ slide, isOverview }) {
   }
 
   return (
-    <div className="relative h-[240px] w-full max-w-[620px] md:h-[320px] lg:h-[420px]">
+    <div className="relative h-60 w-full max-w-155 md:h-80 lg:h-105">
       <Image
         src={slide.image}
         alt={slide.imageAlt}
@@ -133,7 +133,7 @@ export default function TutorialModal({ userName, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/60 p-4">
+    <div className="fixed inset-0 z-80 flex items-center justify-center bg-slate-950/60 p-4">
       <div className="relative w-full max-w-6xl overflow-hidden rounded-[28px] border border-[#ece2d4] bg-white shadow-[0_30px_80px_rgba(15,23,42,0.28)]">
         <div className="absolute -left-20 -top-20 h-56 w-56 rounded-full bg-blue-200/60 blur-[100px]" />
         <div className="absolute -bottom-16 -right-16 h-52 w-52 rounded-full bg-cyan-200/60 blur-[100px]" />
@@ -163,7 +163,7 @@ export default function TutorialModal({ userName, onClose }) {
                   className="h-8 w-auto object-contain"
                 />
                 <p className="mt-3 text-sm text-[#5f6f98]">
-                  {userName ? `Ola, ${userName}.` : "Ola."} Este tutorial aparece apenas no seu primeiro acesso.
+                  {userName ? `Olá, ${userName}.` : "Olá."} Este tutorial aparece apenas no seu primeiro acesso.
                 </p>
               </div>
 

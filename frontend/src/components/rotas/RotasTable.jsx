@@ -227,7 +227,7 @@ export default function RotasTable({ searchTerm = "" }) {
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
-                    <PopoverTitle>Confirmar exclusao</PopoverTitle>
+                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
                     <PopoverDescription>
                       Tem certeza que deseja excluir "{rota.Nome}"?
                     </PopoverDescription>
