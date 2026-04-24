@@ -50,7 +50,7 @@ const LeaderboardCard = ({ className }) => {
   const terceiro = ranking[2] || { NomeSetor: 'Aguardando', MediaNota: '0.0' };
 
   return (
-    <Card className={cn("justify-self-center w-full h-auto max-w-lg pb-6 bg-white ring-0 shadow-md m-5 p-3 pt-10 pb-10", className)}>
+    <Card className={cn("justify-self-center w-full h-auto max-w-lg  bg-white ring-0 shadow-md m-5 p-3 pt-10 pb-10", className)}>
       <CardHeader>
         <CardTitle className="text-4xl">Ranking do mês</CardTitle>
         <CardDescription className="text-lg">

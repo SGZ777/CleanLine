@@ -16,10 +16,20 @@ import { getGraficoPontuacaoMensal } from "@/lib/controllers/dashboard";
 
 const chartConfig = {
   media: {
-    label: "Média Diária",
+    label: "Media Diaria",
     color: "hsl(var(--chart-1))",
   },
 };
+// Formata a nota 
+function formatNota(value) {
+  const notaNumerica = Number(value) || 0;
+
+  if (notaNumerica === 10) {
+    return "10";
+  }
+
+  return notaNumerica.toFixed(1);
+}
 
 export function PontuacaoGrafico() {
   const [chartData, setChartData] = React.useState([]);
@@ -35,7 +45,7 @@ export function PontuacaoGrafico() {
           console.error("Formato inesperado:", json);
         }
       } catch (error) {
-        console.error("Erro ao carregar gráfico:", error);
+        console.error("Erro ao carregar grafico:", error);
       } finally {
         setLoading(false);
       }
@@ -54,14 +64,14 @@ export function PontuacaoGrafico() {
         count++;
       }
     });
-    return count > 0 ? (soma / count).toFixed(1) : "0";
+    return count > 0 ? formatNota(soma / count) : "0";
   }, [chartData]);
 
   if (loading) {
     return (
       <Card className="w-full max-w-230 bg-white shadow-md">
         <CardContent className="p-6 text-center">
-          Carregando dados do gráfico...
+          Carregando dados do grafico...
         </CardContent>
       </Card>
     );
@@ -71,7 +81,7 @@ export function PontuacaoGrafico() {
     return (
       <Card className="w-full max-w-230 bg-white shadow-md">
         <CardContent className="p-6 text-center">
-          Nenhum dado disponível para o mês atual.
+          Nenhum dado disponivel para o mes atual.
         </CardContent>
       </Card>
     );
@@ -81,14 +91,14 @@ export function PontuacaoGrafico() {
     <Card className="w-full max-w-230 bg-white shadow-md overflow-visible">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
-          Média de pontuação 5S -{" "}
+          Media de pontuacao 5S -{" "}
           {new Date().toLocaleString("pt-BR", {
             month: "long",
             year: "numeric",
           })}
         </CardTitle>
         <div className="text-sm text-muted-foreground">
-          Média geral: {mediaTotal}
+          Media geral: {mediaTotal}
         </div>
       </CardHeader>
       <CardContent className="px-2 py-3 sm:px-3 sm:py-2 overflow-visible">
@@ -134,7 +144,7 @@ export function PontuacaoGrafico() {
                       year: "numeric",
                     });
                   }}
-                  formatter={(value) => [`${value} pontos`, "Média"]}
+                  formatter={(value) => [`${value} pontos`, "Media"]}
                 />
               }
             />

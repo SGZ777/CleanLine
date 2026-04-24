@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
 
+function formatNota(value) {
+  const notaNumerica = Number(value) || 0;
+
+  if (notaNumerica === 10) {
+    return "10";
+  }
+
+  return notaNumerica.toFixed(1);
+}
 
 export default function PontuacaoMedia() {
   const [nota, setNota] = useState(0);
@@ -42,10 +51,10 @@ export default function PontuacaoMedia() {
   return (
     <section className="w-80 h-auto md:w-105 rounded-[25px] bg-white m-6 shadow-md">
       <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
-        Pontuação media mensal
+        Pontuacao media mensal
       </p>
       <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-2 lg:text-6xl">{nota}/10</p>
+        <p className="text-5xl pb-2 lg:text-6xl">{formatNota(nota)}/10</p>
         <img
           src="./icons/icon_green_arrow.png"
           className="w-7 h-11 lg:w-10 lg:h-13"
