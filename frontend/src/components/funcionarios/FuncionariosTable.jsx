@@ -289,9 +289,9 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
-                    <PopoverTitle>Confirmar Inativação</PopoverTitle>
+                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
                     <PopoverDescription>
-                      Tem certeza que deseja inativar "{func.Nome}"?
+                      Tem certeza que deseja excluir "{func.Nome}"?
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
