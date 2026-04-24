@@ -159,7 +159,7 @@ export default function ChecklistsTable({
         <TableHeader>
           <TableRow className="border-b hover:bg-transparent">
             <TableHead className="h-12 px-6 font-medium">Setor</TableHead>
-            <TableHead className="h-12 px-4 font-medium text-center">Cargo</TableHead>
+            <TableHead className="h-12 px-4 font-medium text-center">Nota diária</TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-10">
               Ações
             </TableHead>
