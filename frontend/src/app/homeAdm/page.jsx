@@ -8,10 +8,13 @@ import Sidebar from "@/components/layout/Sidebar";
 import MaiorNotaDiaria from "@/components/dashboard/MaiorNotaDiaria";
 import { PontuacaoGrafico } from "@/components/dashboard/PontuacaoGrafico";
 import { LeaderboardCard } from "@/components/dashboard/leaderboard/LeaderboardCard";
+import TutorialModal from "@/components/tutorial/TutorialModal";
 
 export default function HomeAdm() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userName, setUserName] = useState("Administrador");
+  const [showTutorial, setShowTutorial] = useState(false);
+  const [tutorialStorageKey, setTutorialStorageKey] = useState("");
 
   useEffect(() => {
     let ignore = false;
@@ -26,8 +29,18 @@ export default function HomeAdm() {
 
         const data = await response.json();
 
-        if (!ignore && data?.user?.name) {
-          setUserName(data.user.name);
+        if (!ignore && data?.user) {
+          const tutorialKey = `cleanline_tutorial_seen_${data.user.id}`;
+
+          if (data.user.name) {
+            setUserName(data.user.name);
+          }
+
+          setTutorialStorageKey(tutorialKey);
+
+          if (!localStorage.getItem(tutorialKey)) {
+            setShowTutorial(true);
+          }
         }
       } catch (error) {
         console.error("Erro ao carregar usuario:", error);
@@ -40,6 +53,14 @@ export default function HomeAdm() {
       ignore = true;
     };
   }, []);
+
+  const handleCloseTutorial = () => {
+    if (tutorialStorageKey) {
+      localStorage.setItem(tutorialStorageKey, "true");
+    }
+
+    setShowTutorial(false);
+  };
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -68,6 +89,9 @@ export default function HomeAdm() {
           </div>
         </main>
       </div>
+      {showTutorial && (
+        <TutorialModal userName={userName} onClose={handleCloseTutorial} />
+      )}
     </div>
   );
 }

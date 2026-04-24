@@ -101,9 +101,9 @@ const LoginForm = ({
               aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
             >
               {showPassword ? (
-                <EyeOff color="white" className="h-4 w-4" />
+                <EyeOff color="black" className="h-4 w-4" />
               ) : (
-                <Eye color="white" className="h-4 w-4" />
+                <Eye color="black" className="h-4 w-4" />
               )}
             </button>
           </div>
