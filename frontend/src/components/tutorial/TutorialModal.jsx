@@ -10,9 +10,9 @@ const SLIDES = [
     title: "Bem-vindo!",
     subtitle: "Aprenda agora a usar o app",
     description:
-      "Comece a conhecer o funcionamento do sistema e aprenda a navegar pelo app com facilidade.",
+      "Comece a conhecer o funcionamento do sistema e aprenda a navegar pelo sistema com facilidade.",
     image: "/tutorial/intro.png",
-    imageAlt: "Tela de introdução do tutorial do aplicativo",
+    imageAlt: "Tela de introdução do tutorial do sistema",
     button: "Próximo",
   },
   {
@@ -30,19 +30,19 @@ const SLIDES = [
         title: "Passo 2",
         text: "Escolha a função desejada para continuar no sistema.",
         image: "/tutorial/step2.png",
-        imageAlt: "Tela de seleção de função no aplicativo",
+        imageAlt: "Tela de seleção de função no sistema",
       },
       {
         title: "Passo 3",
         text: "Informe ou consulte os dados solicitados.",
         image: "/tutorial/step3.png",
-        imageAlt: "Tela para consulta ou preenchimento de dados no aplicativo",
+        imageAlt: "Tela para consulta ou preenchimento de dados no sistema",
       },
       {
         title: "Passo 4",
         text: "Finalize a ação e acompanhe o resultado no app.",
         image: "/tutorial/step4.png",
-        imageAlt: "Tela final com o resultado da ação realizada no aplicativo",
+        imageAlt: "Tela final com o resultado da ação realizada no sistema",
       },
     ],
     button: "Próximo",
@@ -51,7 +51,7 @@ const SLIDES = [
     title: "Pronto!",
     subtitle: "Tudo pronto para começar",
     description:
-      "Agora você já pode acessar o sistema e utilizar todas as funcionalidades do aplicativo.",
+      "Agora você já pode acessar o sistema e utilizar todas as funcionalidades do sistema.",
     image: "/tutorial/final.png",
     imageAlt: "Tela final do tutorial indicando que o usuário pode começar",
     button: "Começar",
@@ -202,7 +202,7 @@ export default function TutorialModal({ userName, onClose }) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="border-[#d8dceb] text-[#18255f]"
+                  className="bg-[#24bff6]"
                   onClick={handlePrev}
                   disabled={current === 0}
                 >
@@ -211,7 +211,7 @@ export default function TutorialModal({ userName, onClose }) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="border-[#d8dceb] text-[#18255f]"
+                  className="border bg-transparent"
                   onClick={onClose}
                 >
                   Pular

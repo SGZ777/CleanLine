@@ -92,14 +92,14 @@ export function PontuacaoGrafico() {
     <Card className="w-full max-w-230 bg-white shadow-md overflow-visible">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
-          Media de pontuacao 5S -{" "}
+          Média de pontuacao 5S -{" "}
           {new Date().toLocaleString("pt-BR", {
             month: "long",
             year: "numeric",
           })}
         </CardTitle>
         <div className="text-sm text-muted-foreground">
-          Media geral: {mediaTotal}
+          Média geral: {mediaTotal}
         </div>
       </CardHeader>
       <CardContent className="px-2 py-3 sm:px-3 sm:py-2 overflow-visible">
@@ -145,7 +145,7 @@ export function PontuacaoGrafico() {
                       year: "numeric",
                     });
                   }}
-                  formatter={(value) => [`${value} pontos`, "Media"]}
+                  formatter={(value) => [`${value} pontos`, " ", "média"]}
                 />
               }
             />
