@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";;
+import { useState, useCallback } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
-import FuncionariosTable from "@/components/funcionarios/FuncionariosTable"
+import FuncionariosTable from "@/components/funcionarios/FuncionariosTable";
 import AdicionarFuncionarioModal from "@/components/funcionarios/AdicionarFuncionarioModal";
-import { Label } from "@/components/ui/label";
 import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Funcionarios() {
@@ -46,7 +45,7 @@ export default function Funcionarios() {
               </div>
             </div>
           </div>
-          <FuncionariosTable />
+          <FuncionariosTable key={refreshKey} />
         </main>
       </div>
       {showAddModal && (

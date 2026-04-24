@@ -45,6 +45,8 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     tel: "",
   });
 
+  const getFuncionarioKey = (func) => `${func.Tipo}-${func.id}`;
+
   const fetchFuncionarios = async () => {
     setLoading(true);
     try {
@@ -75,7 +77,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   });
 
   const handleInativar = async (func) => {
-    setPendingAction({ id: func.id, type: "delete" });
+    setPendingAction({ key: getFuncionarioKey(func), type: "delete" });
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
         method: 'PATCH',
@@ -93,7 +95,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   };
 
   const handleEdit = (func) => {
-    setEditingFunc(func.id);
+    setEditingFunc(getFuncionarioKey(func));
     setEditForm({
       nome: func.Nome,
       email: func.Email,
@@ -103,12 +105,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
 
   const handleSaveEdit = async () => {
     if (!editingFunc) return;
-    const func = funcionarios.find(f => f.id === editingFunc);
+    const func = funcionarios.find((f) => getFuncionarioKey(f) === editingFunc);
     if (!func) return;
 
-    setPendingAction({ id: editingFunc, type: "edit" });
+    setPendingAction({ key: editingFunc, type: "edit" });
     try {
-      const res = await apiFetch(`/api/funcionarios/${editingFunc}`, {
+      const res = await apiFetch(`/api/funcionarios/${func.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -121,7 +123,11 @@ export default function FuncionariosTable({ searchTerm = "" }) {
         throw new Error(err.error || 'Erro ao atualizar');
       }
       const updated = await res.json();
-      setFuncionarios(prev => prev.map(f => f.id === editingFunc ? updated.funcionario : f));
+      setFuncionarios((prev) =>
+        prev.map((f) =>
+          getFuncionarioKey(f) === editingFunc ? updated.funcionario : f
+        )
+      );
       setEditingFunc(null);
     } catch (error) {
       alert(error.message);
@@ -131,9 +137,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   };
 
   const renderRow = (func) => {
-    const busy = pendingAction?.id === func.id;
-    const deletePending = pendingAction?.id === func.id && pendingAction.type === "delete";
-    const editPending = pendingAction?.id === func.id && pendingAction.type === "edit";
+    const funcKey = getFuncionarioKey(func);
+    const busy = pendingAction?.key === funcKey;
+    const deletePending =
+      pendingAction?.key === funcKey && pendingAction.type === "delete";
+    const editPending =
+      pendingAction?.key === funcKey && pendingAction.type === "edit";
 
     return (
       <TableRow key={`${func.Tipo}-${func.id}`} className="hover:bg-muted/50">
@@ -163,7 +172,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover open={editingFunc === func.id} onOpenChange={(open) => {
+              <Popover open={editingFunc === funcKey} onOpenChange={(open) => {
                 if (open) handleEdit(func);
                 else setEditingFunc(null);
               }}>
@@ -190,8 +199,8 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                       <Input id="edit-tel" value={editForm.tel} onChange={(e) => setEditForm({...editForm, tel: e.target.value})} />
                     </div>
                     <div className="flex justify-end gap-2">
-                      <Button variant="outline" onClick={() => setEditingFunc(null)}>Cancelar</Button>
-                      <Button onClick={handleSaveEdit} disabled={editPending}>
+                      <Button variant="outline" className="bg-transparent ring-1" onClick={() => setEditingFunc(null)}>Cancelar</Button>
+                      <Button className="bg-transparent ring-1" onClick={handleSaveEdit} disabled={editPending}>
                         {editPending ? <Loader2 className="size-4 animate-spin" /> : "Salvar"}
                       </Button>
                     </div>
