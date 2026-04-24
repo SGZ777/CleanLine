@@ -1,15 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import SetoresTable from "@/components/setores/SetoresTable";
+import AdicionarSetorModal from "@/components/setores/AdicionarSetorModal";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Setores() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSetorAdded = useCallback(() => {
+    setRefreshKey((prev) => prev + 1);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -21,7 +28,7 @@ export default function Setores() {
           onClose={() => setIsSidebarOpen(false)}
         />
 
-            <main className="flex-1 p-6 md:p-10">
+        <main className="flex-1 p-6 md:p-10">
           <div className=" justify-between flex items-center mb-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
               <h1 className="text-2xl md:text-3xl font-inter">Setores</h1>
@@ -38,9 +45,18 @@ export default function Setores() {
               </div>
             </div>
           </div>
-          <SetoresTable searchTerm={searchTerm} />
+          <SetoresTable key={refreshKey} searchTerm={searchTerm} />
         </main>
       </div>
+      {showAddModal && (
+        <AdicionarSetorModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={() => {
+            setShowAddModal(false);
+            handleSetorAdded();
+          }}
+        />
+      )}
     </div>
   );
 }

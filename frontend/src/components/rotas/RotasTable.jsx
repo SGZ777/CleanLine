@@ -193,11 +193,12 @@ export default function RotasTable({ searchTerm = "" }) {
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="outline"
+                        className="bg-transparent ring-1"
                         onClick={() => setEditingRota(null)}
                       >
                         Cancelar
                       </Button>
-                      <Button onClick={handleSaveEdit} disabled={editPending}>
+                      <Button className="bg-transparent ring-1" onClick={handleSaveEdit} disabled={editPending}>
                         {editPending ? (
                           <Loader2 className="size-4 animate-spin" />
                         ) : (
@@ -232,11 +233,11 @@ export default function RotasTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" onClick={() => {}}>
+                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>
                       Cancelar
                     </Button>
                     <Button
-                      variant="destructive"
+                      variant="destructive" className="bg-transparent ring-1"
                       onClick={() => handleExcluir(rota)}
                       disabled={deletePending}
                     >
@@ -265,7 +266,7 @@ export default function RotasTable({ searchTerm = "" }) {
           <TableRow className="border-b hover:bg-transparent">
             <TableHead className="h-12 px-6 font-medium">Nome</TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-20">
-              Acoes
+              Ações
             </TableHead>
           </TableRow>
         </TableHeader>

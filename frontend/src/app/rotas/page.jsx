@@ -1,15 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import RotasTable from "@/components/rotas/RotasTable";
+import AdicionarRotaModal from "@/components/rotas/AdicionarRotaModal";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Rotas() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const handleRotaAdded = useCallback(() => {
+    setRefreshKey((prev) => prev + 1);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -20,7 +27,7 @@ export default function Rotas() {
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
-       <main className="flex-1 p-6 md:p-10">
+        <main className="flex-1 p-6 md:p-10">
           <div className=" justify-between flex items-center mb-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
               <h1 className="text-2xl md:text-3xl font-inter">Rotas</h1>
@@ -37,9 +44,18 @@ export default function Rotas() {
               </div>
             </div>
           </div>
-          <RotasTable searchTerm={searchTerm} />
+          <RotasTable key={refreshKey} searchTerm={searchTerm} />
         </main>
       </div>
+      {showAddModal && (
+        <AdicionarRotaModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={() => {
+            setShowAddModal(false);
+            handleRotaAdded();
+          }}
+        />
+      )}
     </div>
   );
 }
