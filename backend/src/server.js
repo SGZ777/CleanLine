@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.js';
+import equipesRoutes from './routes/equipes.js';
 import funcionariosRoutes from './routes/funcionarios.js';
 import setoresRoutes from './routes/setores.js';
 import rotasRoutes from './routes/rotas.js';
@@ -23,6 +24,7 @@ app.use(express.json());
 
 // Rotas
 app.use('/api', authRoutes);
+app.use('/api/equipes', equipesRoutes);
 app.use('/api/funcionarios', funcionariosRoutes);
 app.use('/api/setores', setoresRoutes);
 app.use('/api/rotas', rotasRoutes);
