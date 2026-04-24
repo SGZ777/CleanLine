@@ -4,11 +4,15 @@ import { useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import ChecklistsTable from "@/components/checklists/ChecklistsTable";
+import AdicionarChecklistModal from "@/components/checklists/AdicionarChecklistModal";
+import { INITIAL_CHECKLISTS } from "@/components/checklists/checklistData";
 import SearchBar from "@/components/funcionarios/SearchBar";
 import { Button } from "@/components/ui/button";
 
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [checklists, setChecklists] = useState(INITIAL_CHECKLISTS);
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -39,9 +43,18 @@ export default function Checklists() {
               </div>
             </div>
           </div>
-          <ChecklistsTable />
+          <ChecklistsTable tasks={checklists} />
         </main>
       </div>
+      {showAddModal && (
+        <AdicionarChecklistModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={(newChecklist) => {
+            setChecklists((prev) => [...prev, newChecklist]);
+            setShowAddModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }

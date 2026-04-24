@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import SetoresTable from "@/components/setores/SetoresTable";
+import AdicionarSetorModal from "@/components/setores/AdicionarSetorModal";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Setores() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleSetorAdded = useCallback(() => {
+    setRefreshKey((prev) => prev + 1);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -37,9 +44,18 @@ export default function Setores() {
               </div>
             </div>
           </div>
-          <SetoresTable />
+          <SetoresTable key={refreshKey} />
         </main>
       </div>
+      {showAddModal && (
+        <AdicionarSetorModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={() => {
+            setShowAddModal(false);
+            handleSetorAdded();
+          }}
+        />
+      )}
     </div>
   );
 }
