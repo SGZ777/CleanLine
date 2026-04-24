@@ -74,15 +74,18 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     );
   });
 
+  const getFuncKey = (func) => `${func.Tipo}-${func.id}`; //separar por tipo para evitar conflitos entre funcionários e equipes com mesmo id
+
   const handleInativar = async (func) => {
-    setPendingAction({ id: func.id, type: "delete" });
+    const funcKey = getFuncKey(func);
+    setPendingAction({ key: funcKey, type: "delete" });
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
         method: 'PATCH',
       });
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.error || 'Erro ao inativar');
+        throw new Error(err.error || 'Erro ao excluir');
       }
       setFuncionarios(prev => prev.filter(f => !(f.id === func.id && f.Tipo === func.Tipo)));
     } catch (error) {
@@ -93,7 +96,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   };
 
   const handleEdit = (func) => {
-    setEditingFunc(func.id);
+    setEditingFunc(getFuncKey(func));
     setEditForm({
       nome: func.Nome,
       email: func.Email,
@@ -103,12 +106,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
 
   const handleSaveEdit = async () => {
     if (!editingFunc) return;
-    const func = funcionarios.find(f => f.id === editingFunc);
+    const func = funcionarios.find((f) => getFuncKey(f) === editingFunc);
     if (!func) return;
 
-    setPendingAction({ id: editingFunc, type: "edit" });
+    setPendingAction({ key: editingFunc, type: "edit" });
     try {
-      const res = await apiFetch(`/api/funcionarios/${editingFunc}`, {
+      const res = await apiFetch(`/api/funcionarios/${func.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -121,7 +124,11 @@ export default function FuncionariosTable({ searchTerm = "" }) {
         throw new Error(err.error || 'Erro ao atualizar');
       }
       const updated = await res.json();
-      setFuncionarios(prev => prev.map(f => f.id === editingFunc ? updated.funcionario : f));
+      setFuncionarios((prev) =>
+        prev.map((f) =>
+          getFuncKey(f) === editingFunc ? updated.funcionario : f
+        )
+      );
       setEditingFunc(null);
     } catch (error) {
       alert(error.message);
@@ -131,12 +138,13 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   };
 
   const renderRow = (func) => {
-    const busy = pendingAction?.id === func.id;
-    const deletePending = pendingAction?.id === func.id && pendingAction.type === "delete";
-    const editPending = pendingAction?.id === func.id && pendingAction.type === "edit";
+    const funcKey = getFuncKey(func);
+    const busy = pendingAction?.key === funcKey;
+    const deletePending = pendingAction?.key === funcKey && pendingAction.type === "delete";
+    const editPending = pendingAction?.key === funcKey && pendingAction.type === "edit";
 
     return (
-      <TableRow key={`${func.Tipo}-${func.id}`} className="hover:bg-muted/50">
+      <TableRow key={funcKey} className="hover:bg-muted/50">
         <TableCell className="h-16 px-6 font-medium">{func.Nome}</TableCell>
         <TableCell className="h-16 px-4 text-sm text-muted-foreground">{func.Cargo}</TableCell>
         <TableCell className="h-16 px-4 text-sm text-muted-foreground">{func.Setor}</TableCell>
@@ -163,7 +171,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover open={editingFunc === func.id} onOpenChange={(open) => {
+              <Popover open={editingFunc === funcKey} onOpenChange={(open) => {
                 if (open) handleEdit(func);
                 else setEditingFunc(null);
               }}>
@@ -208,12 +216,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
                     <PopoverTitle>Confirmar Inativação</PopoverTitle>
-                    <PopoverDescription>Tem certeza que deseja inativar "{func.Nome}"?</PopoverDescription>
+                    <PopoverDescription>Tem certeza que deseja excluir "{func.Nome}"?</PopoverDescription>
                   </PopoverHeader>
                   <div className="flex justify-end gap-2 mt-4">
                     <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>Cancelar</Button>
                     <Button variant="destructive" className="bg-transparent ring-1" onClick={() => handleInativar(func)} disabled={deletePending}>
-                      {deletePending ? <Loader2 className="size-4 animate-spin" /> : "Inativar"}
+                      {deletePending ? <Loader2 className="size-4 animate-spin" /> : "Excluir"}
                     </Button>
                   </div>
                 </PopoverContent>
