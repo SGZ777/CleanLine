@@ -72,3 +72,23 @@ export async function getRankingDoMes(_req, res) {
     return res.status(500).json({ error: 'Erro interno' });
   }
 }
+
+export async function getGraficoSetoresMensal(_req, res) {
+  try {
+    const dados = await prisma.$queryRaw`
+      SELECT 
+        s."Nome" AS setor,
+        TO_CHAR(v."Data_e_Hora", 'YYYY-MM') AS mes,
+        ROUND(AVG(v."Pontuacao")::numeric, 1) AS media
+      FROM "Vistoria" v
+      JOIN "Setor" s ON s.id = v."Id_Setor"
+      WHERE v."Data_e_Hora" >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '2 months'
+      GROUP BY s.id, s."Nome", TO_CHAR(v."Data_e_Hora", 'YYYY-MM')
+      ORDER BY s."Nome", mes
+    `;
+    return res.status(200).json({ dados });
+  } catch (error) {
+    console.error('Erro ao buscar dados do gráfico de setores:', error);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}

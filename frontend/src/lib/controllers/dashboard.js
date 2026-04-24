@@ -36,3 +36,12 @@ export async function getGraficoPontuacaoMensal() {
   }
   return await res.json();
 }
+
+export async function getGraficoSetoresMensal() {
+  const res = await apiFetch('/api/dashboard/grafico-setores-mensal');
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.error || 'Erro ao buscar dados do gráfico');
+  }
+  return await res.json();
+}   
