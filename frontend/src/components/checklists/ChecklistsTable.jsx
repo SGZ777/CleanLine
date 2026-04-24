@@ -66,12 +66,23 @@ const tasks = [
   },
 ];
 
-export default function ChecklistsTable() {
+export default function ChecklistsTable({ searchTerm = "" }) {
   const [pendingAction, setPendingAction] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
   const [editForm, setEditForm] = useState({
     setor: "",
     cargo: "",
+  });
+
+  const filteredTasks = tasks.filter((task) => {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return true;
+
+    return (
+      task.setor?.toLowerCase().includes(term) ||
+      task.cargo?.toLowerCase().includes(term) ||
+      task.id?.toLowerCase().includes(term)
+    );
   });
 
   const isTaskActionPending = (action, taskId) =>
@@ -291,7 +302,7 @@ export default function ChecklistsTable() {
             </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>{tasks.map(renderTaskRow)}</TableBody>
+        <TableBody>{filteredTasks.map(renderTaskRow)}</TableBody>
       </Table>
     </div>
   );

@@ -12,7 +12,7 @@ datasource db {
 model ADM {
   id     Int    @id @default(autoincrement())
   Nome   String @db.VarChar(255)
-  Email  String @db.VarChar(255)
+  Email  String @db.VarChar(255) @unique
   Senha  String @db.VarChar(255)
   Tel    String @db.Char(11)
   status String @default("ativo") @db.VarChar(20)

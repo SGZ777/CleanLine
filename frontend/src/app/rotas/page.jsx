@@ -9,6 +9,7 @@ import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Rotas() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -25,7 +26,7 @@ export default function Rotas() {
               <h1 className="text-2xl md:text-3xl font-inter">Rotas</h1>
               <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
                 <div className=" relative w-full items-center flex ">
-                  <SearchBar/>
+                  <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
                   className="bg-[#1c96c2] text-white px-4 mt-3 md:mt-0 border-none md:scale-120 shadow-md"
@@ -36,7 +37,7 @@ export default function Rotas() {
               </div>
             </div>
           </div>
-          <RotasTable />
+          <RotasTable searchTerm={searchTerm} />
         </main>
       </div>
     </div>
