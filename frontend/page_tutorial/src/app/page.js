@@ -63,7 +63,7 @@ function SlideIllustration({ slide, isOverview }) {
         {slide.items.map((item) => (
           <li
             key={item.title}
-            className="flex flex-col gap-4 rounded-[24px] border border-[#eadfce] bg-[#fffaf4] p-4 shadow-md sm:flex-row sm:items-center sm:p-5"
+            className="flex flex-col gap-4 rounded-3xl border border-[#eadfce] bg-[#fffaf4] p-4 shadow-md sm:flex-row sm:items-center sm:p-5"
           >
             <div className="relative h-44 overflow-hidden rounded-[20px] bg-white sm:h-32 sm:w-56 sm:shrink-0">
               <Image
@@ -90,7 +90,7 @@ function SlideIllustration({ slide, isOverview }) {
   }
 
   return (
-    <div className="relative h-[280px] w-full max-w-[680px] sm:h-[380px] lg:h-[560px]">
+    <div className="relative h-70 w-full max-w-170 sm:h-95 lg:h-140">
       <Image
         src={slide.image}
         alt={slide.imageAlt}
@@ -132,10 +132,10 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#eef2ff] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
-      <div className="absolute -left-32 -top-32 h-[320px] w-[320px] rounded-full bg-blue-200/60 blur-[120px] sm:h-[500px] sm:w-[500px]" />
-      <div className="absolute bottom-[-140px] right-[-120px] h-[280px] w-[280px] rounded-full bg-cyan-200/60 blur-[120px] sm:h-[400px] sm:w-[400px]" />
+      <div className="absolute -left-32 -top-32 h-80 w-[320px] rounded-full bg-blue-200/60 blur-[120px] sm:h-125 sm:w-125" />
+      <div className="absolute bottom-35 right-30 h-70 w-70 rounded-full bg-cyan-200/60 blur-[120px] sm:h-100 sm:w-100" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1560px] flex-col gap-6">
+      <div className="relative z-10 mx-auto flex w-full max-w-390 flex-col gap-6">
         <div className="relative h-16 w-36 sm:h-20 sm:w-44">
           <Image
             src="/logo.png"
@@ -148,7 +148,7 @@ export default function Home() {
         </div>
 
         <section className="overflow-hidden rounded-[28px] border border-[#ece2d4] bg-white shadow-[0_30px_80px_rgba(15,23,42,0.18)]">
-          <div className="grid min-h-[720px] lg:grid-cols-[minmax(0,1.2fr)_minmax(360px,0.8fr)]">
+          <div className="grid min-h-180 lg:grid-cols-[minmax(0,1.2fr)_minmax(360px,0.8fr)]">
             <div className="flex items-center justify-center bg-[radial-gradient(circle_at_center,#ffffff_0%,#f7faff_70%)] px-4 py-8 sm:px-8 lg:px-10">
               <SlideIllustration slide={slide} isOverview={isOverview} />
             </div>
