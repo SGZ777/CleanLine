@@ -18,6 +18,12 @@ export const sidebarItems = [
     alt: "Setores",
   },
   {
+    label: "Equipes",
+    href: "/equipes",
+    icon: "./icons/icon_equipes.svg",
+    alt: "Equipes",
+  },
+  {
     label: "Rotas",
     href: "/rotas",
     icon: "./icons/icon_rotas.png",

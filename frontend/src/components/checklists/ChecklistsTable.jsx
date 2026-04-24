@@ -118,7 +118,7 @@ export default function ChecklistsTable({
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
-                    <PopoverTitle>Confirmar Exclusao</PopoverTitle>
+                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
                     <PopoverDescription>
                       Tem certeza que deseja excluir o checklist do setor "{task.setor}"?
                     </PopoverDescription>

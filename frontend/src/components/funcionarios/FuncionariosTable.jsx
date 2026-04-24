@@ -311,7 +311,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                       {deletePending ? (
                         <Loader2 className="size-4 animate-spin" />
                       ) : (
-                        "Inativar"
+                        "Excluir"
                       )}
                     </Button>
                   </div>
@@ -335,7 +335,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
           <TableRow className="border-b hover:bg-transparent">
             <TableHead className="h-12 px-6 font-medium">Nome</TableHead>
             <TableHead className="h-12 px-4 font-medium">Cargo</TableHead>
-            <TableHead className="h-12 px-4 font-medium">Setor</TableHead>
+            <TableHead className="h-12 px-4 font-medium">Equipe</TableHead>
             <TableHead className="h-12 px-6 pe-20 text-right font-medium">
               Ações
             </TableHead>
