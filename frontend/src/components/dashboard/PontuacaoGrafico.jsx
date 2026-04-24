@@ -23,12 +23,13 @@ const chartConfig = {
 // Formata a nota 
 function formatNota(value) {
   const notaNumerica = Number(value) || 0;
+  const notaArredondada = Math.round(notaNumerica * 10) / 10;
 
-  if (notaNumerica === 10) {
+  if (notaArredondada >= 10) {
     return "10";
   }
 
-  return notaNumerica.toFixed(1);
+  return notaArredondada.toFixed(1);
 }
 
 export function PontuacaoGrafico() {
