@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [checklists, setChecklists] = useState(INITIAL_CHECKLISTS);
 
@@ -32,7 +33,7 @@ export default function Checklists() {
               </h1>
               <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
                 <div className=" relative w-full items-center flex ">
-                  <SearchBar />
+                  <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
                   className="bg-[#1c96c2] text-white px-4 mt-3 md:mt-0 border-none md:scale-120 shadow-md"
@@ -43,7 +44,7 @@ export default function Checklists() {
               </div>
             </div>
           </div>
-          <ChecklistsTable tasks={checklists} />
+          <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
         </main>
       </div>
       {showAddModal && (

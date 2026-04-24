@@ -35,7 +35,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Backend CleanLine rodando em http://localhost:${PORT}`);
+  console.log(` Backend CleanLine rodando em http://localhost:${PORT}`);
 });
 
 export default app;

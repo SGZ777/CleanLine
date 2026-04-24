@@ -25,12 +25,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default function ChecklistsTable({ tasks = INITIAL_CHECKLISTS }) {
+export default function ChecklistsTable({
+  tasks = INITIAL_CHECKLISTS,
+  searchTerm = "",
+}) {
   const [pendingAction, setPendingAction] = useState(null);
+
+  const filteredTasks = tasks.filter((task) => {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return true;
+
+    return (
+      task.setor?.toLowerCase().includes(term) ||
+      task.cargo?.toLowerCase().includes(term) ||
+      task.id?.toLowerCase().includes(term)
+    );
+  });
 
   const isTaskBusy = (taskId) => pendingAction?.id === taskId;
 
@@ -112,7 +124,11 @@ export default function ChecklistsTable({ tasks = INITIAL_CHECKLISTS }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="flex justify-end gap-2 mt-4">
-                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>
+                    <Button
+                      variant="outline"
+                      className="bg-transparent ring-1"
+                      onClick={() => {}}
+                    >
                       Cancelar
                     </Button>
                     <Button
@@ -150,14 +166,14 @@ export default function ChecklistsTable({ tasks = INITIAL_CHECKLISTS }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {tasks.length === 0 ? (
+          {filteredTasks.length === 0 ? (
             <TableRow>
               <TableCell colSpan={3} className="py-6 text-center text-muted-foreground">
                 Nenhum checklist encontrado.
               </TableCell>
             </TableRow>
           ) : (
-            tasks.map(renderTaskRow)
+            filteredTasks.map(renderTaskRow)
           )}
         </TableBody>
       </Table>

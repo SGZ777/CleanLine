@@ -1,21 +1,21 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
+import AdicionarFuncionarioModal from "@/components/funcionarios/AdicionarFuncionarioModal";
+import FuncionariosTable from "@/components/funcionarios/FuncionariosTable";
+import SearchBar from "@/components/funcionarios/SearchBar";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
-import FuncionariosTable from "@/components/funcionarios/FuncionariosTable";
-import AdicionarFuncionarioModal from "@/components/funcionarios/AdicionarFuncionarioModal";
-import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Funcionarios() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0); // usado para forçar recarga da tabela
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Função que será chamada quando um funcionário for adicionado com sucesso
   const handleFuncionarioAdded = useCallback(() => {
-    setRefreshKey(prev => prev + 1); // incrementa a chave para forçar remontagem/recarga da tabela
+    setRefreshKey((prev) => prev + 1);
   }, []);
 
   return (
@@ -31,10 +31,10 @@ export default function Funcionarios() {
         <main className="flex-1 p-6 md:p-10">
           <div className=" justify-between flex items-center mb-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-              <h1 className="text-2xl md:text-3xl font-inter">Funcionários</h1>
+              <h1 className="text-2xl md:text-3xl font-inter">FuncionÃ¡rios</h1>
               <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
                 <div className=" relative w-full items-center flex ">
-                  <SearchBar/>
+                  <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
                   className="bg-[#1c96c2] text-white px-4 mt-3 md:mt-0 border-none md:scale-120 shadow-md"
@@ -45,7 +45,7 @@ export default function Funcionarios() {
               </div>
             </div>
           </div>
-          <FuncionariosTable key={refreshKey} />
+          <FuncionariosTable key={refreshKey} searchTerm={searchTerm} />
         </main>
       </div>
       {showAddModal && (
