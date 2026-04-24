@@ -1,0 +1,113 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+  engineType    = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ADM {
+  id     Int    @id @default(autoincrement())
+  Nome   String @db.VarChar(255)
+  Email  String @db.VarChar(255)
+  Senha  String @db.VarChar(255)
+  Tel    String @db.Char(11)
+  status String @default("ativo") @db.VarChar(20)
+  Rotas  Rota[]
+}
+
+model Supervisor {
+  id         Int        @id @default(autoincrement())
+  Nome       String     @db.VarChar(255)
+  Email      String     @db.VarChar(255)
+  Senha      String     @db.VarChar(255)
+  CPF        String     @db.Char(11)
+  Tel        String     @db.Char(11)
+  Estado     String     @db.Char(2)
+  Cidade     String     @db.VarChar(255)
+  Bairro     String     @db.VarChar(255)
+  Logradouro String     @db.VarChar(255)
+  N          Int
+  CEP        String     @db.Char(8)
+  status     String     @default("ativo") @db.VarChar(20)
+  Vistorias  Vistoria[]
+}
+
+model Equipe_Limpeza {
+  Id           Int            @id @default(autoincrement())
+  Nome         String         @db.VarChar(255)
+  Funcionarios Func_Limpeza[]
+  Setores      Setor[]
+}
+
+model Func_Limpeza {
+  id        Int             @id @default(autoincrement())
+  Id_Equipe Int?
+  Nome      String          @db.VarChar(255)
+  Tel       String          @db.Char(11)
+  Email     String          @db.VarChar(255)
+  status    String          @default("ativo") @db.VarChar(20)
+  Equipe    Equipe_Limpeza? @relation(fields: [Id_Equipe], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "func_limpeza_id_equipe_fkey")
+}
+
+model Rota {
+  id        Int         @id @default(autoincrement())
+  Id_Adm    Int?
+  Nome_Rota String      @db.VarChar(255)
+  Adm       ADM?        @relation(fields: [Id_Adm], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rota_id_adm_fkey")
+  Setores   SetorRota[]
+  Vistorias Vistoria[]
+}
+
+model Setor {
+  id        Int             @id @default(autoincrement())
+  Id_Limp   Int?
+  Id_Nfc    String?         @db.VarChar(1023)
+  Nome      String          @db.VarChar(255)
+  Perguntas Pergunta[]
+  Equipe    Equipe_Limpeza? @relation(fields: [Id_Limp], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "setor_id_limp_fkey")
+  Rotas     SetorRota[]
+  Vistorias Vistoria[]
+}
+
+model SetorRota {
+  Id       Int    @id @default(autoincrement())
+  Id_Rota  Int?
+  Id_Setor Int?
+  Rota     Rota?  @relation(fields: [Id_Rota], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "setorrota_id_rota_fkey")
+  Setor    Setor? @relation(fields: [Id_Setor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "setorrota_id_setor_fkey")
+}
+
+model Vistoria {
+  Id          Int                @id @default(autoincrement())
+  Id_Setor    Int?
+  Id_Super    Int?
+  Id_Rota     Int?
+  Image       String             @db.VarChar(255)
+  Pontuacao   Decimal            @db.Decimal(10, 2)
+  Data_e_Hora DateTime           @db.Timestamp(6)
+  Respostas   RespostaVistoria[]
+  Rota        Rota?              @relation(fields: [Id_Rota], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_rota_fkey")
+  Setor       Setor?             @relation(fields: [Id_Setor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_setor_fkey")
+  Supervisor  Supervisor?        @relation(fields: [Id_Super], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_super_fkey")
+}
+
+model Pergunta {
+  id         Int                @id @default(autoincrement())
+  Id_Setor   Int?
+  Elaboracao String             @db.VarChar(255)
+  Setor      Setor?             @relation(fields: [Id_Setor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "pergunta_id_setor_fkey")
+  Respostas  RespostaVistoria[]
+}
+
+model RespostaVistoria {
+  id          Int       @id @default(autoincrement())
+  Id_Vistoria Int?
+  Id_Pergunta Int?
+  Resposta    String    @db.VarChar(255)
+  Pergunta    Pergunta? @relation(fields: [Id_Pergunta], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "respostavistoria_id_pergunta_fkey")
+  Vistoria    Vistoria? @relation(fields: [Id_Vistoria], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "respostavistoria_id_vistoria_fkey")
+}
