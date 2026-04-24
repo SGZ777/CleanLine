@@ -18,17 +18,7 @@ export default function HomeAdm() {
 
     async function loadUser() {
       try {
-        const token = localStorage.getItem("cleanline_token");
-
-        if (!token) {
-          return;
-        }
-
-        const response = await apiFetch("/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await apiFetch("/api/user");
 
         if (!response.ok) {
           return;

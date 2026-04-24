@@ -1,13 +1,20 @@
 "use client";
 
+import { apiFetch } from "@/lib/api";
 import { useRouter } from "next/navigation";
 
 export default function HeaderAdmin({ onOpenSidebar = () => {} }) {
   const router = useRouter();
 
-  const handleLogout = () => {
-    localStorage.removeItem("cleanline_token");
-    router.push("/login");
+  const handleLogout = async () => {
+    try {
+      await apiFetch("/api/logout", { method: "POST" });
+    } catch (error) {
+      console.error("Erro ao realizar logout:", error);
+    } finally {
+      router.push("/login");
+      router.refresh();
+    }
   };
 
   return (

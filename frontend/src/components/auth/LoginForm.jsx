@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { apiFetch } from "@/lib/api";
-import { useRouter } from "next/navigation"; // <<< Importamos o router pra mudar de tela
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,6 @@ const LoginForm = ({
   buttonText = "Entrar",
   className
 }) => {
-  // login
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -43,16 +42,14 @@ const LoginForm = ({
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("cleanline_token", data.token);
-        router.push("/homeAdm"); //  Caminho para onde vai depois de logar
+        router.push("/homeAdm");
       } else {
         setErro(data.erro);
       }
-    } catch (error) {
-      setErro("Erro de conexão com o servidor.");
+    } catch {
+      setErro("Erro de conexao com o servidor.");
     }
   };
-  // -------------------------------------------
 
   return (
     <section className={cn("h-screen bg-muted flex justify-center ", className)}>
@@ -64,12 +61,11 @@ const LoginForm = ({
           alt={logo.alt}
           title={logo.title}
           className="h-10 scale-170 justify-self-center" />
-          
-        {/*troquei a div por um form */}
+
         <form
           onSubmit={handleLogin}
           className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md border border-muted bg-white px-6 py-8 shadow-md md:scale-120 lg:scale-140">
-          
+
           <div className=" flex flex-col items-center gap-0.5  ">
             {heading && <h1 className=" text-3xl font-semibold mb-0 ">{heading}</h1>}
             <div className=" flex justify-center gap-1.5 ">
@@ -78,21 +74,18 @@ const LoginForm = ({
             </div>
           </div>
 
-          {/* mostra o erro caso a senha esteja errado */}
           {erro && <p className="text-red-500 text-sm font-medium w-full text-center">{erro}</p>}
 
-          
-          <Input 
-            type="email" 
-            placeholder="Email" 
-            className="text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6]" 
-            required 
+          <Input
+            type="email"
+            placeholder="Email"
+            className="text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6]"
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
           <div className="relative w-full">
-            
             <Input
               type={showPassword ? "text" : "password"}
               placeholder="Senha"
