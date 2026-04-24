@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import RotasTable from "@/components/rotas/RotasTable";
+import AdicionarRotaModal from "@/components/rotas/AdicionarRotaModal";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/funcionarios/SearchBar";
 
 export default function Rotas() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRotaAdded = useCallback(() => {
+    setRefreshKey((prev) => prev + 1);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
@@ -36,9 +43,18 @@ export default function Rotas() {
               </div>
             </div>
           </div>
-          <RotasTable />
+          <RotasTable key={refreshKey} />
         </main>
       </div>
+      {showAddModal && (
+        <AdicionarRotaModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={() => {
+            setShowAddModal(false);
+            handleRotaAdded();
+          }}
+        />
+      )}
     </div>
   );
 }

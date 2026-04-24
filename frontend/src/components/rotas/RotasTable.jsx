@@ -265,7 +265,7 @@ export default function RotasTable({ searchTerm = "" }) {
           <TableRow className="border-b hover:bg-transparent">
             <TableHead className="h-12 px-6 font-medium">Nome</TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-20">
-              Acoes
+              Ações
             </TableHead>
           </TableRow>
         </TableHeader>
