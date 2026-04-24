@@ -3,6 +3,17 @@
 import { useEffect, useState } from "react";
 import { getMaiorNotaDia } from "@/lib/controllers/dashboard";
 
+function formatNota(value) {
+  const notaNumerica = Number(value) || 0;
+  const notaArredondada = Math.round(notaNumerica * 10) / 10;
+
+  if (notaArredondada >= 10) {
+    return "10";
+  }
+
+  return notaArredondada.toFixed(1);
+}
+
 export default function MaiorNotaDiaria() {
   const [nota, setNota] = useState(0);
 
@@ -35,7 +46,7 @@ export default function MaiorNotaDiaria() {
         <span className="text-[#24bff6]">Setor: TI</span>
       </p>
       <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-5 lg:text-6xl">{nota}/10</p>
+        <p className="text-5xl pb-5 lg:text-6xl">{formatNota(nota)}/10</p>
         <img src="./icons/icon_yellow_star.png" className="w-12 h-12 lg:w-14 lg:h-14" />
       </div>
     </section>
