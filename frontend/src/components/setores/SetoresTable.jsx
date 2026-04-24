@@ -206,12 +206,12 @@ export default function SetoresTable({ searchTerm = "" }) {
                     </div>
                     <div className="flex justify-end gap-2">
                       <Button
-                        variant="outline"
+                        variant="outline" className="bg-transparent ring-1"
                         onClick={() => setEditingSetor(null)}
                       >
                         Cancelar
                       </Button>
-                      <Button onClick={handleSaveEdit} disabled={editPending}>
+                      <Button className="bg-transparent ring-1" onClick={handleSaveEdit} disabled={editPending}>
                         {editPending ? (
                           <Loader2 className="size-4 animate-spin" />
                         ) : (
@@ -246,11 +246,12 @@ export default function SetoresTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" onClick={() => {}}>
+                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>
                       Cancelar
                     </Button>
                     <Button
                       variant="destructive"
+                      className="bg-transparent ring-1"
                       onClick={() => handleExcluir(setor)}
                       disabled={deletePending}
                     >

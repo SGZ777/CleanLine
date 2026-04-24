@@ -53,7 +53,7 @@ export default function AdicionarRotaModal({ onClose, onSuccess }) {
       <div className="bg-white rounded-lg shadow-lg w-full max-w-xl max-h-[90vh] overflow-y-auto p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Adicionar Rota</h2>
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button className="bg-transparent hover:bg-muted" variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
         </div>
@@ -90,13 +90,13 @@ export default function AdicionarRotaModal({ onClose, onSuccess }) {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type="button" className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white" variant="outline" onClick={onClose}>
               Cancelar
             </Button>
             <Button
               type="submit"
               disabled={loading}
-              className="bg-[#1c96c2] hover:bg-[#157a9e] text-white"
+              className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white"
             >
               {loading ? "Salvando..." : "Salvar"}
             </Button>

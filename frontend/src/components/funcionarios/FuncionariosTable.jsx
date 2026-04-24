@@ -211,8 +211,8 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     <PopoverDescription>Tem certeza que deseja inativar "{func.Nome}"?</PopoverDescription>
                   </PopoverHeader>
                   <div className="flex justify-end gap-2 mt-4">
-                    <Button variant="outline" onClick={() => {}}>Cancelar</Button>
-                    <Button variant="destructive" onClick={() => handleInativar(func)} disabled={deletePending}>
+                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>Cancelar</Button>
+                    <Button variant="destructive" className="bg-transparent ring-1" onClick={() => handleInativar(func)} disabled={deletePending}>
                       {deletePending ? <Loader2 className="size-4 animate-spin" /> : "Inativar"}
                     </Button>
                   </div>

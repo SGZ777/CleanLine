@@ -112,11 +112,12 @@ export default function ChecklistsTable({ tasks = INITIAL_CHECKLISTS }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="flex justify-end gap-2 mt-4">
-                    <Button variant="outline" onClick={() => {}}>
+                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>
                       Cancelar
                     </Button>
                     <Button
                       variant="destructive"
+                      className="bg-transparent ring-1"
                       onClick={() => handleDelete(task)}
                       disabled={deletePending}
                     >
