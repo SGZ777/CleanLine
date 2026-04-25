@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
 
       <aside
         className={[
-          "fixed left-0 top-0 z-40 h-screen pt-5 transition-all duration-300 bg-[#1c96c2] lg:max-h-100 md:static md:min-h-212.5 md:translate-x-0 md:rounded-r-[20px]",
+          "fixed left-0 top-0 z-40 h-screen pt-5 transition-all duration-300 bg-[#1c96c2] md:static md:h-screen md:translate-x-0 md:rounded-r-[20px]",
           isMinimized ? "w-16" : "w-72 md:w-2xs",
           isOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
