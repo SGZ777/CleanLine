@@ -139,16 +139,7 @@ export default function TutorialModal({ userName, onClose }) {
         <div className="absolute -left-20 -top-20 h-56 w-56 rounded-full bg-blue-200/60 blur-[100px]" />
         <div className="absolute -bottom-16 -right-16 h-52 w-52 rounded-full bg-cyan-200/60 blur-[100px]" />
 
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="absolute right-4 top-4 z-10 bg-white/70 hover:bg-white"
-          onClick={onClose}
-          aria-label="Fechar tutorial"
-        >
-          <X className="h-5 w-5" />
-        </Button>
+       
 
         <div className="relative z-10 grid max-h-[90vh] overflow-y-auto lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
           <div className="flex items-center justify-center bg-[radial-gradient(circle_at_center,#ffffff_0%,#f7faff_70%)] px-4 py-8 md:px-8">
