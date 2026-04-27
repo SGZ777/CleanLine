@@ -17,6 +17,7 @@ CleanLine/
 ```bash
 cd backend
 npm install
+npx prisma generate
 cp .env.example .env   # preencha com suas credenciais
 npm run dev            # porta 3001
 ```
