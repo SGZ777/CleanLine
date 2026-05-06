@@ -20,7 +20,8 @@ function parseJwt(token) {
 export function middleware(request) {
   const token = request.cookies.get('cleanline_token')?.value;
   const path = request.nextUrl.pathname;
-  const isPublicRoute = path === '/' || path === '/login';
+    const publicRoutes = ['/', '/login'];
+  const isPublicRoute = publicRoutes.includes(path);
 
   if (!token && !isPublicRoute) {
     return NextResponse.redirect(new URL('/login', request.url));
