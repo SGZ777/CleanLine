@@ -22,7 +22,7 @@ model ADM {
 model Supervisor {
   id         Int        @id @default(autoincrement())
   Nome       String     @db.VarChar(255)
-  Email      String     @db.VarChar(255) @unique
+  Email      String     @db.VarChar(255)
   Senha      String     @db.VarChar(255)
   CPF        String     @db.Char(11)
   Tel        String     @db.Char(11)
@@ -67,7 +67,6 @@ model Setor {
   Id_Limp   Int?
   Id_Nfc    String?         @db.VarChar(1023)
   Nome      String          @db.VarChar(255)
-  Perguntas Pergunta[]
   Equipe    Equipe_Limpeza? @relation(fields: [Id_Limp], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "setor_id_limp_fkey")
   Rotas     SetorRota[]
   Vistorias Vistoria[]
@@ -82,32 +81,30 @@ model SetorRota {
 }
 
 model Vistoria {
-  Id          Int                @id @default(autoincrement())
+  Id          Int              @id @default(autoincrement())
   Id_Setor    Int?
   Id_Super    Int?
   Id_Rota     Int?
-  Image       String             @db.VarChar(255)
-  Pontuacao   Decimal            @db.Decimal(10, 2)
-  Data_e_Hora DateTime           @db.Timestamp(6)
-  Respostas   RespostaVistoria[]
-  Rota        Rota?              @relation(fields: [Id_Rota], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_rota_fkey")
-  Setor       Setor?             @relation(fields: [Id_Setor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_setor_fkey")
-  Supervisor  Supervisor?        @relation(fields: [Id_Super], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_super_fkey")
+  Image       String           @db.VarChar(255)
+  Pontuacao   Decimal          @db.Decimal(10, 2)
+  Data_e_Hora DateTime         @db.Timestamp(6)
+  q1          NotaQualitativa?
+  q2          NotaQualitativa?
+  q3          NotaQualitativa?
+  q4          NotaQualitativa?
+  q5          NotaQualitativa?
+  q6          NotaQualitativa?
+  q7          NotaQualitativa?
+  q8          NotaQualitativa?
+  Rota        Rota?            @relation(fields: [Id_Rota], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_rota_fkey")
+  Setor       Setor?           @relation(fields: [Id_Setor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_setor_fkey")
+  Supervisor  Supervisor?      @relation(fields: [Id_Super], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vistoria_id_super_fkey")
 }
 
-model Pergunta {
-  id         Int                @id @default(autoincrement())
-  Id_Setor   Int?
-  Elaboracao String             @db.VarChar(255)
-  Setor      Setor?             @relation(fields: [Id_Setor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "pergunta_id_setor_fkey")
-  Respostas  RespostaVistoria[]
-}
-
-model RespostaVistoria {
-  id          Int       @id @default(autoincrement())
-  Id_Vistoria Int?
-  Id_Pergunta Int?
-  Resposta    String    @db.VarChar(255)
-  Pergunta    Pergunta? @relation(fields: [Id_Pergunta], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "respostavistoria_id_pergunta_fkey")
-  Vistoria    Vistoria? @relation(fields: [Id_Vistoria], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "respostavistoria_id_vistoria_fkey")
+enum NotaQualitativa {
+  p_ssimo @map("péssimo")
+  ruim
+  ok
+  bom
+  timo    @map("ótimo")
 }

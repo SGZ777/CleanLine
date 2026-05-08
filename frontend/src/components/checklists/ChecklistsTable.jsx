@@ -67,23 +67,41 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     const hasVistoria = task.nota !== null && task.nota !== undefined;
     const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
 
+
+
+    const respostas = [
+      { id: 1, theme: "Organização do ambiente", label: "Ótimo" },
+      { id: 2, theme: "Limpeza de superfícies", label: "Péssimo" },
+      { id: 3, theme: "Descarte de resíduos", label: "Ok" },
+      { id: 4, theme: "Identificação visual", label: "Ruim" },
+      { id: 5, theme: "Conservação de equipamentos", label: "Bom" },
+      { id: 6, theme: "Limpeza de áreas de difícil acesso", label: "Bom" },
+      { id: 7, theme: "Controle de odores e pragas", label: "Ruim" },
+      { id: 8, theme: "Conformidade com os procedimentos padrão", label: "Ótimo" },
+
+    ];
+
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
-        <TableCell className={`h-16 px-4 text-sm ${setorColorClass}`}>
+
+        <TableCell className="h-16 px-4 text-sm text-muted-foreground">
           {task.setor}
         </TableCell>
-        <TableCell className="h-16 px-4 text-sm text-center">
-          {hasVistoria ? (
-            <span className={getNotaColor(task.nota)}>{task.nota}</span>
-          ) : (
-            <span className="text-gray-400">—</span>
-          )}
+
+        <TableCell className="h-16 px-4 text-sm text-muted-foreground text-center">
+          {task.cargo}
         </TableCell>
+
         <TableCell className="h-16 px-6">
+
           <TooltipProvider>
+
             <div className="flex items-center justify-end gap-2">
+
               <Popover>
+
                 <PopoverTrigger asChild>
+
                   <Button
                     variant="outline"
                     size="icon"
@@ -92,27 +110,61 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                     aria-label={`Ver detalhes de ${task.setor}`}
                   >
                     <EyeIcon color="white" className="size-5" />
+
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
+
+                <PopoverContent align="end" className=" w-250 h-70 p-5 ">
+
                   <PopoverHeader>
-                    <PopoverTitle>{task.setor}</PopoverTitle>
-                    <PopoverDescription>Detalhes do checklist</PopoverDescription>
+                    <div className=" flex justify-between ">
+                      <div>
+                        <PopoverTitle className={" font-bold text-3xl "}>{task.setor}</PopoverTitle>
+                      </div>
+                      <div>
+                        <p>
+                          <span className=" font-bold text-3xl">{hasVistoria ? task.nota : "Sem vistoria"}</span>
+                        </p>
+                      </div>
+                    </div>
                   </PopoverHeader>
-                  <div className="space-y-2 text-sm">
+
+                  <div className="space-y-2 text-xl">
                     <p>
-                      <span className="font-medium">Setor:</span> {task.setor}
+                      <span className=" font-bold ">Status:</span>{" "}
+                      {task.status}
                     </p>
-                    <p>
-                      <span className="font-medium">Nota do dia:</span>{" "}
-                      {hasVistoria ? task.nota : "Sem vistoria"}
-                    </p>
+
+                    <p className=" mb-0 font-bold ">Respostas:</p>
+                    <div className=" flex-col justify-between ">
+                      <div className=" flex mb-6 ">
+                        {respostas.slice(0, 4).map((resposta) => (
+                          <div key={resposta.id} className=" text-lg flex-col ">
+                            <span className=" font-bold ">{resposta.theme + ": " }</span>
+                            {resposta.label + " "}
+                          </div>
+                        ))}
+                      </div>
+                      <div className=" flex ">
+                        {respostas.slice(4).map((resposta) => (
+                          <div key={resposta.id} className=" text-lg flex-col ">
+                            <span className=" font-bold ">{resposta.theme + ": "}</span>
+                            {resposta.label + " "}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                   </div>
+
                 </PopoverContent>
+
               </Popover>
 
               <Popover>
+
                 <PopoverTrigger asChild>
+
                   <Button
                     variant="ghost"
                     size="icon"
@@ -120,6 +172,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                     disabled={busy}
                     aria-label={`Excluir checklist de ${task.setor}`}
                   >
+
                     {deletePending ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
@@ -127,40 +180,62 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                     )}
                   </Button>
                 </PopoverTrigger>
+
                 <PopoverContent align="end" className="w-80">
+
                   <PopoverHeader>
+
                     <PopoverTitle>Confirmar Exclusão</PopoverTitle>
+
                     <PopoverDescription>
                       Tem certeza que deseja excluir o checklist do setor "{task.setor}"?
                     </PopoverDescription>
+
                   </PopoverHeader>
+
                   <div className="flex justify-end gap-2 mt-4">
+
                     <Button
                       variant="outline"
-                      onClick={() => {}}
+                      onClick={() => { }}
                     >
                       Cancelar
                     </Button>
+
                     <Button
                       variant="destructive"
                       onClick={() => handleDelete(task)}
-                      disabled={deletePending}
-                    >
+                      disabled={deletePending}>
+
                       {deletePending ? (
                         <Loader2 className="size-4 animate-spin" />
                       ) : (
                         "Excluir"
                       )}
+
                     </Button>
+
                   </div>
+
                 </PopoverContent>
+
               </Popover>
+
             </div>
+
           </TooltipProvider>
+
         </TableCell>
+
       </TableRow>
+
     );
   };
+
+
+
+
+
 
   return (
     <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
