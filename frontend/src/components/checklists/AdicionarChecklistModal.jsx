@@ -73,7 +73,7 @@ export default function AdicionarChecklistModal({ onClose, onSuccess }) {
               />
             </div>
             <div className="md:col-span-2">
-              <Label htmlFor="notes">Observacoes</Label>
+              <Label htmlFor="notes">Observações</Label>
               <Input
                 id="notes"
                 name="notes"

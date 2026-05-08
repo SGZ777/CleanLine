@@ -89,7 +89,7 @@ const LoginForm = ({
             <Input
               type={showPassword ? "text" : "password"}
               placeholder="Senha"
-              className="text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6] pr-10"
+              className="login-password-input text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6] pr-10"
               required
               value={senha}
               onChange={(e) => setSenha(e.target.value)}

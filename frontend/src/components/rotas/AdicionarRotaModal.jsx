@@ -82,7 +82,7 @@ export default function AdicionarRotaModal({ onClose, onSuccess }) {
                 required
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Informe o identificador do administrador responsavel pela rota.
+                Informe o identificador do administrador responsável pela rota.
               </p>
             </div>
           </div>
