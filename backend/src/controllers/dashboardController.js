@@ -78,17 +78,69 @@ export async function getGraficoSetoresMensal(_req, res) {
     const dados = await prisma.$queryRaw`
       SELECT 
         s."Nome" AS setor,
-        TO_CHAR(v."Data_e_Hora", 'YYYY-MM') AS mes,
+        EXTRACT(YEAR FROM v."Data_e_Hora")::text 
+          || '-' 
+          || LPAD(EXTRACT(MONTH FROM v."Data_e_Hora")::text, 2, '0') AS mes,
         ROUND(AVG(v."Pontuacao")::numeric, 1) AS media
       FROM "Vistoria" v
       JOIN "Setor" s ON s.id = v."Id_Setor"
       WHERE v."Data_e_Hora" >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '2 months'
-      GROUP BY s.id, s."Nome", TO_CHAR(v."Data_e_Hora", 'YYYY-MM')
+        AND v."Data_e_Hora" <= CURRENT_DATE + INTERVAL '1 day'
+      GROUP BY s.id, s."Nome", mes
       ORDER BY s."Nome", mes
     `;
     return res.status(200).json({ dados });
   } catch (error) {
     console.error('Erro ao buscar dados do gráfico de setores:', error);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+
+export async function getDistribuicaoNotasEquipes(_req, res) {
+  try {
+    const dados = await prisma.$queryRaw`
+      SELECT
+        el."Nome" AS equipe,
+        CASE
+          WHEN v."Pontuacao" <= 4 THEN '0-4'
+          WHEN v."Pontuacao" <= 6.9 THEN '4.1-6.9'
+          ELSE '7-10'
+        END AS faixa,
+        COUNT(*)::int AS quantidade
+      FROM "Vistoria" v
+      JOIN "Setor" s ON s.id = v."Id_Setor"
+      JOIN "Equipe_Limpeza" el ON el."Id" = s."Id_Limp"
+      GROUP BY el."Nome", faixa
+      ORDER BY el."Nome", faixa
+    `;
+    return res.status(200).json({ dados });
+  } catch (error) {
+    console.error('Erro ao buscar distribuição de notas:', error);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+export async function getChecklistsHoje(_req, res) {
+  try {
+    // Busca todos os setores ativos com a última vistoria do dia (se houver)
+    const setores = await prisma.$queryRaw`
+      SELECT
+        s.id,
+        s."Nome" AS setor,
+        v."Pontuacao" AS nota
+      FROM "Setor" s
+      LEFT JOIN LATERAL (
+        SELECT "Pontuacao"
+        FROM "Vistoria"
+        WHERE "Id_Setor" = s.id
+          AND DATE("Data_e_Hora") = CURRENT_DATE
+        ORDER BY "Data_e_Hora" DESC
+        LIMIT 1
+      ) v ON true
+      ORDER BY s."Nome"
+    `;
+    return res.status(200).json(setores);
+  } catch (error) {
+    console.error('Erro ao buscar checklists do dia:', error);
     return res.status(500).json({ error: 'Erro interno' });
   }
 }

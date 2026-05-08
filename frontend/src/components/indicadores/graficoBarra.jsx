@@ -11,9 +11,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
 import { getGraficoSetoresMensal } from "@/lib/controllers/dashboard";
 
-// Cores para as barras (pode expandir se tiver mais meses)
+// Cores dos meses
 const MONTH_COLORS = ["#00afdc", "#2ad7eb", "#0d005d"];
 
 const SimpleBarChart = () => {
@@ -26,47 +27,72 @@ const SimpleBarChart = () => {
     async function carregarDados() {
       try {
         const { dados } = await getGraficoSetoresMensal();
+
         if (!dados || dados.length === 0) {
           setChartData([]);
           setMeses([]);
-        } else {
-          // Extrai os meses únicos ordenados (formato "YYYY-MM")
-          const mesesUnicos = [...new Set(dados.map(d => d.mes))].sort();
-          setMeses(mesesUnicos);
-
-          // Pivoteia os dados: cada setor vira um objeto { name, [mes1]: media, [mes2]: media, ... }
-          const pivot = {};
-          dados.forEach(({ setor, mes, media }) => {
-            if (!pivot[setor]) {
-              pivot[setor] = { name: setor };
-              // Inicializa todos os meses com 0 (ou null para não exibir barra)
-              mesesUnicos.forEach(m => (pivot[setor][m] = 0));
-            }
-            pivot[setor][mes] = Number(media);
-          });
-
-          setChartData(Object.values(pivot));
+          return;
         }
+
+        // Ordena os meses corretamente
+        const mesesUnicos = [...new Set(dados.map((d) => d.mes))].sort(
+          (a, b) => new Date(a) - new Date(b)
+        );
+
+        setMeses(mesesUnicos);
+
+        // Pivot dos dados
+        const pivot = {};
+
+        dados.forEach(({ setor, mes, media }) => {
+          if (!pivot[setor]) {
+            pivot[setor] = {
+              name: setor,
+            };
+
+            // Inicializa todos os meses
+            mesesUnicos.forEach((m) => {
+              pivot[setor][m] = 0;
+            });
+          }
+
+          pivot[setor][mes] = Number(media);
+        });
+
+        setChartData(Object.values(pivot));
       } catch (err) {
-        console.error("Erro ao carregar gráfico de setores:", err);
+        console.error("Erro ao carregar gráfico:", err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     }
+
     carregarDados();
   }, []);
 
   if (loading) {
-    return <div className="p-8 text-center text-gray-500">Carregando gráfico...</div>;
+    return (
+      <div className="p-8 text-center text-gray-500">
+        Carregando gráfico...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="p-8 text-center text-red-500">Erro ao carregar dados: {error}</div>;
+    return (
+      <div className="p-8 text-center text-red-500">
+        Erro ao carregar dados: {error}
+      </div>
+    );
   }
 
   if (chartData.length === 0) {
-    return <div className="p-8 text-center text-gray-500">Nenhum dado disponível para os últimos meses.</div>;
+    return (
+      <div className="p-8 text-center text-gray-500">
+        Nenhum dado disponível.
+      </div>
+    );
   }
 
   return (
@@ -77,17 +103,27 @@ const SimpleBarChart = () => {
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
+
           <XAxis dataKey="name" />
-          <YAxis width={30} domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} />
+
+          <YAxis
+            width={30}
+            domain={[0, 10]}
+            ticks={[0, 2, 4, 6, 8, 10]}
+          />
+
           <Tooltip />
-          <Legend />
+
+          {/* LEGENDA CUSTOMIZADA */}
+          <Legend content={<CustomLegend meses={meses} />} />
+
+          {/* BARRAS */}
           {meses.map((mes, index) => (
             <Bar
               key={mes}
               dataKey={mes}
               fill={MONTH_COLORS[index % MONTH_COLORS.length]}
               radius={[5, 5, 0, 0]}
-              name={formatMes(mes)}
             />
           ))}
         </BarChart>
@@ -96,11 +132,54 @@ const SimpleBarChart = () => {
   );
 };
 
-// Helper para exibir o mês de forma legível (ex: "2026-04" -> "Abr 2026")
+// FORMATA O MÊS
 function formatMes(mesStr) {
   const [ano, mes] = mesStr.split("-");
+
   const data = new Date(ano, mes - 1);
-  return data.toLocaleDateString("pt-BR", { month: "short", year: "numeric" });
+
+  return data.toLocaleDateString("pt-BR", {
+    month: "short",
+    year: "numeric",
+  });
+}
+
+// LEGENDA CUSTOMIZADA
+function CustomLegend({ meses }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: 16,
+        marginTop: 10,
+        flexWrap: "wrap",
+      }}
+    >
+      {meses.map((mes, index) => (
+        <div
+          key={mes}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          <div
+            style={{
+              width: 12,
+              height: 12,
+              backgroundColor:
+                MONTH_COLORS[index % MONTH_COLORS.length],
+              borderRadius: 2,
+            }}
+          />
+
+          <span>{formatMes(mes)}</span>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default SimpleBarChart;

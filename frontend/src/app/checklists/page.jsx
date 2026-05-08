@@ -1,38 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import ChecklistsTable from "@/components/checklists/ChecklistsTable";
-import AdicionarChecklistModal from "@/components/checklists/AdicionarChecklistModal";
-import { INITIAL_CHECKLISTS } from "@/components/checklists/checklistData";
 import SearchBar from "@/components/funcionarios/SearchBar";
 import { Button } from "@/components/ui/button";
+import { getChecklistsHoje } from "@/lib/controllers/dashboard";
 
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [checklists, setChecklists] = useState(INITIAL_CHECKLISTS);
+  const [checklists, setChecklists] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // <-- ADICIONE ESTA LINHA
+
+  const carregarChecklists = useCallback(async () => {
+    try {
+      const data = await getChecklistsHoje();
+      setChecklists(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    carregarChecklists();
+  }, [carregarChecklists]);
 
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
-
       <div className="flex flex-col md:flex-row">
         <Sidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
-
         <main className="flex-1 p-6 md:p-10">
-          <div className=" justify-between flex items-center mb-10 ">
+          <div className="justify-between flex items-center mb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
               <h1 className="text-2xl md:text-3xl font-inter">
                 Checklists
               </h1>
               <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
-                <div className=" relative w-full items-center flex ">
+                <div className="relative w-full items-center flex">
                   <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
@@ -44,18 +56,13 @@ export default function Checklists() {
               </div>
             </div>
           </div>
-          <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
+          {loading ? (
+            <div className="text-center">Carregando...</div>
+          ) : (
+            <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
+          )}
         </main>
       </div>
-      {showAddModal && (
-        <AdicionarChecklistModal
-          onClose={() => setShowAddModal(false)}
-          onSuccess={(newChecklist) => {
-            setChecklists((prev) => [...prev, newChecklist]);
-            setShowAddModal(false);
-          }}
-        />
-      )}
     </div>
   );
 }

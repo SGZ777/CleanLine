@@ -45,3 +45,17 @@ export async function getGraficoSetoresMensal() {
   }
   return await res.json();
 }   
+
+
+export async function getDistribuicaoNotasEquipes() {
+  const res = await apiFetch('/api/dashboard/distribuicao-notas-equipes');
+  if (!res.ok) throw new Error('Erro ao buscar distribuição de notas');
+  const json = await res.json();
+  return json.dados; 
+}
+
+export async function getChecklistsHoje() {
+  const res = await apiFetch('/api/dashboard/checklists-hoje');
+  if (!res.ok) throw new Error('Erro ao buscar checklists de hoje');
+  return await res.json(); 
+}

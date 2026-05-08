@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { INITIAL_CHECKLISTS } from "@/components/checklists/checklistData";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -27,20 +26,25 @@ import {
 } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default function ChecklistsTable({
-  tasks = INITIAL_CHECKLISTS,
-  searchTerm = "",
-}) {
+// Função para determinar a cor da nota
+const getNotaColor = (nota) => {
+  if (nota === null || nota === undefined) return "text-gray-400";
+  const valor = Number(nota);
+  if (valor >= 8) return "text-green-600 font-semibold";
+  if (valor >= 6) return "text-yellow-500 font-semibold";
+  return "text-red-500 font-semibold";
+};
+
+export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
   const [pendingAction, setPendingAction] = useState(null);
 
   const filteredTasks = tasks.filter((task) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-
     return (
       task.setor?.toLowerCase().includes(term) ||
-      task.cargo?.toLowerCase().includes(term) ||
-      task.id?.toLowerCase().includes(term)
+      (task.nota !== null && task.nota.toString().includes(term)) ||
+      task.id?.toString().includes(term)
     );
   });
 
@@ -50,7 +54,7 @@ export default function ChecklistsTable({
     setPendingAction({ id: task.id, type: "delete" });
     setTimeout(() => {
       setPendingAction(null);
-      console.log("Delete completed for task:", task.setor);
+      // Aqui você pode chamar um endpoint de exclusão lógica, se necessário
     }, 1000);
   };
 
@@ -59,13 +63,21 @@ export default function ChecklistsTable({
     const deletePending =
       pendingAction?.id === task.id && pendingAction.type === "delete";
 
+    // Se a nota for diferente de null, houve vistoria hoje
+    const hasVistoria = task.nota !== null && task.nota !== undefined;
+    const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
+
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
-        <TableCell className="h-16 px-4 text-sm text-muted-foreground">
+        <TableCell className={`h-16 px-4 text-sm ${setorColorClass}`}>
           {task.setor}
         </TableCell>
-        <TableCell className="h-16 px-4 text-sm text-muted-foreground text-center">
-          {task.cargo}
+        <TableCell className="h-16 px-4 text-sm text-center">
+          {hasVistoria ? (
+            <span className={getNotaColor(task.nota)}>{task.nota}</span>
+          ) : (
+            <span className="text-gray-400">—</span>
+          )}
         </TableCell>
         <TableCell className="h-16 px-6">
           <TooltipProvider>
@@ -85,17 +97,16 @@ export default function ChecklistsTable({
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
                     <PopoverTitle>{task.setor}</PopoverTitle>
-                    <PopoverDescription>{task.cargo}</PopoverDescription>
+                    <PopoverDescription>Detalhes do checklist</PopoverDescription>
                   </PopoverHeader>
                   <div className="space-y-2 text-sm">
                     <p>
                       <span className="font-medium">Setor:</span> {task.setor}
                     </p>
                     <p>
-                      <span className="font-medium">Status:</span>{" "}
-                      {task.status}
+                      <span className="font-medium">Nota do dia:</span>{" "}
+                      {hasVistoria ? task.nota : "Sem vistoria"}
                     </p>
-                    <p className="text-muted-foreground">{task.notes}</p>
                   </div>
                 </PopoverContent>
               </Popover>
@@ -118,7 +129,7 @@ export default function ChecklistsTable({
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
-                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
+                    <PopoverTitle>Confirmar Exclusão</PopoverTitle>
                     <PopoverDescription>
                       Tem certeza que deseja excluir o checklist do setor "{task.setor}"?
                     </PopoverDescription>
@@ -126,14 +137,12 @@ export default function ChecklistsTable({
                   <div className="flex justify-end gap-2 mt-4">
                     <Button
                       variant="outline"
-                      className="bg-transparent ring-1"
                       onClick={() => {}}
                     >
                       Cancelar
                     </Button>
                     <Button
                       variant="destructive"
-                      className="bg-transparent ring-1"
                       onClick={() => handleDelete(task)}
                       disabled={deletePending}
                     >
@@ -159,7 +168,9 @@ export default function ChecklistsTable({
         <TableHeader>
           <TableRow className="border-b hover:bg-transparent">
             <TableHead className="h-12 px-6 font-medium">Setor</TableHead>
-            <TableHead className="h-12 px-4 font-medium text-center">Nota diária</TableHead>
+            <TableHead className="h-12 px-4 font-medium text-center">
+              Nota do Dia
+            </TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-10">
               Ações
             </TableHead>
