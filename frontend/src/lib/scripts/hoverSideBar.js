@@ -41,7 +41,7 @@ export const sidebarItems = [
     icon: "./icons/icon_indicadores.png",
     alt: "Painel de indicadores",
   },
-];
+]
 
 export function getSidebarItemClass(currentPath, itemPath) {
   const isActive = currentPath === itemPath;
