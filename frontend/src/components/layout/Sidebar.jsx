@@ -30,7 +30,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           isMinimized ? "w-16" : "w-72 md:w-2xs",
           isOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
-      >
+      > 
         {/* Header mobile */}
         <div className="mb-4 flex items-center justify-between px-4 md:hidden">
           <span className="text-lg font-semibold text-white">Menu</span>
@@ -51,7 +51,6 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
             className="rounded-lg p-1.5 text-white hover:bg-[#24bff6]/40 transition"
             aria-label={isMinimized ? "Expandir sidebar" : "Minimizar sidebar"}
           >
-
            {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
           </button>
         </div>
