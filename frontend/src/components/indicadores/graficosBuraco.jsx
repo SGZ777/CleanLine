@@ -117,7 +117,7 @@ export default function PieChartInFlexbox() {
                 {equipe}
               </Label>
             </PieChart>
-            <Legend content={<CustomLegend meses={meses} />} />
+            <Legend content={<CustomLegend equipes={equipes} />} />
           </ResponsiveContainer>
         </div>
       ))}
@@ -125,7 +125,7 @@ export default function PieChartInFlexbox() {
   );
 }
 
-function CustomLegend({ meses }) {
+function CustomLegend({ equipes }) {
   return (
     <div
       style={{
@@ -136,9 +136,9 @@ function CustomLegend({ meses }) {
         flexWrap: "wrap",
       }}
     >
-      {meses.map((mes, index) => (
+      {equipes.map((equipe, index) => (
         <div
-          key={mes}
+          key={equipe}
           style={{
             display: "flex",
             alignItems: "center",
@@ -154,8 +154,6 @@ function CustomLegend({ meses }) {
               borderRadius: 2,
             }}
           />
-
-          <span>{formatMes(mes)}</span>
         </div>
       ))}
     </div>
