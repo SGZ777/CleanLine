@@ -28,16 +28,16 @@ export default function Setores() {
           onClose={() => setIsSidebarOpen(false)}
         />
 
-        <main className="flex-1 p-6 md:p-10">
+        <main className="min-w-0 flex-1 p-6 md:p-10">
           <div className=" justify-between flex items-center mb-10 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 items-center w-full">
               <h1 className="text-2xl md:text-3xl font-inter">Setores</h1>
-              <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
+              <div className="grid grid-cols-1 gap-3 md:flex md:justify-end md:gap-4 items-center">
                 <div className=" relative w-full items-center flex ">
                   <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
-                  className="bg-[#1c96c2] text-white px-4 mt-3 md:mt-0 border-none md:scale-120 shadow-md"
+                  className="bg-[#1c96c2] text-white px-4 border-none shadow-md"
                   onClick={() => setShowAddModal(true)}
                 >
                   Adicionar +

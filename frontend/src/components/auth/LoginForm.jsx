@@ -61,19 +61,19 @@ const LoginForm = ({
   };
 
   return (
-    <section className={cn("h-screen bg-muted flex justify-center ", className)}>
-      <img src="home-background-image.png" className="w-full absolute mt-25 z-1" alt="background" />
+    <section className={cn("min-h-screen overflow-hidden bg-muted flex justify-center px-4", className)}>
+      <img src="home-background-image.png" className="hidden md:block w-full absolute mt-25 z-1" alt="background" />
 
-      <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
+      <div className="flex w-full flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-28 xl:gap-37 lg:justify-start z-2">
         <img
           src={logo.src}
           alt={logo.alt}
           title={logo.title}
-          className="h-10 scale-170 justify-self-center" />
+          className="h-14 md:h-16 justify-self-center" />
 
         <form
           onSubmit={handleLogin}
-          className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md  bg-white px-6 py-8 shadow-2xl md:scale-120 lg:scale-140">
+          className="flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md bg-white px-6 py-8 shadow-2xl lg:max-w-md lg:px-8 lg:py-10">
 
           <div className=" flex flex-col items-center gap-0.5  ">
             {heading && <h1 className=" text-3xl font-semibold mb-0 ">{heading}</h1>}

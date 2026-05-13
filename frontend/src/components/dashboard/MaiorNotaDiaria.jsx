@@ -40,7 +40,7 @@ export default function MaiorNotaDiaria() {
   }, []);
 
   return (
-    <section className="w-80 h-auto pb-2 md:w-105 rounded-[25px] bg-white m-6 shadow-md">
+    <section className="w-full max-w-80 h-auto pb-2 md:max-w-105 rounded-[25px] bg-white my-4 md:m-6 shadow-md">
       <p className="text-center pt-2 text-xl ps-2 pe-2 lg:text-2xl mt-4">
         Maior nota do dia -{" "}
         <span className="text-[#24bff6]">Setor: TI</span>

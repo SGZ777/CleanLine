@@ -18,7 +18,7 @@ const SearchBar = ({ value, onChange }) => {
   };
 
   return (
-    <div className="w-max max-w-sm space-y-2">
+    <div className="w-full max-w-sm space-y-2">
       <div className="relative">
         <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
         <Input

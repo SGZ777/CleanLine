@@ -50,7 +50,7 @@ export default function PontuacaoMedia() {
   }, []);
 
   return (
-    <section className="w-80 h-auto md:w-105 rounded-[25px] bg-white m-6 shadow-md">
+    <section className="w-full max-w-80 h-auto md:max-w-105 rounded-[25px] bg-white my-4 md:m-6 shadow-md">
       <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
         Pontuação média mensal
       </p>
