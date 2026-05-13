@@ -87,6 +87,7 @@ export default function PieChartInFlexbox() {
           justifyContent: "space-around",
           alignItems: "stretch",
           gap: "20px",
+          flexDirection: "column",
         }}
       >
         {equipesGraficos.map(({ equipe, dados }, idx) => (
