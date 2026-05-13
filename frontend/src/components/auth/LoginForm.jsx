@@ -43,6 +43,7 @@ const LoginForm = ({
 
       const data = await res.json();
       console.log(data.token)
+      console.log(Object.keys(data))
 
       if (res.ok) {
         setAuthSession(data.token)
