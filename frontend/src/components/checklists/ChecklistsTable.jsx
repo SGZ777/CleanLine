@@ -1,20 +1,12 @@
 "use client";
 
-import {
-  EyeIcon,
-  Loader2,
-  Trash2Icon,
-} from "lucide-react";
-import { useState } from "react";
-
+import { EyeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
-  PopoverDescription,
   PopoverHeader,
   PopoverTitle,
-  PopoverTrigger,
 } from "@/components/ui/popover";
 import {
   Table,
@@ -49,8 +41,6 @@ const getNotaColor = (nota) => {
 };
 
 export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
-  const [pendingAction, setPendingAction] = useState(null);
-
   const filteredTasks = tasks.filter((task) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
@@ -61,26 +51,11 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     );
   });
 
-  const isTaskBusy = (taskId) => pendingAction?.id === taskId;
-
-  const handleDelete = (task) => {
-    setPendingAction({ id: task.id, type: "delete" });
-    setTimeout(() => {
-      setPendingAction(null);
-      // Aqui você pode chamar um endpoint de exclusão lógica, se necessário
-    }, 1000);
-  };
-
   const renderTaskRow = (task) => {
-    const busy = isTaskBusy(task.id);
-    const deletePending =
-      pendingAction?.id === task.id && pendingAction.type === "delete";
-
-    // Se a nota for diferente de null, houve vistoria hoje
     const hasVistoria = task.nota !== null && task.nota !== undefined;
     const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
 
-    // Monta array de respostas reais (q1..q8) – mantendo o mesmo layout
+    // Monta array de respostas reais (q1..q8)
     const respostas = [];
     for (let i = 1; i <= 8; i++) {
       const chave = `q${i}`;
@@ -96,95 +71,103 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
 
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
-
-        <TableCell className="h-16 px-4 text-sm text-muted-foreground">
+        {/* Nome do setor com cor dinâmica */}
+        <TableCell className={`h-16 px-4 text-sm ${setorColorClass}`}>
           {task.setor}
         </TableCell>
 
-        <TableCell className="h-16 px-4 text-sm text-muted-foreground text-center">
-          {task.cargo}
+        {/* Nota do dia com cor baseada na faixa */}
+        <TableCell className="h-16 px-4 text-sm text-center">
+          {hasVistoria ? (
+            <span className={getNotaColor(task.nota)}>{task.nota}</span>
+          ) : (
+            <span className="text-gray-400">—</span>
+          )}
         </TableCell>
 
+        {/* Ações (apenas ícone de visualização) */}
         <TableCell className="h-16 px-6">
-
           <TooltipProvider>
-
             <div className="flex items-center justify-end gap-2">
-
               <Popover>
-
                 <PopoverTrigger asChild>
-
                   <Button
                     variant="outline"
                     size="icon"
                     className="h-8 w-8"
-                    disabled={busy}
                     aria-label={`Ver detalhes de ${task.setor}`}
                   >
                     <EyeIcon color="white" className="size-5" />
-
                   </Button>
                 </PopoverTrigger>
 
-                <PopoverContent  className=" w-255 h-115 p-5 " avoidCollisions={true} collisionPadding={20} align="end" side="bottom">
-
+                <PopoverContent
+                  className="w-255 h-115 p-5"
+                  avoidCollisions={true}
+                  collisionPadding={20}
+                  align="end"
+                  side="bottom"
+                >
                   <PopoverHeader>
-                    <div className=" flex justify-between ">
+                    <div className="flex justify-between">
                       <div>
-                        <PopoverTitle className={" font-bold text-3xl "}>{task.setor}</PopoverTitle>
+                        <PopoverTitle className="font-bold text-3xl">
+                          {task.setor}
+                        </PopoverTitle>
                       </div>
                       <div>
                         <p>
-                          <span className=" font-bold text-3xl">Nota: {hasVistoria ? task.nota : "Sem vistoria"}</span>
+                          <span className="font-bold text-3xl">
+                            Nota: {hasVistoria ? task.nota : "Sem vistoria"}
+                          </span>
                         </p>
                       </div>
                     </div>
                   </PopoverHeader>
 
                   <div className="space-y-2 text-xl">
-
                     <ExpandableImage
                       src={imagemSrc}
-                      alt="Descrição da imagem"
+                      alt={`Foto do setor ${task.setor}`}
                       width={120}
                       height={140}
                     />
 
-                    <p className=" mb-0 mt-4 font-bold ">Respostas:</p>
-                    <div className=" flex-col justify-between ">
-                      <div className=" flex mb-6 ">
+                    <p className="mb-0 mt-4 font-bold">Respostas:</p>
+                    <div className="flex-col justify-between">
+                      <div className="flex mb-6">
                         {respostas.slice(0, 4).map((resposta) => (
-                          <div key={resposta.id} className=" text-lg flex flex-col w-1/4 ">
-                            <span className=" font-bold ">{resposta.theme + ": "}</span>
-                            {resposta.label + " "}
+                          <div
+                            key={resposta.id}
+                            className="text-lg flex flex-col w-1/4"
+                          >
+                            <span className="font-bold">
+                              {resposta.theme + ": "}
+                            </span>
+                            {resposta.label}
                           </div>
                         ))}
                       </div>
-                      <div className=" flex ">
+                      <div className="flex">
                         {respostas.slice(4).map((resposta) => (
-                          <div key={resposta.id} className=" text-lg flex flex-col w-1/4 ">
-                            <span className=" font-bold ">{resposta.theme + ": "}</span>
-                            {resposta.label + " "}
+                          <div
+                            key={resposta.id}
+                            className="text-lg flex flex-col w-1/4"
+                          >
+                            <span className="font-bold">
+                              {resposta.theme + ": "}
+                            </span>
+                            {resposta.label}
                           </div>
                         ))}
                       </div>
                     </div>
-
                   </div>
-
                 </PopoverContent>
-
               </Popover>
-
-              
-
             </div>
-
           </TooltipProvider>
-
         </TableCell>
-
       </TableRow>
     );
   };
@@ -206,7 +189,10 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
         <TableBody>
           {filteredTasks.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={3} className="py-6 text-center text-muted-foreground">
+              <TableCell
+                colSpan={3}
+                className="py-6 text-center text-muted-foreground"
+              >
                 Nenhum checklist encontrado.
               </TableCell>
             </TableRow>
