@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middlewares globais
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://clean-line.vercel.app',
+  origin: 'https://clean-line.vercel.app',
   credentials: true,
 }));
 
