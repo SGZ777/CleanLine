@@ -45,9 +45,12 @@ const LoginForm = ({
       console.log(data.token)
 
       if (res.ok) {
-        // setAuthSession(data.token)
+        setAuthSession(data.token)
         localStorage.setItem("cleanline_token", data.token);
-        router.push("/homeAdm");
+        setTimeout(() => {
+          router.push("/homeAdm");
+        }, 100)
+        
       } else {
         setErro(data.erro);
       }
