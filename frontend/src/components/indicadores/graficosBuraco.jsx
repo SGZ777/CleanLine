@@ -150,7 +150,7 @@ function CustomLegend({ equipes }) {
               width: 12,
               height: 12,
               backgroundColor:
-                MONTH_COLORS[index % MONTH_COLORS.length],
+                CORES[index % CORES.length],
               borderRadius: 2,
             }}
           />
