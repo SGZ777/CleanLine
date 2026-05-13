@@ -92,7 +92,7 @@ export function PontuacaoGrafico() {
     <Card className="w-full max-w-230 bg-white shadow-md overflow-visible">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
-          Média de pontuacao 5S -{" "}
+          Média de pontuação 5S -{" "}
           {new Date().toLocaleString("pt-BR", {
             month: "long",
             year: "numeric",

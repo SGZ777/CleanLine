@@ -52,7 +52,7 @@ export default function PontuacaoMedia() {
   return (
     <section className="w-80 h-auto md:w-105 rounded-[25px] bg-white m-6 shadow-md">
       <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
-        Pontuacao media mensal
+        Pontuação média mensal
       </p>
       <div className="justify-self-center flex gap-4 mt-4">
         <p className="text-5xl pb-2 lg:text-6xl">{formatNota(nota)}/10</p>
