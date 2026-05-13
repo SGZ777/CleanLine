@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 import { getDistribuicaoNotasEquipes } from "@/lib/controllers/dashboard";
+import { ApenasLegenda } from "./legendasBuraco";
 
 // Mapeamento fixo de cores por faixa
 const CORES = {
@@ -118,6 +119,7 @@ export default function PieChartInFlexbox() {
                 {equipe}
               </Label>
             </PieChart>
+            <ApenasLegenda />
           </ResponsiveContainer>
         </div>
       ))}
