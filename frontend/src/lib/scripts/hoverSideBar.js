@@ -43,7 +43,7 @@ export const sidebarItems = [
   },
 ]
 
-export function getSidebarItemClass(currentPath, itemPath, isMinimized = false) {
+export function getSidebarItemClass(currentPath, itemPath) {
   const isActive = currentPath === itemPath;
 
   return [
@@ -52,10 +52,11 @@ export function getSidebarItemClass(currentPath, itemPath, isMinimized = false) 
     "font-semibold",
     "flex",
     "items-center",
+    "gap-4",
     "rounded-xl",
+    "px-4",
     "py-3",
     "transition-colors",
-    isMinimized ? "justify-center px-0" : "gap-4 px-4",
     isActive ? "bg-[#24bff6]" : "hover:bg-[#24bff6]/40",
   ].join(" ");
 }
