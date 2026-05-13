@@ -15,10 +15,15 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://clean-line.vercel.app',
+  'http://localhost:3000',
+].filter(Boolean);
 
 // Middlewares globais
 app.use(cors({
-  origin: 'https://clean-line.vercel.app',
+  origin: allowedOrigins,
   credentials: true,
 }));
 

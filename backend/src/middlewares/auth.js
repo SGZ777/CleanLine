@@ -20,7 +20,14 @@ export function authMiddleware(req, res, next) {
   const token = getTokenFromRequest(req);
 
   if (!token) {
-    return res.status(401).json({ error: 'Token nao enviado' });
+    return res.status(401).json({
+      error: 'Token nao enviado',
+      authDebug: {
+        hasCookieHeader: Boolean(req.headers.cookie),
+        hasParsedCookies: Boolean(req.cookies && Object.keys(req.cookies).length),
+        hasCleanlineToken: Boolean(req.cookies?.cleanline_token),
+      },
+    });
   }
 
   try {
@@ -28,7 +35,12 @@ export function authMiddleware(req, res, next) {
     req.user = payload;
     next();
   } catch {
-    return res.status(401).json({ error: 'Token invalido ou expirado' });
+    return res.status(401).json({
+      error: 'Token invalido ou expirado',
+      authDebug: {
+        hasCleanlineToken: true,
+      },
+    });
   }
 }
 
