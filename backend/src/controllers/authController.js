@@ -55,3 +55,7 @@ export async function getUser(req, res) {
     return res.status(401).json({ error: 'Token invalido ou expirado' });
   }
 }
+
+export function logout(_req, res) {
+  return res.status(200).json({ mensagem: 'Logout realizado com sucesso' });
+}
