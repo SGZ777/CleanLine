@@ -15,15 +15,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
-
 // Middlewares globais
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://clean-line.vercel.app/',
+  origin: process.env.FRONTEND_URL || 'https://clean-line.vercel.app',
   credentials: true,
 }));
+
 app.use(express.json());
 
 // Rotas
@@ -41,7 +38,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(` Backend CleanLine rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 export default app;
