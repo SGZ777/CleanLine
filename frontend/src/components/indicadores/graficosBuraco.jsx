@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Label } from "recharts";
 import { getDistribuicaoNotasEquipes } from "@/lib/controllers/dashboard";
 
 // Mapeamento fixo de cores por faixa
@@ -74,7 +74,6 @@ export default function PieChartInFlexbox() {
 
   return (
     <div
-      className="mt-8"
       style={{
         display: "flex",
         flexWrap: "wrap",
@@ -118,7 +117,43 @@ export default function PieChartInFlexbox() {
                 {equipe}
               </Label>
             </PieChart>
+            <Legend content={<CustomLegend equipes={equipes} />} />
           </ResponsiveContainer>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CustomLegend({ equipes }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: 16,
+        marginTop: 10,
+        flexWrap: "wrap",
+      }}
+    >
+      {equipes.map((equipe, index) => (
+        <div
+          key={equipe}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          <div
+            style={{
+              width: 12,
+              height: 12,
+              backgroundColor:
+                CORES[index % CORES.length],
+              borderRadius: 2,
+            }}
+          />
         </div>
       ))}
     </div>
