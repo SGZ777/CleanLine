@@ -48,6 +48,7 @@ export async function login(req, res) {
 
     return res.status(200).json({
       mensagem: 'Sucesso',
+      token,
       user: { id: user.id, name: user.Nome, email: user.Email },
     });
   } catch (error) {

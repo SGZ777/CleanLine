@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
-import { clearAuthSessionCookie } from "@/lib/authSession";
+import { clearAuthSession } from "@/lib/authSession";
 import { useRouter } from "next/navigation";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import PontuacaoMedia from "@/components/dashboard/PontuacaoMedia";
@@ -28,7 +28,7 @@ export default function HomeAdm() {
 
         if (!response.ok) {
           if (!ignore) {
-            clearAuthSessionCookie();
+            clearAuthSession();
             router.replace("/login");
           }
 

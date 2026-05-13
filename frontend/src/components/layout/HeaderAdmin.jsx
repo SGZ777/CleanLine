@@ -1,7 +1,7 @@
 "use client";
 
 import { apiFetch } from "@/lib/api";
-import { clearAuthSessionCookie } from "@/lib/authSession";
+import { clearAuthSession } from "@/lib/authSession";
 import { useRouter } from "next/navigation";
 
 export default function HeaderAdmin({ onOpenSidebar = () => {} }) {
@@ -13,7 +13,7 @@ export default function HeaderAdmin({ onOpenSidebar = () => {} }) {
     } catch (error) {
       console.error("Erro ao realizar logout:", error);
     } finally {
-      clearAuthSessionCookie();
+      clearAuthSession();
       router.replace("/login");
       router.refresh();
     }
