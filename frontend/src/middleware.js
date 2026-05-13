@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
 export function middleware(request) {
-  const hasSession = request.cookies.get('cleanline_session')?.value === '1';
+  const hasSession =
+    request.cookies.get('cleanline_session')?.value === '1' ||
+    request.cookies.get('cleanline_token') != null;
   const path = request.nextUrl.pathname;
   const publicRoutes = ['/', '/login'];
   const isPublicRoute = publicRoutes.includes(path);
