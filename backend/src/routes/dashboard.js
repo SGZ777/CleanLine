@@ -19,4 +19,5 @@ router.get('/grafico-setores-mensal', getGraficoSetoresMensal);
 router.get('/distribuicao-notas-equipes', getDistribuicaoNotasEquipes);
 router.get('/checklists-hoje', getChecklistsHoje);
 
+
 export default router;

@@ -1,68 +1,128 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import HeaderAdmin from "@/components/layout/HeaderAdmin";
-import Sidebar from "@/components/layout/Sidebar";
-import ChecklistsTable from "@/components/checklists/ChecklistsTable";
-import SearchBar from "@/components/funcionarios/SearchBar";
+import {
+  EyeIcon,
+} from "lucide-react";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import { getChecklistsHoje } from "@/lib/controllers/dashboard";
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default function Checklists() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [checklists, setChecklists] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // <-- ADICIONE ESTA LINHA
+// Função para definir a cor da nota
+const getNotaColor = (nota) => {
+  if (nota === null || nota === undefined) return "text-gray-400";
+  const valor = Number(nota);
+  if (valor >= 8) return "text-green-600 font-semibold";
+  if (valor >= 6) return "text-yellow-500 font-semibold";
+  return "text-red-500 font-semibold";
+};
 
-  const carregarChecklists = useCallback(async () => {
-    try {
-      const data = await getChecklistsHoje();
-      setChecklists(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
+  const filteredTasks = tasks.filter((task) => {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return true;
+    return (
+      task.setor?.toLowerCase().includes(term) ||
+      (task.nota !== null && task.nota.toString().includes(term)) ||
+      task.id?.toString().includes(term)
+    );
+  });
 
-  useEffect(() => {
-    carregarChecklists();
-  }, [carregarChecklists]);
+  const renderTaskRow = (task) => {
+    const hasVistoria = task.nota !== null && task.nota !== undefined;
+    const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
+
+    return (
+      <TableRow key={task.id} className="hover:bg-muted/50">
+        <TableCell className={`h-16 px-4 text-sm ${setorColorClass}`}>
+          {task.setor}
+        </TableCell>
+        <TableCell className="h-16 px-4 text-sm text-center">
+          {hasVistoria ? (
+            <span className={getNotaColor(task.nota)}>{task.nota}</span>
+          ) : (
+            <span className="text-gray-400">—</span>
+          )}
+        </TableCell>
+        <TableCell className="h-16 px-6">
+          <TooltipProvider>
+            <div className="flex items-center justify-end gap-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
+                    aria-label={`Ver detalhes de ${task.setor}`}
+                  >
+                    <EyeIcon color="white" className="size-5" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-80">
+                  <PopoverHeader>
+                    <PopoverTitle>{task.setor}</PopoverTitle>
+                    <PopoverDescription>Detalhes do checklist</PopoverDescription>
+                  </PopoverHeader>
+                  <div className="space-y-2 text-sm">
+                    <p>
+                      <span className="font-medium">Setor:</span> {task.setor}
+                    </p>
+                    <p>
+                      <span className="font-medium">Nota do dia:</span>{" "}
+                      {hasVistoria ? task.nota : "Sem vistoria"}
+                    </p>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
+          </TooltipProvider>
+        </TableCell>
+      </TableRow>
+    );
+  };
 
   return (
-    <div className="min-h-screen bg-[#f1f1f1]">
-      <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
-      <div className="flex flex-col md:flex-row">
-        <Sidebar
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-        />
-        <main className="flex-1 p-6 md:p-10">
-          <div className="justify-between flex items-center mb-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-              <h1 className="text-2xl md:text-3xl font-inter">
-                Checklists
-              </h1>
-              <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
-                <div className="relative w-full items-center flex">
-                  <SearchBar value={searchTerm} onChange={setSearchTerm} />
-                </div>
-                <Button
-                  className="bg-[#1c96c2] text-white px-4 mt-3 md:mt-0 border-none md:scale-120 shadow-md"
-                  onClick={() => setShowAddModal(true)}
-                >
-                  Adicionar +
-                </Button>
-              </div>
-            </div>
-          </div>
-          {loading ? (
-            <div className="text-center">Carregando...</div>
+    <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
+      <Table>
+        <TableHeader>
+          <TableRow className="border-b hover:bg-transparent">
+            <TableHead className="h-12 px-6 font-medium">Setor</TableHead>
+            <TableHead className="h-12 px-4 font-medium text-center">
+              Nota do Dia
+            </TableHead>
+            <TableHead className="h-12 px-6 text-right font-medium pe-10">
+              Ações
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredTasks.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={3} className="py-6 text-center text-muted-foreground">
+                Nenhum checklist encontrado.
+              </TableCell>
+            </TableRow>
           ) : (
-            <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
+            filteredTasks.map(renderTaskRow)
           )}
-        </main>
-      </div>
+        </TableBody>
+      </Table>
     </div>
   );
 }
