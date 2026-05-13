@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Label } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 import { getDistribuicaoNotasEquipes } from "@/lib/controllers/dashboard";
 
 // Mapeamento fixo de cores por faixa
