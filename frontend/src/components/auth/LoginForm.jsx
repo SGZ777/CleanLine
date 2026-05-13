@@ -46,7 +46,6 @@ const LoginForm = ({
       if (res.ok) {
         setAuthSession(data.token);
         router.replace("/homeAdm");
-        router.refresh();
       } else {
         setErro(data.erro);
       }
