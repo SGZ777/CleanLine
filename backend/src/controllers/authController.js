@@ -1,15 +1,15 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../../prisma/client.js';
-
 const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
 const EIGHT_HOURS_IN_SECONDS = 60 * 60 * 8;
+const isProduction = process.env.NODE_ENV === 'production';
 
 function setAuthCookie(res, token) {
   res.cookie('cleanline_token', token, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction,
     maxAge: EIGHT_HOURS_IN_SECONDS * 1000,
     path: '/',
   });
@@ -18,8 +18,8 @@ function setAuthCookie(res, token) {
 function clearAuthCookie(res) {
   res.clearCookie('cleanline_token', {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction,
     path: '/',
   });
 }
