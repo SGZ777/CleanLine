@@ -90,6 +90,7 @@ export default function PieChartInFlexbox() {
           flexDirection: "column",
         }}
       >
+        <div>
         {equipesGraficos.map(({ equipe, dados }, idx) => (
           <div
             key={equipe}
@@ -125,6 +126,7 @@ export default function PieChartInFlexbox() {
             </ResponsiveContainer>
           </div>
         ))}
+        </div>
         {/* Legenda global das faixas */}
         <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 10 }}>
           {ORDEM_FAIXAS.map((faixa) => (
