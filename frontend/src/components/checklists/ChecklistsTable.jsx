@@ -177,51 +177,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
 
               </Popover>
 
-              {/* Botão de exclusão mantido conforme design original */}
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-destructive hover:bg-destructive hover:text-white"
-                    disabled={busy}
-                    aria-label={`Excluir checklist de ${task.setor}`}
-                  >
-                    {deletePending ? (
-                      <Loader2 className="size-4 animate-spin" />
-                    ) : (
-                      <Trash2Icon color="white" className="size-5" />
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
-                  <PopoverHeader>
-                    <PopoverTitle>Confirmar Exclusão</PopoverTitle>
-                    <PopoverDescription>
-                      Tem certeza que deseja excluir o checklist do setor "{task.setor}"?
-                    </PopoverDescription>
-                  </PopoverHeader>
-                  <div className="flex justify-end gap-2 mt-4">
-                    <Button
-                      variant="outline"
-                      onClick={() => {}}
-                    >
-                      Cancelar
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      onClick={() => handleDelete(task)}
-                      disabled={deletePending}
-                    >
-                      {deletePending ? (
-                        <Loader2 className="size-4 animate-spin" />
-                      ) : (
-                        "Excluir"
-                      )}
-                    </Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              
 
             </div>
 
