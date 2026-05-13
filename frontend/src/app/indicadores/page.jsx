@@ -31,8 +31,9 @@ export default function Indicadores() {
               <SimpleBarChart />
             </div>
             <div className="grid w-full justify-items-center">
-              <h1 className="text-2xl text-[#0d005d]">Média das equipes no último trimestre</h1>
+              <h1 className="text-2xl text-[#0d005d] mt-8">Média das equipes no último trimestre</h1>
               <PieChartInFlexbox />
+              
             </div>
           </div>
         </main>
