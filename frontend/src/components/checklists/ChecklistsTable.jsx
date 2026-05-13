@@ -103,7 +103,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                 </PopoverTrigger>
 
                 <PopoverContent
-                  className="max-h-[80vh] w-[calc(100vw-2rem)] max-w-5xl overflow-y-auto p-5"
+                  className="w-255 h-115 p-5"
                   avoidCollisions={true}
                   collisionPadding={20}
                   align="end"
@@ -136,11 +136,11 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
 
                     <p className="mb-0 mt-4 font-bold">Respostas:</p>
                     <div className="flex-col justify-between">
-                      <div className="grid gap-4 md:grid-cols-4 mb-6">
+                      <div className="flex mb-6">
                         {respostas.slice(0, 4).map((resposta) => (
                           <div
                             key={resposta.id}
-                            className="text-lg flex flex-col"
+                            className="text-lg flex flex-col w-1/4"
                           >
                             <span className="font-bold">
                               {resposta.theme + ": "}
@@ -149,11 +149,11 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                           </div>
                         ))}
                       </div>
-                      <div className="grid gap-4 md:grid-cols-4">
+                      <div className="flex">
                         {respostas.slice(4).map((resposta) => (
                           <div
                             key={resposta.id}
-                            className="text-lg flex flex-col"
+                            className="text-lg flex flex-col w-1/4"
                           >
                             <span className="font-bold">
                               {resposta.theme + ": "}
