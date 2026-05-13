@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
+import { clearAuthSessionCookie } from "@/lib/authSession";
+import { useRouter } from "next/navigation";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import PontuacaoMedia from "@/components/dashboard/PontuacaoMedia";
 import Sidebar from "@/components/layout/Sidebar";
@@ -11,6 +13,7 @@ import { LeaderboardCard } from "@/components/dashboard/leaderboard/LeaderboardC
 import TutorialModal from "@/components/tutorial/TutorialModal";
 
 export default function HomeAdm() {
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userName, setUserName] = useState("Administrador");
   const [showTutorial, setShowTutorial] = useState(false);
@@ -24,6 +27,11 @@ export default function HomeAdm() {
         const response = await apiFetch("/api/user");
 
         if (!response.ok) {
+          if (!ignore) {
+            clearAuthSessionCookie();
+            router.replace("/login");
+          }
+
           return;
         }
 
@@ -52,7 +60,7 @@ export default function HomeAdm() {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [router]);
 
   const handleCloseTutorial = () => {
     if (tutorialStorageKey) {

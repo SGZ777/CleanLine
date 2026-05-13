@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { apiFetch } from "@/lib/api";
+import { setAuthSessionCookie } from "@/lib/authSession";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -43,7 +44,9 @@ const LoginForm = ({
       const data = await res.json();
 
       if (res.ok) {
-        router.push("/homeAdm");
+        setAuthSessionCookie();
+        router.replace("/homeAdm");
+        router.refresh();
       } else {
         setErro(data.erro);
       }
