@@ -55,12 +55,12 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           </button>
         </div>
 
-        <ul className="flex w-full flex-col gap-4 p-4">
+        <ul className={["flex w-full flex-col gap-4", isMinimized ? "px-2 py-4" : "p-4"].join(" ")}>
           {sidebarItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={getSidebarItemClass(pathname, item.href)}
+                className={getSidebarItemClass(pathname, item.href, isMinimized)}
                 onClick={onClose}
                 title={isMinimized ? item.label : undefined}
               >
