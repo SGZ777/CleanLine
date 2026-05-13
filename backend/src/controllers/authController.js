@@ -5,20 +5,22 @@ const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanli
 const EIGHT_HOURS_IN_SECONDS = 60 * 60 * 8;
 
 function setAuthCookie(res, token) {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('cleanline_token', token, {
     httpOnly: true,
-    sameSite: 'none',
-    secure: true,
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction,
     maxAge: EIGHT_HOURS_IN_SECONDS * 1000,
     path: '/',
   });
 }
 
 function clearAuthCookie(res) {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.clearCookie('cleanline_token', {
     httpOnly: true,
-    sameSite: 'none',
-    secure: true,
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction,
     path: '/',
   });
 }
