@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.js';
@@ -13,14 +14,21 @@ import inspecoesRoutes from './routes/inspecoes.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://clean-line.vercel.app',
+  'http://localhost:3000',
+].filter(Boolean);
 
 // Middlewares globais
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: allowedOrigins,
   credentials: true,
 }));
+
 app.use(express.json());
+app.use(cookieParser());
 
 // Rotas
 app.use('/api', authRoutes);
@@ -37,7 +45,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(` Backend CleanLine rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 export default app;

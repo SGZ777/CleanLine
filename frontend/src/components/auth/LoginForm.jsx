@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { apiFetch } from "@/lib/api";
+import { setAuthSession } from "@/lib/authSession";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,13 +36,17 @@ const LoginForm = ({
     try {
       const res = await apiFetch("/api/auth", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
       });
 
       const data = await res.json();
+      console.log(data.token)
 
       if (res.ok) {
+        // setAuthSession(data.token)
+        localStorage.setItem("cleanline_token", data.token);
         router.push("/homeAdm");
       } else {
         setErro(data.erro);
