@@ -28,6 +28,7 @@ export default function Indicadores() {
             <div className="grid w-full justify-items-center"><h1 className="text-2xl text-[#0d005d]">Média dos setores no último trimestre</h1>
             <SimpleBarChart /></div>
           </div>
+          <h1 className="text-2xl text-[#0d005d] mt-8">Média dos setores no último trimestre</h1>
           <PieChartInFlexbox />
         </main>
       </div>

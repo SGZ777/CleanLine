@@ -120,6 +120,7 @@ export default function PieChartInFlexbox() {
                   {equipe}
                 </Label>
               </PieChart>
+            </ResponsiveContainer>
             {/* Legenda global das faixas */}
             <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 10 }}>
               {ORDEM_FAIXAS.map((faixa) => (
@@ -129,8 +130,6 @@ export default function PieChartInFlexbox() {
                 </div>
               ))}
             </div>
-
-            </ResponsiveContainer>
           </div>
         ))}
       </div>
