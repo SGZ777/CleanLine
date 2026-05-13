@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Label } from "recharts";
 import { getDistribuicaoNotasEquipes } from "@/lib/controllers/dashboard";
-import { ApenasLegenda } from "./legendasBuraco";
 
 // Mapeamento fixo de cores por faixa
 const CORES = {
@@ -75,7 +74,6 @@ export default function PieChartInFlexbox() {
 
   return (
     <div
-      className="mt-8"
       style={{
         display: "flex",
         flexWrap: "wrap",
@@ -119,8 +117,45 @@ export default function PieChartInFlexbox() {
                 {equipe}
               </Label>
             </PieChart>
-            <ApenasLegenda />
+            <Legend content={<CustomLegend meses={meses} />} />
           </ResponsiveContainer>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CustomLegend({ meses }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: 16,
+        marginTop: 10,
+        flexWrap: "wrap",
+      }}
+    >
+      {meses.map((mes, index) => (
+        <div
+          key={mes}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          <div
+            style={{
+              width: 12,
+              height: 12,
+              backgroundColor:
+                MONTH_COLORS[index % MONTH_COLORS.length],
+              borderRadius: 2,
+            }}
+          />
+
+          <span>{formatMes(mes)}</span>
         </div>
       ))}
     </div>
