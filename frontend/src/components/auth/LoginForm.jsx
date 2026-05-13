@@ -42,9 +42,11 @@ const LoginForm = ({
       });
 
       const data = await res.json();
+      console.log(data.token)
 
       if (res.ok) {
-        setAuthSession(data.token);
+        setAuthSession(data.token)
+        localStorage.setItem("cleanline_token", data.token);
         router.replace("/homeAdm");
       } else {
         setErro(data.erro);
