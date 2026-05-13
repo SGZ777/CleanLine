@@ -50,7 +50,6 @@ export function middleware(request) {
   return NextResponse.next();
 }
 
-/* middleware desativado temporariamente
 export const config = {
   matcher: [
     '/',
@@ -63,4 +62,3 @@ export const config = {
     '/indicadores/:path*',
   ],
 };
-*/
