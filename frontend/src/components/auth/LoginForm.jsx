@@ -35,6 +35,7 @@ const LoginForm = ({
     try {
       const res = await apiFetch("/api/auth", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
       });
