@@ -3,27 +3,17 @@ import jwt from 'jsonwebtoken';
 const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
 
 function getTokenFromRequest(req) {
+  if (req.cookies?.cleanline_token) {
+    return req.cookies.cleanline_token;
+  }
+
   const authorization = req.headers['authorization'];
 
   if (authorization?.startsWith('Bearer ')) {
     return authorization.slice(7);
   }
 
-  const cookieHeader = req.headers.cookie || '';
-  const cookies = Object.fromEntries(
-    cookieHeader
-      .split(';')
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .map((part) => {
-        const separatorIndex = part.indexOf('=');
-        const key = separatorIndex >= 0 ? part.slice(0, separatorIndex) : part;
-        const value = separatorIndex >= 0 ? part.slice(separatorIndex + 1) : '';
-        return [key, decodeURIComponent(value)];
-      })
-  );
-
-  return cookies.cleanline_token || null;
+  return null;
 }
 
 export function authMiddleware(req, res, next) {
