@@ -122,17 +122,17 @@ export default function PieChartInFlexbox() {
                 </Label>
               </PieChart>
             </ResponsiveContainer>
-            {/* Legenda global das faixas */}
-            <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 10 }}>
-              {ORDEM_FAIXAS.map((faixa) => (
-                <div key={faixa} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <div style={{ width: 12, height: 12, backgroundColor: CORES[faixa], borderRadius: 2 }} />
-                  <span style={{ fontSize: 14 }}>{faixa}</span>
-                </div>
-              ))}
-            </div>
           </div>
         ))}
+        {/* Legenda global das faixas */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 10 }}>
+          {ORDEM_FAIXAS.map((faixa) => (
+            <div key={faixa} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <div style={{ width: 12, height: 12, backgroundColor: CORES[faixa], borderRadius: 2 }} />
+              <span style={{ fontSize: 14 }}>{faixa}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
