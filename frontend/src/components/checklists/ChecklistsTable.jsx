@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
-  PopoverDescription,
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
@@ -21,7 +20,7 @@ import {
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ExpandableImage from "./ImageExpandsChecklist";
 
-// Perguntas fixas (ordem igual ao banco)
+// Perguntas fixas (ordem igual às colunas q1..q8)
 const PERGUNTAS = [
   "Organização do ambiente",
   "Limpeza de superfícies",
@@ -33,7 +32,7 @@ const PERGUNTAS = [
   "Conformidade com os procedimentos padrão",
 ];
 
-// Cores por faixa de nota
+// Função para determinar a cor da nota
 const getNotaColor = (nota) => {
   if (nota === null || nota === undefined) return "text-gray-400";
   const valor = Number(nota);
@@ -68,17 +67,17 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
       });
     }
 
-    // URL da imagem (usa placeholder se não existir)
+    // URL da imagem (usa placeholder se não houver)
     const imagemSrc = task.imagem || "/placeholder.jpg";
 
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
-        {/* Nome do setor */}
+        {/* Nome do setor com cor dinâmica */}
         <TableCell className={`h-16 px-4 text-sm ${setorColorClass}`}>
           {task.setor}
         </TableCell>
 
-        {/* Nota do dia */}
+        {/* Nota do dia com cor baseada na faixa */}
         <TableCell className="h-16 px-4 text-sm text-center">
           {hasVistoria ? (
             <span className={getNotaColor(task.nota)}>{task.nota}</span>
@@ -87,7 +86,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
           )}
         </TableCell>
 
-        {/* Ações (olho) */}
+        {/* Ações (apenas ícone de visualização) */}
         <TableCell className="h-16 px-6">
           <TooltipProvider>
             <div className="flex items-center justify-end gap-2">
@@ -104,7 +103,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                 </PopoverTrigger>
 
                 <PopoverContent
-                  className="w-[600px] max-h-[80vh] overflow-y-auto p-5"
+                  className="w-255 h-115 p-5"
                   avoidCollisions={true}
                   collisionPadding={20}
                   align="end"
@@ -118,32 +117,51 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                         </PopoverTitle>
                       </div>
                       <div>
-                        <p className="font-bold text-3xl">
-                          Nota: {hasVistoria ? task.nota : "—"}
+                        <p>
+                          <span className="font-bold text-3xl">
+                            Nota: {hasVistoria ? task.nota : "Sem vistoria"}
+                          </span>
                         </p>
                       </div>
                     </div>
                   </PopoverHeader>
 
-                  <div className="space-y-4 text-base">
-                    {/* Imagem da vistoria */}
-                    <div className="flex justify-center">
-                      <ExpandableImage
-                        src={imagemSrc}
-                        alt={`Foto do setor ${task.setor}`}
-                        width={200}
-                        height={150}
-                      />
-                    </div>
+                  <div className="space-y-2 text-xl">
+                    <ExpandableImage
+                      src={imagemSrc}
+                      alt={`Foto do setor ${task.setor}`}
+                      width={120}
+                      height={140}
+                    />
 
-                    <p className="font-bold mt-4">Respostas:</p>
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                      {respostas.map((r) => (
-                        <div key={r.id} className="flex justify-between">
-                          <span className="font-semibold">{r.theme}:</span>
-                          <span className="ml-2">{r.label}</span>
-                        </div>
-                      ))}
+                    <p className="mb-0 mt-4 font-bold">Respostas:</p>
+                    <div className="flex-col justify-between">
+                      <div className="flex mb-6">
+                        {respostas.slice(0, 4).map((resposta) => (
+                          <div
+                            key={resposta.id}
+                            className="text-lg flex flex-col w-1/4"
+                          >
+                            <span className="font-bold">
+                              {resposta.theme + ": "}
+                            </span>
+                            {resposta.label}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex">
+                        {respostas.slice(4).map((resposta) => (
+                          <div
+                            key={resposta.id}
+                            className="text-lg flex flex-col w-1/4"
+                          >
+                            <span className="font-bold">
+                              {resposta.theme + ": "}
+                            </span>
+                            {resposta.label}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </PopoverContent>
@@ -172,7 +190,10 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
         <TableBody>
           {filteredTasks.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={3} className="py-6 text-center text-muted-foreground">
+              <TableCell
+                colSpan={3}
+                className="py-6 text-center text-muted-foreground"
+              >
                 Nenhum checklist encontrado.
               </TableCell>
             </TableRow>
