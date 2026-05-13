@@ -73,54 +73,68 @@ export default function PieChartInFlexbox() {
   }
 
   return (
-    <div
-      className="mt-8"
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        width: "100%",
-        minHeight: "300px",
-        padding: "10px",
-        justifyContent: "space-around",
-        alignItems: "stretch",
-        gap: "20px",
-      }}
-    >
-      {equipesGraficos.map(({ equipe, dados }, idx) => (
-        <div
-          key={equipe}
-          style={{
-            width: "33%",
-            maxWidth: "300px",
-            textAlign: "center",
-          }}
-        >
-          <ResponsiveContainer width="100%" aspect={1}>
-            <PieChart>
-              <Pie
-                data={dados}
-                dataKey="value"
-                nameKey="name"
-                outerRadius="80%"
-                innerRadius="60%"
-                isAnimationActive={false}
-              >
-                {dados.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <Label
-                position="center"
-                fill="#666"
-                fontSize={14}
-                fontWeight="bold"
-              >
-                {equipe}
-              </Label>
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      ))}
+
+    <div>
+      {/* Legenda global das faixas */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 10 }}>
+        {ORDEM_FAIXAS.map((faixa) => (
+          <div key={faixa} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ width: 12, height: 12, backgroundColor: CORES[faixa], borderRadius: 2 }} />
+            <span style={{ fontSize: 14 }}>{faixa}</span>
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          width: "100%",
+          minHeight: "300px",
+          padding: "10px",
+          justifyContent: "space-around",
+          alignItems: "stretch",
+          gap: "20px",
+        }}
+      >
+        {equipesGraficos.map(({ equipe, dados }, idx) => (
+          <div
+            key={equipe}
+            style={{
+              width: "33%",
+              maxWidth: "300px",
+              textAlign: "center",
+            }}
+          >
+            <ResponsiveContainer width="100%" aspect={1}>
+              <PieChart>
+                <Pie
+                  data={dados}
+                  dataKey="value"
+                  nameKey="name"
+                  outerRadius="80%"
+                  innerRadius="60%"
+                  isAnimationActive={false}
+                >
+                  {dados.map((entry, i) => (
+                    <Cell key={`cell-${i}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Label
+                  position="center"
+                  fill="#666"
+                  fontSize={14}
+                  fontWeight="bold"
+                >
+                  {equipe}
+                </Label>
+              </PieChart>
+
+            </ResponsiveContainer>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+
