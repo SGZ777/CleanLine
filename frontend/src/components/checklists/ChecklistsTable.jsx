@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTitle,
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import {
   Table,
