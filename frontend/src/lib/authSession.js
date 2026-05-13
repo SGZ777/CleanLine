@@ -2,11 +2,15 @@ export const AUTH_SESSION_COOKIE = "cleanline_session";
 const AUTH_TOKEN_KEY = "cleanline_token";
 
 export function setAuthSessionCookie() {
-  document.cookie = `${AUTH_SESSION_COOKIE}=1; Path=/; Max-Age=28800; SameSite=None; Secure`;
+  const isProd = window.location.protocol === 'https:';
+  const cookieBase = `${AUTH_SESSION_COOKIE}=1; Path=/; Max-Age=28800; SameSite=Lax`;
+  document.cookie = isProd ? `${cookieBase}; Secure` : cookieBase;
 }
 
 export function clearAuthSessionCookie() {
-  document.cookie = `${AUTH_SESSION_COOKIE}=; Path=/; Max-Age=0; SameSite=None; Secure`;
+  const isProd = window.location.protocol === 'https:';
+  const cookieBase = `${AUTH_SESSION_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax`;
+  document.cookie = isProd ? `${cookieBase}; Secure` : cookieBase;
 }
 
 export function setAuthToken(token) {

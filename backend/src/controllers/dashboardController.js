@@ -121,15 +121,19 @@ export async function getDistribuicaoNotasEquipes(_req, res) {
 }
 export async function getChecklistsHoje(_req, res) {
   try {
-    // Busca todos os setores ativos com a última vistoria do dia (se houver)
     const setores = await prisma.$queryRaw`
       SELECT
         s.id,
         s."Nome" AS setor,
-        v."Pontuacao" AS nota
+        v."Pontuacao" AS nota,
+        v."Image" AS imagem,
+        v."q1", v."q2", v."q3", v."q4",
+        v."q5", v."q6", v."q7", v."q8"
       FROM "Setor" s
       LEFT JOIN LATERAL (
-        SELECT "Pontuacao"
+        SELECT "Pontuacao", "Image",
+               "q1", "q2", "q3", "q4",
+               "q5", "q6", "q7", "q8"
         FROM "Vistoria"
         WHERE "Id_Setor" = s.id
           AND DATE("Data_e_Hora") = CURRENT_DATE
