@@ -83,6 +83,7 @@ export default function PieChartInFlexbox() {
           width: "100%",
           minHeight: "300px",
           padding: "10px",
+          paddingTop: "0",
           justifyContent: "space-around",
           alignItems: "stretch",
           gap: "20px",

@@ -29,7 +29,7 @@ export default function Indicadores() {
             <SimpleBarChart /></div>
           </div>
           <div className="flex flex-col text-center">
-          <h1 className="text-3xl text-[#0d005d] mt-12">Média das equipes no último trimestre</h1>
+          <h1 className="text-2xl text-[#0d005d] mt-12">Média das equipes no último trimestre</h1>
           <PieChartInFlexbox />
           </div>
         </main>
