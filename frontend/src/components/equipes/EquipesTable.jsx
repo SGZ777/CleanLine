@@ -68,7 +68,7 @@ export default function EquipesTable({ searchTerm = "" }) {
     setPendingAction({ id: equipe.id, type: "delete" });
     try {
       const res = await apiFetch(`/api/equipes/${equipe.id}`, {
-        method: "PATCH",
+        method: "DELETE",
       });
       if (!res.ok) {
         const err = await res.json();
@@ -131,12 +131,7 @@ export default function EquipesTable({ searchTerm = "" }) {
         <TableCell className="h-16 px-6">
           <TooltipProvider>
             <div className="flex items-center justify-end gap-2">
-              <Popover
-                open={deletingEquipe === equipe.id}
-                onOpenChange={(open) => {
-                  setDeletingEquipe(open ? equipe.id : null);
-                }}
-              >
+              <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
@@ -224,7 +219,12 @@ export default function EquipesTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover>
+              <Popover
+                open={deletingEquipe === equipe.id}
+                onOpenChange={(open) => {
+                  setDeletingEquipe(open ? equipe.id : null);
+                }}
+              >
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
@@ -241,7 +241,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
-                    <PopoverTitle>Confirmar exclusao</PopoverTitle>
+                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
                     <PopoverDescription>
                       Tem certeza que deseja excluir "{equipe.Nome}"?
                     </PopoverDescription>
@@ -250,7 +250,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                     <Button
                       variant="outline"
                       className="bg-transparent ring-1"
-                      onClick={() => setEditingEquipe(null)}
+                      onClick={() => setDeletingEquipe(null)}
                     >
                       Cancelar
                     </Button>

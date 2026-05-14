@@ -30,6 +30,7 @@ export default function RotasTable({ searchTerm = "" }) {
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
   const [editingRota, setEditingRota] = useState(null);
+  const [deletingRota, setDeletingRota] = useState(null);
   const [editForm, setEditForm] = useState({
     nome: "",
   });
@@ -67,13 +68,14 @@ export default function RotasTable({ searchTerm = "" }) {
     setPendingAction({ id: rota.id, type: "delete" });
     try {
       const res = await apiFetch(`/api/rotas/${rota.id}`, {
-        method: "PATCH",
+        method: "DELETE",
       });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || "Erro ao excluir");
       }
       setRotas((prev) => prev.filter((item) => item.id !== rota.id));
+      setDeletingRota(null);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -210,7 +212,12 @@ export default function RotasTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover>
+              <Popover
+                open={deletingRota === rota.id}
+                onOpenChange={(open) => {
+                  setDeletingRota(open ? rota.id : null);
+                }}
+              >
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
@@ -233,7 +240,7 @@ export default function RotasTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" className="bg-transparent ring-1"  onClick={() => setEditingRota(null)}>
+                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => setDeletingRota(null)}>
                       Cancelar
                     </Button>
                     <Button
