@@ -48,7 +48,7 @@ export default function Checklists() {
             </div>
           </div>
           {loading ? (
-            <div className="text-center">Carregando...</div>
+            <div className="text-center">Carregando checklists...</div>
           ) : (
             <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
           )}
