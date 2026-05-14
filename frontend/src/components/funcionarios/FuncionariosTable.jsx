@@ -35,6 +35,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
   const [editingFunc, setEditingFunc] = useState(null);
+  const [deletingFunc, setDeletingFunc] = useState(null);
   const [editForm, setEditForm] = useState({
     nome: "",
     email: "",
@@ -79,7 +80,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
 
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
-        method: "PATCH",
+        method: "DELETE",
       });
 
       if (!res.ok) {
@@ -90,6 +91,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
       setFuncionarios((prev) =>
         prev.filter((f) => !(f.id === func.id && f.Tipo === func.Tipo))
       );
+      setDeletingFunc(null);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -272,7 +274,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover>
+              <Popover
+                open={deletingFunc === funcKey}
+                onOpenChange={(open) => {
+                  setDeletingFunc(open ? funcKey : null);
+                }}
+              >
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
@@ -298,7 +305,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     <Button
                       variant="outline"
                       className="bg-transparent ring-1"
-                      onClick={() => setEditingFunc(null)}
+                      onClick={() => setDeletingFunc(null)}
                     >
                       Cancelar
                     </Button>

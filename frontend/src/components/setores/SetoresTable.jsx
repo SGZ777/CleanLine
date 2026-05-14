@@ -30,6 +30,7 @@ export default function SetoresTable({ searchTerm = "" }) {
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
   const [editingSetor, setEditingSetor] = useState(null);
+  const [deletingSetor, setDeletingSetor] = useState(null);
   const [editForm, setEditForm] = useState({
     nome: "",
     tagNfc: "",
@@ -69,13 +70,14 @@ export default function SetoresTable({ searchTerm = "" }) {
     setPendingAction({ id: setor.id, type: "delete" });
     try {
       const res = await apiFetch(`/api/setores/${setor.id}`, {
-        method: "PATCH",
+        method: "DELETE",
       });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || "Erro ao excluir");
       }
       setSetores((prev) => prev.filter((item) => item.id !== setor.id));
+      setDeletingSetor(null);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -223,7 +225,12 @@ export default function SetoresTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover>
+              <Popover
+                open={deletingSetor === setor.id}
+                onOpenChange={(open) => {
+                  setDeletingSetor(open ? setor.id : null);
+                }}
+              >
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
@@ -246,7 +253,7 @@ export default function SetoresTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => setEditingSetor(null)}>
+                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => setDeletingSetor(null)}>
                       Cancelar
                     </Button>
                     <Button
