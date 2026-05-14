@@ -23,7 +23,7 @@ export async function getRotas(_req, res) {
     return res.status(200).json(formatted);
   } catch (error) {
     console.error('Erro no GET /rotas:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao buscar rotas. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -32,6 +32,17 @@ export async function createRota(req, res) {
     const { nome, idAdm } = req.body;
     if (!nome || !idAdm) {
       return res.status(400).json({ error: 'Nome da rota e administrador são obrigatórios' });
+    }
+
+    // Valida se o administrador existe antes de criar a rota
+    const admExists = await prisma.aDM.findUnique({
+      where: { id: parseInt(idAdm) },
+    });
+
+    if (!admExists) {
+      return res.status(404).json({ 
+        error: `O administrador com ID ${idAdm} não existe. Por favor, verifique o ID e tente novamente.` 
+      });
     }
 
     const rota = await prisma.rota.create({
@@ -58,7 +69,15 @@ export async function createRota(req, res) {
     });
   } catch (error) {
     console.error('Erro ao criar rota:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    
+    // Trata erro de chave estrangeira
+    if (error.code === 'P2003') {
+      return res.status(404).json({ 
+        error: 'O administrador especificado não existe. Por favor, verifique o ID do administrador.' 
+      });
+    }
+    
+    return res.status(500).json({ error: 'Erro ao criar rota. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -91,10 +110,10 @@ export async function updateRota(req, res) {
     });
   } catch (error) {
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Rota não encontrada' });
+      return res.status(404).json({ error: `Rota com ID ${id} não encontrada.` });
     }
     console.error('Erro ao atualizar rota:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao atualizar rota. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -108,7 +127,7 @@ export async function deleteRota(req, res) {
     const vistorias = await prisma.vistoria.count({ where: { Id_Rota: parseInt(id) } });
     if (vistorias > 0) {
       return res.status(409).json({
-        error: 'Não é possível excluir esta rota porque existem vistorias vinculadas a ela',
+        error: `Não é possível excluir esta rota porque existem ${vistorias} vistória(s) vinculada(s) a ela. Remova essas dependências primeiro.`,
       });
     }
 
@@ -118,9 +137,9 @@ export async function deleteRota(req, res) {
     return res.status(200).json({ message: 'Rota excluída com sucesso' });
   } catch (error) {
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Rota não encontrada' });
+      return res.status(404).json({ error: `Rota com ID ${id} não encontrada.` });
     }
     console.error('Erro ao excluir rota:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao excluir rota. Por favor, tente novamente mais tarde.' });
   }
 }

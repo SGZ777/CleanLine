@@ -66,7 +66,7 @@ export async function getFuncionarios(_req, res) {
     return res.status(200).json(funcionarios);
   } catch (error) {
     console.error('Erro no GET /funcionarios:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao buscar funcionários. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -122,6 +122,18 @@ export async function createFuncionario(req, res) {
         if (!idEquipe) {
           return res.status(400).json({ error: 'ID da equipe é obrigatório para Funcionário de Limpeza' });
         }
+
+        // Valida se a equipe existe antes de criar o funcionário
+        const equipeExists = await prisma.equipe_Limpeza.findUnique({
+          where: { Id: parseInt(idEquipe) },
+        });
+
+        if (!equipeExists) {
+          return res.status(404).json({ 
+            error: `A equipe com ID ${idEquipe} não existe. Por favor, verifique o ID e tente novamente.` 
+          });
+        }
+
         result = await prisma.func_Limpeza.create({
           data: {
             Id_Equipe: parseInt(idEquipe),
@@ -142,7 +154,12 @@ export async function createFuncionario(req, res) {
     if (error.code === 'P2002') {
       return res.status(409).json({ error: 'Email já cadastrado' });
     }
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    if (error.code === 'P2003') {
+      return res.status(404).json({ 
+        error: 'A equipe especificada não existe. Por favor, verifique o ID da equipe.' 
+      });
+    }
+    return res.status(500).json({ error: 'Erro ao criar funcionário. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -180,12 +197,15 @@ export async function inativarFuncionario(req, res) {
     }
 
     if (!result) {
-      return res.status(404).json({ error: 'Funcionário não encontrado' });
+      return res.status(404).json({ error: `Funcionário com ID ${id} não encontrado.` });
     }
     return res.status(200).json({ message: 'Funcionário inativado com sucesso' });
   } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: `Funcionário com ID ${id} não encontrado.` });
+    }
     console.error('Erro ao inativar:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao inativar funcionário. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -236,8 +256,11 @@ export async function updateFuncionario(req, res) {
 
     return res.status(200).json({ message: 'Atualizado com sucesso', funcionario });
   } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: `Funcionário com ID ${id} não encontrado.` });
+    }
     console.error('Erro ao atualizar:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao atualizar funcionário. Por favor, tente novamente mais tarde.' });
   }
 }
 

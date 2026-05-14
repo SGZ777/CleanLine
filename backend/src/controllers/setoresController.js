@@ -24,7 +24,7 @@ export async function getSetores(_req, res) {
     return res.status(200).json(formatted);
   } catch (error) {
     console.error('Erro no GET /setores:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao buscar setores. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -33,6 +33,17 @@ export async function createSetor(req, res) {
     const { nome, tagNfc, idEquipe } = req.body;
     if (!nome || !tagNfc || !idEquipe) {
       return res.status(400).json({ error: 'Nome, tag NFC e equipe são obrigatórios' });
+    }
+
+    // Valida se a equipe existe antes de criar o setor
+    const equipeExists = await prisma.equipe_Limpeza.findUnique({
+      where: { Id: parseInt(idEquipe) },
+    });
+
+    if (!equipeExists) {
+      return res.status(404).json({ 
+        error: `A equipe com ID ${idEquipe} não existe. Por favor, verifique o ID e tente novamente.` 
+      });
     }
 
     const setor = await prisma.setor.create({
@@ -58,7 +69,15 @@ export async function createSetor(req, res) {
     });
   } catch (error) {
     console.error('Erro ao criar setor:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    
+    // Trata erro de chave estrangeira
+    if (error.code === 'P2003') {
+      return res.status(404).json({ 
+        error: 'A equipe especificada não existe. Por favor, verifique o ID da equipe.' 
+      });
+    }
+    
+    return res.status(500).json({ error: 'Erro ao criar setor. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -88,10 +107,10 @@ export async function updateSetor(req, res) {
     return res.status(200).json({ message: 'Setor atualizado com sucesso', setor: setorFormatado });
   } catch (error) {
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Setor não encontrado' });
+      return res.status(404).json({ error: `Setor com ID ${id} não encontrado.` });
     }
     console.error('Erro ao atualizar setor:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao atualizar setor. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -107,7 +126,7 @@ export async function deleteSetor(req, res) {
     const perguntas = await prisma.pergunta.count({ where: { Id_Setor: parseInt(id) } });
     if (vistorias > 0 || perguntas > 0) {
       return res.status(409).json({
-        error: 'Não é possível excluir este setor porque existem vistorias ou perguntas vinculadas a ele',
+        error: 'Não é possível excluir este setor porque existem vistorias ou perguntas vinculadas a ele. Remova essas dependências primeiro.',
       });
     }
 
@@ -118,9 +137,9 @@ export async function deleteSetor(req, res) {
     return res.status(200).json({ message: 'Setor excluído com sucesso' });
   } catch (error) {
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Setor não encontrado' });
+      return res.status(404).json({ error: `Setor com ID ${id} não encontrado.` });
     }
     console.error('Erro ao excluir setor:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao excluir setor. Por favor, tente novamente mais tarde.' });
   }
 }

@@ -30,7 +30,7 @@ export async function getEquipes(_req, res) {
     return res.status(200).json(formatted);
   } catch (error) {
     console.error('Erro no GET /equipes:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao buscar equipes. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -39,7 +39,7 @@ export async function createEquipe(req, res) {
     const { nome } = req.body;
 
     if (!nome) {
-      return res.status(400).json({ error: 'Nome da equipe e obrigatorio' });
+      return res.status(400).json({ error: 'Nome da equipe é obrigatório' });
     }
 
     const equipe = await prisma.equipe_Limpeza.create({
@@ -60,7 +60,7 @@ export async function createEquipe(req, res) {
     });
   } catch (error) {
     console.error('Erro ao criar equipe:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao criar equipe. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -69,7 +69,7 @@ export async function updateEquipe(req, res) {
   const { nome } = req.body;
 
   if (!id || !nome) {
-    return res.status(400).json({ error: 'ID e nome da equipe sao obrigatorios' });
+    return res.status(400).json({ error: 'ID e nome da equipe são obrigatórios' });
   }
 
   try {
@@ -103,11 +103,11 @@ export async function updateEquipe(req, res) {
     });
   } catch (error) {
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Equipe nao encontrada' });
+      return res.status(404).json({ error: `Equipe com ID ${id} não encontrada.` });
     }
 
     console.error('Erro ao atualizar equipe:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao atualizar equipe. Por favor, tente novamente mais tarde.' });
   }
 }
 
@@ -115,7 +115,7 @@ export async function deleteEquipe(req, res) {
   const { id } = req.params;
 
   if (!id) {
-    return res.status(400).json({ error: 'ID da equipe e obrigatorio' });
+    return res.status(400).json({ error: 'ID da equipe é obrigatório' });
   }
 
   try {
@@ -133,7 +133,7 @@ export async function deleteEquipe(req, res) {
     if (funcionarios > 0 || setores > 0) {
       return res.status(409).json({
         error:
-          'Nao e possivel excluir esta equipe porque existem funcionarios ou setores vinculados a ela',
+          `Não é possível excluir esta equipe porque existem ${funcionarios} funcionário(s) e ${setores} setor(es) vinculado(s) a ela. Remova essas dependências primeiro.`,
       });
     }
 
@@ -141,13 +141,13 @@ export async function deleteEquipe(req, res) {
       where: { Id: parseInt(id) },
     });
 
-    return res.status(200).json({ message: 'Equipe excluida com sucesso' });
+    return res.status(200).json({ message: 'Equipe excluída com sucesso' });
   } catch (error) {
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Equipe nao encontrada' });
+      return res.status(404).json({ error: `Equipe com ID ${id} não encontrada.` });
     }
 
     console.error('Erro ao excluir equipe:', error);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    return res.status(500).json({ error: 'Erro ao excluir equipe. Por favor, tente novamente mais tarde.' });
   }
 }

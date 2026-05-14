@@ -40,11 +40,6 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
         const errData = await res.json();
         throw new Error(errData.error || "Erro ao adicionar setor");
       }
-      if (!idEquipe) {
-        setError("Esse ID de equipe não existe. Por favor, verifique e tente novamente.");
-        setLoading(false);
-        return;
-      }
 
       onSuccess();
     } catch (err) {
