@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../../prisma/client.js';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
+const SECRET_KEY = process.env.JWT_SECRET || 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
 
 export async function login(req, res) {
   try {
