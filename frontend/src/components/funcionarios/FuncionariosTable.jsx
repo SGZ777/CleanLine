@@ -298,7 +298,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     <Button
                       variant="outline"
                       className="bg-transparent ring-1"
-                      onClick={() => {}}
+                      onClick={() => setEditingFunc(null)}
                     >
                       Cancelar
                     </Button>

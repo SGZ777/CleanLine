@@ -250,7 +250,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                     <Button
                       variant="outline"
                       className="bg-transparent ring-1"
-                      onClick={() => setDeletingEquipe(null)}
+                      onClick={() => setEditingEquipe(null)}
                     >
                       Cancelar
                     </Button>

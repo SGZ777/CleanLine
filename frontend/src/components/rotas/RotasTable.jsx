@@ -233,7 +233,7 @@ export default function RotasTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => {}}>
+                    <Button variant="outline" className="bg-transparent ring-1"  onClick={() => setEditingRota(null)}>
                       Cancelar
                     </Button>
                     <Button
