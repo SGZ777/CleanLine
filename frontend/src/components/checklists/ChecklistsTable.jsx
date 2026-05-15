@@ -60,6 +60,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     const respostas = [];
     for (let i = 1; i <= 8; i++) {
       const chave = `q${i}`;
+      console.log(`q${i}:`, task[chave], typeof task[chave]);
       respostas.push({
         id: i,
         theme: PERGUNTAS[i - 1],
@@ -158,7 +159,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                             <span className="font-bold">
                               {resposta.theme + ": "}
                             </span>
-                            {resposta.label}
+                            {String(resposta.label).charAt(0).toUpperCase() + String(resposta.label).slice(1)}
                           </div>
                         ))}
                       </div>
