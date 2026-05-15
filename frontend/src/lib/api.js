@@ -1,6 +1,6 @@
 import { getAuthToken } from './authSession';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://cleanline-4kf1.onrender.com';
 
 export async function apiFetch(path, options = {}) {
   const token = typeof window !== 'undefined' ? getAuthToken() : null;
