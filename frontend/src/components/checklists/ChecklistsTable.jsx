@@ -103,7 +103,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                     className="h-8 w-8"
                     aria-label={`Ver detalhes de ${task.setor}`}
                   >
-                    <EyeIcon className="size-5" />
+                    <EyeIcon className="size-5 text-white" />
                   </Button>
                 </PopoverTrigger>
 
