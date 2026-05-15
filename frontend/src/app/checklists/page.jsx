@@ -6,7 +6,6 @@ import Sidebar from "@/components/layout/Sidebar";
 import ChecklistsTable from "@/components/checklists/ChecklistsTable";
 import SearchBar from "@/components/funcionarios/SearchBar";
 import { getChecklistsHoje } from "@/lib/controllers/dashboard";
-import { SpinnerBars } from "@/components/Spinner";
 
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -49,7 +48,7 @@ export default function Checklists() {
             </div>
           </div>
           {loading ? (
-            <div className="text-center">Carregando checklists... <SpinnerBars/></div>
+            <div className="text-center">Carregando checklists...</div>
           ) : (
             <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
           )}

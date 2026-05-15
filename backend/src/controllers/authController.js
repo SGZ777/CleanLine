@@ -62,7 +62,7 @@ export function logout(_req, res) {
 
 export async function loginMobile(req, res) {
   try {
-    const { email, senha } = req.query;
+    const { email, senha } = req.body;
     const user = await prisma.supervisor.findFirst({
       where: { Email: email }})
     if (!user) {
