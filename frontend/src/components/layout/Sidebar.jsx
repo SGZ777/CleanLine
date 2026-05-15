@@ -48,14 +48,6 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
 
         <div className={["flex items-center px-3 mb-2", isMinimized ? "flex-col gap-2" : "justify-between"].join(" ")}>
           {mounted && (
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
-              aria-label="Alternar tema"
-            >
-              {theme === "dark" ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
-            </button>
           )}
           <button
             type="button"
