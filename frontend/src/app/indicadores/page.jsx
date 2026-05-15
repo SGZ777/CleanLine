@@ -4,7 +4,6 @@ import { useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import SimpleBarChart, { ChartBarMultiple } from "@/components/indicadores/graficoBarra";
-import PieChartWithCustomizedLabel from "@/components/indicadores/graficoPizza";
 import PieChartInFlexbox from "@/components/indicadores/graficosBuraco";
 
 export default function Indicadores() {
