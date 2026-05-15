@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,56 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
     nome: "",
     tagNfc: "",
     idEquipe: "",
+    rotasSelecionadas: [], // IDs das rotas marcadas
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Dados buscados
+  const [equipes, setEquipes] = useState([]);
+  const [rotas, setRotas] = useState([]);
+  const [loadingEquipes, setLoadingEquipes] = useState(true);
+  const [loadingRotas, setLoadingRotas] = useState(true);
+
+  useEffect(() => {
+    async function carregarEquipes() {
+      try {
+        const res = await apiFetch("/api/equipes");
+        const data = await res.json();
+        setEquipes(data);
+      } catch (e) {
+        console.error("Erro ao carregar equipes", e);
+      } finally {
+        setLoadingEquipes(false);
+      }
+    }
+    async function carregarRotas() {
+      try {
+        const res = await apiFetch("/api/rotas");
+        const data = await res.json();
+        setRotas(data);
+      } catch (e) {
+        console.error("Erro ao carregar rotas", e);
+      } finally {
+        setLoadingRotas(false);
+      }
+    }
+    carregarEquipes();
+    carregarRotas();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRotasCheckbox = (rotaId) => {
+    setFormData((prev) => {
+      const selecionadas = prev.rotasSelecionadas.includes(rotaId)
+        ? prev.rotasSelecionadas.filter((id) => id !== rotaId)
+        : [...prev.rotasSelecionadas, rotaId];
+      return { ...prev, rotasSelecionadas: selecionadas };
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -27,13 +70,17 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
     setError("");
 
     try {
+      const body = {
+        nome: formData.nome,
+        tagNfc: formData.tagNfc,
+        idEquipe: Number(formData.idEquipe),
+        rotas: formData.rotasSelecionadas,
+      };
+
       const res = await apiFetch("/api/setores", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          idEquipe: Number(formData.idEquipe),
-        }),
+        body: JSON.stringify(body),
       });
 
       if (!res.ok) {
@@ -54,7 +101,12 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
       <div className="bg-white rounded-lg shadow-lg w-full max-w-xl max-h-[90vh] overflow-y-auto p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Adicionar Setor</h2>
-          <Button className="bg-transparent hover:bg-muted" variant="ghost" size="icon" onClick={onClose}>
+          <Button
+            className="bg-transparent hover:bg-muted"
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+          >
             <X className="h-5 w-5" />
           </Button>
         </div>
@@ -82,26 +134,64 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
               />
             </div>
             <div>
-              <Label htmlFor="idEquipe">ID da Equipe *</Label>
-              <Input
-                id="idEquipe"
-                name="idEquipe"
-                type="number"
-                min="1"
-                value={formData.idEquipe}
-                onChange={handleChange}
-                required
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Informe o identificador da equipe de limpeza vinculada.
-              </p>
+              <Label htmlFor="idEquipe">Equipe *</Label>
+              {loadingEquipes ? (
+                <p className="text-sm text-gray-500">Carregando equipes...</p>
+              ) : (
+                <select
+                  id="idEquipe"
+                  name="idEquipe"
+                  value={formData.idEquipe}
+                  onChange={handleChange}
+                  required
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                >
+                  <option value="">Selecione uma equipe</option>
+                  {equipes.map((eq) => (
+                    <option key={eq.Id} value={eq.Id}>
+                      {eq.Nome}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
+          </div>
+
+          {/* Rotas (checkboxes) */}
+          <div>
+            <Label>Rotas (opcional)</Label>
+            {loadingRotas ? (
+              <p className="text-sm text-gray-500">Carregando rotas...</p>
+            ) : rotas.length === 0 ? (
+              <p className="text-sm text-gray-500">Nenhuma rota disponível</p>
+            ) : (
+              <div className="mt-2 grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border rounded p-2">
+                {rotas.map((rota) => (
+                  <label
+                    key={rota.id}
+                    className="flex items-center gap-2 text-sm cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.rotasSelecionadas.includes(rota.id)}
+                      onChange={() => handleRotasCheckbox(rota.id)}
+                    />
+                    {rota.Nome}
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white"
+              variant="outline"
+              onClick={onClose}
+            >
               Cancelar
             </Button>
             <Button
