@@ -44,12 +44,30 @@ export default function FuncionariosTable({ searchTerm = "" }) {
 
   const getFuncKey = (func) => `${func.Tipo}-${func.id}`;
 
+  const parseApiResponse = async (res) => {
+    const contentType = res.headers.get('content-type') || '';
+    const text = await res.text();
+    if (!contentType.includes('application/json')) {
+      throw new Error(
+        `Resposta inválida do servidor: ${res.status} ${res.statusText} - ${text.slice(0, 200)}`
+      );
+    }
+
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error(`JSON inválido do servidor: ${text.slice(0, 200)}`);
+    }
+  };
+
   const fetchFuncionarios = async () => {
     setLoading(true);
     try {
       const res = await apiFetch("/api/funcionarios");
-      if (!res.ok) throw new Error("Erro ao carregar");
-      const data = await res.json();
+      const data = await parseApiResponse(res);
+      if (!res.ok) {
+        throw new Error(data.error || 'Erro ao carregar');
+      }
       setFuncionarios(data);
     } catch (error) {
       console.error(error);
@@ -84,7 +102,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
       });
 
       if (!res.ok) {
-        const err = await res.json();
+        const err = await parseApiResponse(res);
         throw new Error(err.error || "Erro ao inativar");
       }
 
@@ -127,11 +145,11 @@ export default function FuncionariosTable({ searchTerm = "" }) {
       });
 
       if (!res.ok) {
-        const err = await res.json();
+        const err = await parseApiResponse(res);
         throw new Error(err.error || "Erro ao atualizar");
       }
 
-      const updated = await res.json();
+      const updated = await parseApiResponse(res);
       setFuncionarios((prev) =>
         prev.map((f) =>
           getFuncKey(f) === editingFunc ? updated.funcionario : f
