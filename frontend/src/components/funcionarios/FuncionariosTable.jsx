@@ -332,7 +332,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   };
 
   if (loading) {
-    return <div className="p-6 text-center">Carregando funcionários...</div>;
+    return <div className="p-6 text-center">Carregando funcionários... <SpinnerBars/></div>;
   }
 
   return (

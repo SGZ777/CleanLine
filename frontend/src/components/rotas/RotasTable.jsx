@@ -264,7 +264,7 @@ export default function RotasTable({ searchTerm = "" }) {
     );
   };
 
-  if (loading) return <div className="p-6 text-center">Carregando rotas...</div>;
+  if (loading) return <div className="p-6 text-center">Carregando rotas... <SpinnerBars/></div>;
 
   return (
     <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">

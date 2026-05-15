@@ -278,7 +278,7 @@ export default function SetoresTable({ searchTerm = "" }) {
     );
   };
 
-  if (loading) return <div className="p-6 text-center">Carregando setores...</div>;
+  if (loading) return <div className="p-6 text-center">Carregando setores... <SpinnerBars/></div>;
 
   return (
     <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
