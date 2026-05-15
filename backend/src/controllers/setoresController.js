@@ -123,10 +123,9 @@ export async function deleteSetor(req, res) {
   try {
     // Verifica dependências
     const vistorias = await prisma.vistoria.count({ where: { Id_Setor: parseInt(id) } });
-    const perguntas = await prisma.pergunta.count({ where: { Id_Setor: parseInt(id) } });
-    if (vistorias > 0 || perguntas > 0) {
+    if (vistorias > 0) {
       return res.status(409).json({
-        error: 'Não é possível excluir este setor porque existem vistorias ou perguntas vinculadas a ele. Remova essas dependências primeiro.',
+        error: 'Não é possível excluir este setor porque existem vistorias vinculadas a ele. Remova essas dependências primeiro.',
       });
     }
 

@@ -40,11 +40,16 @@ export default function SetoresTable({ searchTerm = "" }) {
     setLoading(true);
     try {
       const res = await apiFetch("/api/setores");
-      if (!res.ok) throw new Error("Erro ao carregar");
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('Erro ao carregar setores:', res.status, text);
+        throw new Error(`Erro ao carregar setores: ${res.status} ${text}`);
+      }
       const data = await res.json();
       setSetores(data);
     } catch (error) {
       console.error(error);
+      alert(error.message || 'Erro ao carregar setores');
     } finally {
       setLoading(false);
     }
