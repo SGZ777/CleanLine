@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-// Funções de máscara
+// Funções de máscara (mantidas como estão)
 const formatCPF = (value) => {
   const digits = value.replace(/\D/g, "");
   return digits
@@ -49,6 +49,31 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Lista de equipes para o dropdown
+  const [equipes, setEquipes] = useState([]);
+  const [loadingEquipes, setLoadingEquipes] = useState(false);
+
+  // Buscar equipes ao abrir o modal
+  useEffect(() => {
+    async function carregarEquipes() {
+      setLoadingEquipes(true);
+      try {
+        const res = await apiFetch("/api/equipes");
+        if (res.ok) {
+          const data = await res.json();
+          setEquipes(data);
+        } else {
+          console.error("Erro ao buscar equipes");
+        }
+      } catch (err) {
+        console.error("Erro ao buscar equipes:", err);
+      } finally {
+        setLoadingEquipes(false);
+      }
+    }
+    carregarEquipes();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -71,12 +96,13 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
     setLoading(true);
     setError("");
 
-    // Remover formatação antes de enviar (opcional, backend pode limpar)
+    // Remover formatação antes de enviar
     const cleanData = {
       ...formData,
       cpf: formData.cpf.replace(/\D/g, ""),
       tel: formData.tel.replace(/\D/g, ""),
       cep: formData.cep.replace(/\D/g, ""),
+      idEquipe: formData.idEquipe ? Number(formData.idEquipe) : undefined,
     };
 
     try {
@@ -187,15 +213,37 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
           {isFuncLimpeza && (
             <div>
               <Label htmlFor="idEquipe">Equipe *</Label>
-              <Input id="idEquipe" name="idEquipe" type="number" value={formData.idEquipe} onChange={handleChange} required />
-              <p className="text-xs text-muted-foreground mt-1">ID da equipe de limpeza.</p>
+              {loadingEquipes ? (
+                <p className="text-sm text-gray-500">Carregando equipes...</p>
+              ) : (
+                <select
+                  id="idEquipe"
+                  name="idEquipe"
+                  value={formData.idEquipe}
+                  onChange={handleChange}
+                  required
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                >
+                  <option value="">Selecione uma equipe</option>
+                  {equipes.map((equipe) => (
+                    <option key={equipe.Id} value={equipe.Id}>
+                      {equipe.Nome}
+                    </option>
+                  ))}
+                </select>
+              )}
+              <p className="text-xs text-muted-foreground mt-1">
+                Selecione a equipe de limpeza à qual o funcionário será vinculado.
+              </p>
             </div>
           )}
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white" variant="outline" onClick={onClose}>Cancelar</Button>
+            <Button type="button" className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white" variant="outline" onClick={onClose}>
+              Cancelar
+            </Button>
             <Button type="submit" disabled={loading} className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white">
               {loading ? "Salvando..." : "Salvar"}
             </Button>
