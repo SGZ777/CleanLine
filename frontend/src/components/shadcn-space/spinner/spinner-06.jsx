@@ -11,7 +11,7 @@ export default function SpinnerBars() {
           50% { height: 20px; }
         }
       `}</style>
-      <div className="flex items-end gap-1 h-5">
+      <div className="ml-2 inline-flex h-5 items-end gap-1 align-middle">
         {[0, 0.2, 0.4].map((delay, i) => (
           <span
             key={i}
