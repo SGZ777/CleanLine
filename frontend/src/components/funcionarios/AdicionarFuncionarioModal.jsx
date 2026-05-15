@@ -241,10 +241,10 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white" variant="outline" onClick={onClose}>
+            <Button type="button" variant="outline" onClick={onClose}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading} className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white">
+            <Button type="submit" disabled={loading}>
               {loading ? "Salvando..." : "Salvar"}
             </Button>
           </div>
