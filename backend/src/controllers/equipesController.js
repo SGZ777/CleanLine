@@ -16,7 +16,7 @@ export async function getEquipes(_req, res) {
     });
 
     const formatted = equipes.map((equipe) => ({
-      id: equipe.Id,
+      Id: equipe.Id,
       Nome: equipe.Nome,
       Funcionarios:
         equipe.Funcionarios.map((funcionario) => funcionario.Nome).join(', ') ||

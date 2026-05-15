@@ -42,7 +42,6 @@ const getNotaColor = (nota) => {
 };
 
 export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
-  console.log("COMPONENTE RENDERIZOU", tasks);
   const filteredTasks = tasks.filter((task) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
