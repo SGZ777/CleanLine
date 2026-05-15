@@ -98,12 +98,12 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant="default"
                     size="icon"
                     className="h-8 w-8"
                     aria-label={`Ver detalhes de ${task.setor}`}
                   >
-                    <EyeIcon color="white" className="size-5" />
+                    <EyeIcon className="size-5" />
                   </Button>
                 </PopoverTrigger>
 

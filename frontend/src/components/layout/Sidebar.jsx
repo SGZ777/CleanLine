@@ -46,7 +46,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           </button>
         </div>
 
-        <div className={["flex items-center px-3 mb-2", isMinimized ? "flex-col gap-2" : "justify-between"].join(" ")}>
+        <div className={["flex items-center px-3 mb-2", isMinimized ? "justify-center" : "justify-end"].join(" ")}>
           <button
             type="button"
             onClick={() => setIsMinimized(!isMinimized)}

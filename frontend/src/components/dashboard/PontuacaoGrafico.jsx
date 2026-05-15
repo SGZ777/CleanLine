@@ -17,7 +17,10 @@ import { getGraficoPontuacaoMensal } from "@/lib/controllers/dashboard";
 const chartConfig = {
   media: {
     label: "Media Diaria",
-    color: "hsl(var(--chart-1))",
+    theme: {
+      light: "var(--primary)",
+      dark: "#ffffff",
+    },
   },
 };
 // Formata a nota 
