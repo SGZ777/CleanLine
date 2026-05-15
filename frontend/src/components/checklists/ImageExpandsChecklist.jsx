@@ -14,7 +14,7 @@ export default function ExpandableImage({ src, alt, width = 320, height = 220 })
         onClick={() => setOpen(true)}
         className="inline-block mt-5 cursor-zoom-in rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
       >
-        <Image src={src} alt={alt} width={width} height={height} className="block" />
+        {/* <Image src={src} alt={alt} width={width} height={height} className="block" /> */}
       </div>
 
       {open && (
