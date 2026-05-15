@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 app.set('trust proxy', 1);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'https://clean-line.vercel.app',

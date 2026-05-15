@@ -12,5 +12,6 @@ router.get('/', getEquipes);
 router.post('/', createEquipe);
 router.put('/:id', updateEquipe);
 router.patch('/:id', deleteEquipe);
+router.delete('/:id', deleteEquipe);
 
 export default router;

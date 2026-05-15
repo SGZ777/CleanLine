@@ -11,6 +11,6 @@ const router = Router();
 router.get('/', getSetores);
 router.post('/', createSetor);
 router.put('/:id', updateSetor);
-router.patch('/:id', deleteSetor);
+router.delete('/:id', deleteSetor);
 
 export default router;
