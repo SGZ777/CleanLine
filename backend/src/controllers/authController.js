@@ -66,7 +66,7 @@ export async function loginMobile(req, res) {
     const user = await prisma.supervisor.findFirst({
       where: { Email: email }})
     if (!user) {
-      return res.status(401).json({ erro: 'Email ou senha incorretos' });
+      return res.status(401).json({ erro: 'Email incorreto' });
     }
     const senhaValida = await bcrypt.compare(senha, user.Senha);
      if (senhaValida) {
