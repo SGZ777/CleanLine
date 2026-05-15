@@ -12,5 +12,6 @@ router.get('/', getFuncionarios);
 router.post('/', createFuncionario);
 router.patch('/:id', inativarFuncionario);
 router.put('/:id', updateFuncionario);
+router.delete('/:id', inativarFuncionario);
 
 export default router;

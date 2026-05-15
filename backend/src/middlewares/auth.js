@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
+const SECRET_KEY = process.env.JWT_SECRET;
+
+if (!SECRET_KEY) {
+  throw new Error('JWT_SECRET não configurado nas variáveis de ambiente');
+}
 
 function getTokenFromRequest(req) {
   if (req.cookies?.cleanline_token) {
