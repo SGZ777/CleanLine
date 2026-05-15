@@ -7,11 +7,13 @@ import {
   getSidebarItemClass,
   sidebarItems,
 } from "@/lib/scripts/hoverSideBar";
-import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 export default function Sidebar({ isOpen = false, onClose = () => {} }) {
   const pathname = usePathname();
   const [isMinimized, setIsMinimized] = useState(false);
+  const { theme, toggleTheme, mounted } = useTheme();
 
   return (
     <>
@@ -44,14 +46,24 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           </button>
         </div>
 
-        <div className="hidden md:flex justify-end px-3 mb-2">
+        <div className={["flex items-center px-3 mb-2", isMinimized ? "flex-col gap-2" : "justify-between"].join(" ")}>
+          {mounted && (
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
+              aria-label="Alternar tema"
+            >
+              {theme === "dark" ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setIsMinimized(!isMinimized)}
-            className="rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
+            className="hidden md:block rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
             aria-label={isMinimized ? "Expandir sidebar" : "Minimizar sidebar"}
           >
-           {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
+            {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
           </button>
         </div>
 

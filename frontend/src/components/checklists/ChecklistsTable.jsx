@@ -72,8 +72,8 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     // URL da imagem (usa placeholder se não houver)
     const imagemSrc = task.imagem || "/placeholder.jpg";
 
-    console.log("tasks:", tasks);
-    console.log("filteredTasks:", filteredTasks);
+      // console.log("tasks:", tasks);
+    // console.log("filteredTasks:", filteredTasks);
 
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
