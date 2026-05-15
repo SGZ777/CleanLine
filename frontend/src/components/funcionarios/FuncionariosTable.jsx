@@ -309,13 +309,11 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="outline"
-                        className="bg-transparent ring-1"
                         onClick={() => setEditingFunc(null)}
                       >
                         Cancelar
                       </Button>
                       <Button
-                        className="bg-transparent ring-1"
                         onClick={handleSaveEdit}
                         disabled={editPending}
                       >
@@ -361,14 +359,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                   <div className="mt-4 flex justify-end gap-2">
                     <Button
                       variant="outline"
-                      className="bg-transparent ring-1"
                       onClick={() => setDeletingFunc(null)}
                     >
                       Cancelar
                     </Button>
                     <Button
                       variant="destructive"
-                      className="bg-transparent ring-1"
                       onClick={() => handleInativar(func)}
                       disabled={deletePending}
                     >
