@@ -9,16 +9,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
+ const logoSrc =
+    mounted && theme === "dark"
+      ? "logoCleanlineEscuro.png"
+      : "logoCleanline.png";
+
 const LoginForm = ({
   heading = "Fazer login",
   heading2 = "Bem-vindo",
   heading2azul = "de volta!",
-
-  logo = {
-    src: "logoCleanline.png",
-    alt: "logo",
-    title: "shadcnblocks.com",
-  },
 
   buttonText = "Entrar",
   className
@@ -70,9 +69,8 @@ const LoginForm = ({
 
       <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
         <img
-          src={logo.src}
-          alt={logo.alt}
-          title={logo.title}
+          src={logoSrc}
+          alt="logo"
           className="h-10 scale-170 justify-self-center" />
 
         <form
