@@ -103,7 +103,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                 </PopoverTrigger>
 
                 <PopoverContent
-                  className="w-255 h-115 p-5"
+                  className=" w-5/6 h-4/5 md:w-255 md:h-115 p-5"
                   avoidCollisions={true}
                   collisionPadding={20}
                   align="end"
