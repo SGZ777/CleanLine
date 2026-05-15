@@ -10,7 +10,6 @@ function formatNota(value) {
   if (notaArredondada >= 10) {
     return "10";
   }
-
   return notaArredondada.toFixed(1);
 }
 
