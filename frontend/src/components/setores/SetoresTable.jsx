@@ -5,7 +5,6 @@ import { apiFetch } from "@/lib/api";
 import { EyeIcon, Loader2, PencilIcon, Trash2Icon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { SpinnerBars } from "@/components/Spinner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -284,7 +283,7 @@ export default function SetoresTable({ searchTerm = "" }) {
     );
   };
 
-  if (loading) return <div className="p-6 text-center">Carregando setores... <SpinnerBars/></div>;
+  if (loading) return <div className="p-6 text-center">Carregando setores...</div>;
 
   return (
     <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
