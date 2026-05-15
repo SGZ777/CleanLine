@@ -19,7 +19,7 @@ export default function Rotas() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f1f1f1]">
+    <div className="min-h-screen bg-background text-foreground">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
 
       <div className="flex flex-col md:flex-row">
@@ -36,7 +36,7 @@ export default function Rotas() {
                   <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
-                  className="bg-[#1c96c2] text-white px-4 mt-3 md:mt-0 border-none md:scale-120 shadow-md"
+                  className="mt-3 px-4 md:mt-0 md:scale-120 shadow-md"
                   onClick={() => setShowAddModal(true)}
                 >
                   Adicionar +

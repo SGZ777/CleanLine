@@ -9,7 +9,10 @@ function Table({
   ...props
 }) {
   return (
-    <div data-slot="table-container" className="relative w-full overflow-x-auto ring-2 ring-[#FFFFFF] bg-white rounded-lg shadow-md">
+    <div
+      data-slot="table-container"
+      className="relative w-full overflow-x-auto rounded-xl border border-border bg-card text-card-foreground shadow-lg shadow-black/5"
+    >
       <table
         data-slot="table"
         className={cn("w-full caption-bottom text-sm", className)}
@@ -62,7 +65,7 @@ function TableRow({
     <tr
       data-slot="table-row"
       className={cn(
-        " transition-colors even:bg-gray-100 hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted",
+        "border-b border-border/70 transition-colors even:bg-muted/35 hover:bg-muted/70 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted",
         className
       )}
       {...props} />

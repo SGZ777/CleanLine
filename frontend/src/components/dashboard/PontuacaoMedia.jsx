@@ -10,7 +10,6 @@ function formatNota(value) {
   if (notaArredondada >= 10) {
     return "10";
   }
-
   return notaArredondada.toFixed(1);
 }
 
@@ -50,7 +49,7 @@ export default function PontuacaoMedia() {
   }, []);
 
   return (
-    <section className="w-80 h-auto md:w-105 rounded-[25px] bg-white m-6 shadow-md">
+    <section className="m-6 h-auto w-80 rounded-[25px] border border-border bg-card text-card-foreground shadow-md md:w-105">
       <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
         Pontuação média mensal
       </p>

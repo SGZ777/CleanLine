@@ -14,7 +14,6 @@ import {
 
 import { getGraficoSetoresMensal } from "@/lib/controllers/dashboard";
 
-// Cores dos meses
 const MONTH_COLORS = ["#00afdc", "#2ad7eb", "#0d005d"];
 
 const SimpleBarChart = () => {
@@ -34,23 +33,18 @@ const SimpleBarChart = () => {
           return;
         }
 
-        // Ordena os meses corretamente
         const mesesUnicos = [...new Set(dados.map((d) => d.mes))].sort(
           (a, b) => new Date(a) - new Date(b)
         );
 
         setMeses(mesesUnicos);
 
-        // Pivot dos dados
         const pivot = {};
 
         dados.forEach(({ setor, mes, media }) => {
           if (!pivot[setor]) {
-            pivot[setor] = {
-              name: setor,
-            };
+            pivot[setor] = { name: setor };
 
-            // Inicializa todos os meses
             mesesUnicos.forEach((m) => {
               pivot[setor][m] = 0;
             });
@@ -73,7 +67,7 @@ const SimpleBarChart = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-gray-500">
+      <div className="p-8 text-center text-muted-foreground">
         Carregando gráfico...
       </div>
     );
@@ -89,7 +83,7 @@ const SimpleBarChart = () => {
 
   if (chartData.length === 0) {
     return (
-      <div className="p-8 text-center text-gray-500">
+      <div className="p-8 text-center text-muted-foreground">
         Nenhum dado disponível.
       </div>
     );
@@ -103,21 +97,11 @@ const SimpleBarChart = () => {
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-
           <XAxis dataKey="name" />
-
-          <YAxis
-            width={30}
-            domain={[0, 10]}
-            ticks={[0, 2, 4, 6, 8, 10]}
-          />
-
+          <YAxis width={30} domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} />
           <Tooltip />
-
-          {/* LEGENDA CUSTOMIZADA */}
           <Legend className="m-20" content={<CustomLegend meses={meses} />} />
 
-          {/* BARRAS */}
           {meses.map((mes, index) => (
             <Bar
               key={mes}
@@ -132,10 +116,8 @@ const SimpleBarChart = () => {
   );
 };
 
-// FORMATA O MÊS
 function formatMes(mesStr) {
   const [ano, mes] = mesStr.split("-");
-
   const data = new Date(ano, mes - 1);
 
   return data.toLocaleDateString("pt-BR", {
@@ -144,7 +126,6 @@ function formatMes(mesStr) {
   });
 }
 
-// LEGENDA CUSTOMIZADA
 function CustomLegend({ meses }) {
   return (
     <div
@@ -169,8 +150,7 @@ function CustomLegend({ meses }) {
             style={{
               width: 12,
               height: 12,
-              backgroundColor:
-                MONTH_COLORS[index % MONTH_COLORS.length],
+              backgroundColor: MONTH_COLORS[index % MONTH_COLORS.length],
               borderRadius: 2,
             }}
           />

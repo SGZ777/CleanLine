@@ -139,7 +139,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
                     disabled={busy}
                     aria-label={`Ver detalhes de ${equipe.Nome}`}
                   >
@@ -172,7 +172,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
                     disabled={busy}
                     aria-label={`Editar ${equipe.Nome}`}
                   >
@@ -219,7 +219,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-destructive hover:bg-destructive hover:text-white"
+                    className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
                     disabled={busy}
                     aria-label={`Excluir ${equipe.Nome}`}
                   >

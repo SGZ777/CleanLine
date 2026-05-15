@@ -58,6 +58,6 @@ export function getSidebarItemClass(currentPath, itemPath, isMinimized = false) 
     "py-3",
     "transition-colors",
     isMinimized ? "justify-center px-0" : "gap-4 px-4",
-    isActive ? "bg-[#24bff6]" : "hover:bg-[#24bff6]/40",
+    isActive ? "bg-[var(--sidebar-active)]" : "hover:bg-[var(--sidebar-hover)]",
   ].join(" ");
 }

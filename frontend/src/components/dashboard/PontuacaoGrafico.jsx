@@ -70,7 +70,7 @@ export function PontuacaoGrafico() {
 
   if (loading) {
     return (
-      <Card className="w-full max-w-230 bg-white shadow-md">
+      <Card className="w-full max-w-230 border border-border bg-card shadow-md">
         <CardContent className="p-6 text-center">
           Carregando dados do grafico...
         </CardContent>
@@ -80,7 +80,7 @@ export function PontuacaoGrafico() {
 
   if (!chartData.length) {
     return (
-      <Card className="w-full max-w-230 bg-white shadow-md">
+      <Card className="w-full max-w-230 border border-border bg-card shadow-md">
         <CardContent className="p-6 text-center">
           Nenhum dado disponivel para o mes atual.
         </CardContent>
@@ -89,7 +89,7 @@ export function PontuacaoGrafico() {
   }
 
   return (
-    <Card className="w-full max-w-230 bg-white shadow-md overflow-visible">
+    <Card className="w-full max-w-230 overflow-visible border border-border bg-card shadow-md">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
           Média de pontuação 5S -{" "}
@@ -133,7 +133,7 @@ export function PontuacaoGrafico() {
               cursor={false}
               content={
                 <ChartTooltipContent
-                  className="w-37.5 z-9999 rounded border bg-white shadow-lg"
+                  className="z-9999 w-37.5 rounded border border-border bg-popover shadow-lg"
                   nameKey="views"
                   labelFormatter={(value) => {
                     if (!value) return "";
