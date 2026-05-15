@@ -1,4 +1,4 @@
-'use client' // Avisamos que é um Client Component
+'use client'
 
 import { useState, useEffect } from "react";
 import {
@@ -12,14 +12,12 @@ import { cn } from "@/lib/utils";
 import LeaderboardFirst from "./LeaderboardFirst";
 import LeaderboardSecond from "./LeaderboardSecond";
 import LeaderboardThird from "./LeaderboardThird";
-import { getRankingDoMes } from '@/lib/controllers/dashboard'; 
+import { getRankingDoMes } from "@/lib/controllers/dashboard";
 
 const LeaderboardCard = ({ className }) => {
-  
   const [ranking, setRanking] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  // O useEffect com array vazio [] garante que isso só rode UMA VEZ
   useEffect(() => {
     async function buscarDados() {
       try {
@@ -35,26 +33,33 @@ const LeaderboardCard = ({ className }) => {
     buscarDados();
   }, []);
 
-  
   if (carregando) {
     return (
-      <Card className={cn("w-full h-auto max-w-lg p-10 flex justify-center items-center", className)}>
-        <p className="text-gray-500 animate-pulse">Carregando ranking...</p>
+      <Card className={cn("flex h-auto w-full max-w-lg items-center justify-center p-10", className)}>
+        <p className="animate-pulse text-muted-foreground">Carregando ranking...</p>
       </Card>
     );
   }
 
-  // se nn tiver nota vira 0.0
-  const primeiro = ranking[0] || { NomeSetor: 'Aguardando', MediaNota: '0.0' };
-  const segundo = ranking[1] || { NomeSetor: 'Aguardando', MediaNota: '0.0' };
-  const terceiro = ranking[2] || { NomeSetor: 'Aguardando', MediaNota: '0.0' };
+  const primeiro = ranking[0] || { NomeSetor: "Aguardando", MediaNota: "0.0" };
+  const segundo = ranking[1] || { NomeSetor: "Aguardando", MediaNota: "0.0" };
+  const terceiro = ranking[2] || { NomeSetor: "Aguardando", MediaNota: "0.0" };
 
   return (
-    <Card className={cn("justify-self-center w-full h-auto max-w-lg  bg-white ring-0 shadow-md m-5 p-3 pt-10 pb-10", className)}>
+    <Card
+      className={cn(
+        "justify-self-center m-5 h-auto w-full max-w-lg border border-border bg-card p-3 pt-10 pb-10 shadow-md ring-0",
+        className
+      )}
+    >
       <CardHeader>
         <CardTitle className="text-4xl">Ranking do mês</CardTitle>
         <CardDescription className="text-lg">
-          O setor de <span className="font-semibold text-gray-900">{primeiro.NomeSetor}</span> ganhou o troféu de ouro de organização este mês
+          O setor de{" "}
+          <span className="font-semibold text-foreground">
+            {primeiro.NomeSetor}
+          </span>{" "}
+          ganhou o troféu de ouro de organização este mês
         </CardDescription>
       </CardHeader>
 

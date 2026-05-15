@@ -71,7 +71,7 @@ export default function HomeAdm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f1f1f1]">
+    <div className="min-h-screen bg-background text-foreground">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
 
       <div className="flex flex-col md:flex-row">

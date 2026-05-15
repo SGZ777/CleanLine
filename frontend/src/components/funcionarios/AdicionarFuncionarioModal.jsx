@@ -103,8 +103,8 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
   const isFuncLimpeza = formData.cargo === "Funcionário de Limpeza";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-2xl">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Adicionar Funcionário</h2>
           <Button className="bg-transparent hover:bg-muted" variant="ghost" size="icon" onClick={onClose}>
@@ -139,7 +139,7 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
               name="cargo"
               value={formData.cargo}
               onChange={handleChange}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
               required
             >
               <option value="Administrador">Administrador</option>
@@ -195,8 +195,8 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white" variant="outline" onClick={onClose}>Cancelar</Button>
-            <Button type="submit" disabled={loading} className="bg-[#6B6B6B] hover:bg-[#157a9e] text-white">
+            <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
+            <Button type="submit" disabled={loading}>
               {loading ? "Salvando..." : "Salvar"}
             </Button>
           </div>

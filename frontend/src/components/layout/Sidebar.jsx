@@ -18,7 +18,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
       {isOpen && (
         <button
           type="button"
-          className="fixed inset-0 z-30 bg-[#0d005d]/30 md:hidden"
+          className="fixed inset-0 z-30 bg-[var(--sidebar-overlay)] md:hidden"
           aria-label="Fechar menu"
           onClick={onClose}
         />
@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
 
       <aside
         className={[
-          "fixed left-0 top-0 z-40 h-screen pt-5 transition-all duration-300 bg-[#1c96c2] md:static md:h-screen md:translate-x-0 md:rounded-r-[20px]",
+          "fixed left-0 top-0 z-40 h-screen bg-[var(--sidebar-background)] pt-5 text-white shadow-2xl transition-all duration-300 md:static md:h-screen md:translate-x-0 md:rounded-r-[20px]",
           isMinimized ? "w-16" : "w-72 md:w-2xs",
           isOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
@@ -36,7 +36,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           <span className="text-lg font-semibold text-white">Menu</span>
           <button
             type="button"
-            className="rounded-lg px-3 py-2 text-white hover:bg-[#24bff6]/40"
+            className="rounded-lg px-3 py-2 text-white hover:bg-[var(--sidebar-hover)]"
             onClick={onClose}
             aria-label="Fechar sidebar"
           >
@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           <button
             type="button"
             onClick={() => setIsMinimized(!isMinimized)}
-            className="rounded-lg p-1.5 text-white hover:bg-[#24bff6]/40 transition"
+            className="rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
             aria-label={isMinimized ? "Expandir sidebar" : "Minimizar sidebar"}
           >
            {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
