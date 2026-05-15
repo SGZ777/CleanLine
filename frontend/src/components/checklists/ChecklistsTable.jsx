@@ -42,6 +42,7 @@ const getNotaColor = (nota) => {
 };
 
 export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
+  alert("RENDERIZOU"); // 👈 troca por alert temporariamente
   const filteredTasks = tasks.filter((task) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
@@ -52,7 +53,9 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     );
   });
 
-  const renderTaskRow = (task) => { 
+
+
+  const renderTaskRow = (task) => {
     const hasVistoria = task.nota !== null && task.nota !== undefined;
     const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
 
@@ -69,6 +72,9 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
 
     // URL da imagem (usa placeholder se não houver)
     const imagemSrc = task.imagem || "/placeholder.jpg";
+
+    console.log("tasks:", tasks);
+    console.log("filteredTasks:", filteredTasks);
 
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
@@ -145,7 +151,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                             <span className="font-bold">
                               {resposta.theme + ": "}
                             </span>
-                            {resposta.label.charAt(0).toUpperCase() + resposta.label.slice(1)}
+                            {String(resposta.label).charAt(0).toUpperCase() + String(resposta.label).slice(1)}
                           </div>
                         ))}
                       </div>
@@ -158,7 +164,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                             <span className="font-bold">
                               {resposta.theme + ": "}
                             </span>
-                            {resposta.label}
+                            {String(resposta.label).charAt(0).toUpperCase() + String(resposta.label).slice(1)}
                           </div>
                         ))}
                       </div>
