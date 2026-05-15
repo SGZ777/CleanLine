@@ -1,3 +1,5 @@
+"use client";
+
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 export default function Header() {
