@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 import { getDistribuicaoNotasEquipes } from "@/lib/controllers/dashboard";
+import { SpinnerBars } from "@/components/Spinner";
 
 // Mapeamento fixo de cores por faixa
 const CORES = {
@@ -61,7 +62,7 @@ export default function PieChartInFlexbox() {
   }, []);
 
   if (loading) {
-    return <div className="mt-8 text-center">Carregando gráficos...</div>;
+    return <div className="mt-8 text-center"><SpinnerBars/></div>;
   }
 
   if (error) {
