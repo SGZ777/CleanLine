@@ -59,3 +59,26 @@ export async function getUser(req, res) {
 export function logout(_req, res) {
   return res.status(200).json({ mensagem: 'Logout realizado com sucesso' });
 }
+
+export async function loginMobile(req, res) {
+  try {
+    const { email, senha } = req.query;
+    const user = await prisma.supervisor.findFirst({
+      where: { Email: email }})
+    if (!user) {
+      return res.status(401).json({ erro: 'Email incorreto' });
+    }
+    const senhaValida = await bcrypt.compare(senha, user.Senha);
+     if (senhaValida) {
+        // Senha correta! Retorna os dados para o Android
+        res.json(user);
+    } else {
+        // Senha errada
+        res.status(401).json({ message: "Senha incorreta" });
+    }
+    } catch (error) {
+      console.error('Erro no login mobile:', error);
+      return res.status(500).json({ erro: 'Erro interno no servidor' });
+    }
+  }
+  
