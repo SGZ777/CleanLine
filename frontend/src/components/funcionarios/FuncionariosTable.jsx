@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { SpinnerBars } from "@/components/Spinner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -333,7 +332,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   };
 
   if (loading) {
-    return <div className="p-6 text-center">Carregando funcionários... <SpinnerBars/></div>;
+    return <div className="p-6 text-center">Carregando funcionários...</div>;
   }
 
   return (

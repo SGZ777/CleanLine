@@ -115,7 +115,7 @@ const SimpleBarChart = () => {
           <Tooltip />
 
           {/* LEGENDA CUSTOMIZADA */}
-          <Legend content={<CustomLegend meses={meses} />} />
+          <Legend className="m-20" content={<CustomLegend meses={meses} />} />
 
           {/* BARRAS */}
           {meses.map((mes, index) => (
