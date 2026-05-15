@@ -145,7 +145,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                             <span className="font-bold">
                               {resposta.theme + ": "}
                             </span>
-                            {resposta.label.charAt(0).toUpperCase() + resposta.label.slice(1)}
+                            {String(resposta.label).charAt(0).toUpperCase() + String(resposta.label).slice(1)}
                           </div>
                         ))}
                       </div>
