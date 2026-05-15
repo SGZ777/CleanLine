@@ -413,6 +413,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
               </TableCell>
             </TableRow>
           ) : (
+            
             filteredFuncionarios.map(renderRow)
           )}
         </TableBody>
