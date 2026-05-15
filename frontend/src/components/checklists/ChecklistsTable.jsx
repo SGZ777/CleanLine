@@ -42,6 +42,7 @@ const getNotaColor = (nota) => {
 };
 
 export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
+  console.log("COMPONENTE RENDERIZOU", tasks);
   const filteredTasks = tasks.filter((task) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
@@ -51,6 +52,8 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
       task.id?.toString().includes(term)
     );
   });
+
+
 
   const renderTaskRow = (task) => {
     const hasVistoria = task.nota !== null && task.nota !== undefined;
@@ -72,7 +75,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
 
     console.log("tasks:", tasks);
     console.log("filteredTasks:", filteredTasks);
-    
+
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
         {/* Nome do setor com cor dinâmica */}
