@@ -8,7 +8,9 @@ import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
+  const { mounted, theme } = useTheme();
  const logoSrc =
     mounted && theme === "dark"
       ? "logoCleanlineEscuro.png"

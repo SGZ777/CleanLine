@@ -1,4 +1,7 @@
+import { useTheme } from "@/components/theme/ThemeProvider";
+
 export default function Header() {
+    const { mounted, theme } = useTheme();
   const logoSrc =
     mounted && theme === "dark"
       ? "logoCleanlineEscuro.png"
