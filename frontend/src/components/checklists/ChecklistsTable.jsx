@@ -52,7 +52,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     );
   });
 
-  const renderTaskRow = (task) => { 
+  const renderTaskRow = (task) => {
     const hasVistoria = task.nota !== null && task.nota !== undefined;
     const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
 
@@ -60,7 +60,6 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     const respostas = [];
     for (let i = 1; i <= 8; i++) {
       const chave = `q${i}`;
-      console.log(`q${i}:`, task[chave], typeof task[chave]);
       respostas.push({
         id: i,
         theme: PERGUNTAS[i - 1],
@@ -71,6 +70,9 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     // URL da imagem (usa placeholder se não houver)
     const imagemSrc = task.imagem || "/placeholder.jpg";
 
+    console.log("tasks:", tasks);
+    console.log("filteredTasks:", filteredTasks);
+    
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
         {/* Nome do setor com cor dinâmica */}
