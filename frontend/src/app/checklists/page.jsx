@@ -27,7 +27,7 @@ export default function Checklists() {
   useEffect(() => {
     carregarChecklists();
   }, [carregarChecklists]);
-
+console.log("loading:", loading, "checklists:", checklists);
   return (
     <div className="min-h-screen bg-[#f1f1f1]">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
