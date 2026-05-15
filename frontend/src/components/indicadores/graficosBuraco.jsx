@@ -62,7 +62,7 @@ export default function PieChartInFlexbox() {
   }, []);
 
   if (loading) {
-    return <div className="mt-8 text-center"><SpinnerBars/></div>;
+    return <div className="mt-8 text-center">Carregando gráficos...<SpinnerBars/></div>;
   }
 
   if (error) {

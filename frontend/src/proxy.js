@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export function middleware(request) {
+export function proxy(request) {
   const hasSession =
     request.cookies.get('cleanline_session')?.value === '1' ||
     request.cookies.get('cleanline_token') != null;
