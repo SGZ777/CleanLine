@@ -52,7 +52,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     );
   });
 
-  const renderTaskRow = (task) => {
+  const renderTaskRow = (task) => { 
     const hasVistoria = task.nota !== null && task.nota !== undefined;
     const setorColorClass = hasVistoria ? "text-green-600" : "text-red-500";
 
@@ -103,7 +103,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                 </PopoverTrigger>
 
                 <PopoverContent
-                  className=" sm:w-5/6 sm:h-4/5 md:w-255 md:h-115 p-5"
+                  className=" sm:w-1/1 sm:h-4/5 md:w-255 md:h-115 p-5"
                   avoidCollisions={true}
                   collisionPadding={20}
                   align="end"
@@ -145,7 +145,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                             <span className="font-bold">
                               {resposta.theme + ": "}
                             </span>
-                            {resposta.label}
+                            {resposta.label.charAt(0).toUpperCase() + resposta.label.slice(1)}
                           </div>
                         ))}
                       </div>
