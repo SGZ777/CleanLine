@@ -10,12 +10,6 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
-  const { mounted, theme } = useTheme();
- const logoSrc =
-    mounted && theme === "dark"
-      ? "logoCleanlineEscuro.png"
-      : "logoCleanline.png";
-
 const LoginForm = ({
   heading = "Fazer login",
   heading2 = "Bem-vindo",
@@ -29,6 +23,11 @@ const LoginForm = ({
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const router = useRouter();
+  const { mounted, theme } = useTheme();
+  const logoSrc =
+    mounted && theme === "dark"
+      ? "/logoCleanlineEscuro.png"
+      : "/logoCleanline.png";
 
   const handleLogin = async (e) => {
     e.preventDefault();

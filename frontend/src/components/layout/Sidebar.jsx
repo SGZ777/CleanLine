@@ -7,13 +7,11 @@ import {
   getSidebarItemClass,
   sidebarItems,
 } from "@/lib/scripts/hoverSideBar";
-import { PanelLeftOpen, PanelLeftClose, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/components/theme/ThemeProvider";
+import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
 
 export default function Sidebar({ isOpen = false, onClose = () => {} }) {
   const pathname = usePathname();
   const [isMinimized, setIsMinimized] = useState(false);
-  const { theme, toggleTheme, mounted } = useTheme();
 
   return (
     <>
