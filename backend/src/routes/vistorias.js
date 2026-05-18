@@ -5,6 +5,6 @@ import { upload } from '../middlewares/upload.js'; // Garanta que usa memoryStor
 const router = Router();
 
 // O campo "imagem" aqui deve bater com o nome enviado pelo Retrofit
-router.post('/', upload.single('imagem'), criarVistoriaMobile);
+router.post('/', upload.single('Image'), criarVistoriaMobile);
 
 export default router;
