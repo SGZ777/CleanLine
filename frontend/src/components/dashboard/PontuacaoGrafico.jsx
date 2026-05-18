@@ -92,7 +92,7 @@ export function PontuacaoGrafico() {
   }
 
   return (
-    <Card className="w-full max-w-230 overflow-visible border border-border bg-card shadow-md">
+    <Card className="w-full ms-6 max-w-222 h-95 overflow-visible border border-border bg-card shadow-md">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
           Média de pontuação 5S -{" "}
@@ -136,7 +136,7 @@ export function PontuacaoGrafico() {
               cursor={false}
               content={
                 <ChartTooltipContent
-                  className="z-9999 w-37.5 rounded border border-border bg-popover shadow-lg"
+                  className="w-37 border border-border bg-popover shadow-lg"
                   nameKey="views"
                   labelFormatter={(value) => {
                     if (!value) return "";
