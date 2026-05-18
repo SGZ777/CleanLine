@@ -11,4 +11,5 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// Como é um arquivo .mjs, usamos export default em vez de module.exports
+export default nextConfig;
