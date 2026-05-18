@@ -92,8 +92,8 @@ export default function PieChartInFlexbox() {
         {equipesGraficos.map(({ equipe, dados }, idx) => (
           <div
             key={equipe}
+            className=" md:w-1/3 w-1/1 "
             style={{
-              width: "33%",
               maxWidth: "300px",
               textAlign: "center",
             }}>
@@ -113,7 +113,7 @@ export default function PieChartInFlexbox() {
                 </Pie>
                 <Label
                   position="center"
-                  fill="#666"
+                  fill="var(--foreground)"
                   fontSize={14}
                   fontWeight="bold"
                 >

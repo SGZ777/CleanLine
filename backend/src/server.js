@@ -10,6 +10,8 @@ import setoresRoutes from './routes/setores.js';
 import rotasRoutes from './routes/rotas.js';
 import dashboardRoutes from './routes/dashboard.js';
 import inspecoesRoutes from './routes/inspecoes.js';
+import vistoriasRoutes from './routes/vistorias.js';
+
 
 dotenv.config();
 
@@ -39,7 +41,7 @@ app.use('/api/setores', setoresRoutes);
 app.use('/api/rotas', rotasRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/inspecoes', inspecoesRoutes);
-
+app.use('/api/vistoria', vistoriasRoutes);
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
