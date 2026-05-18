@@ -70,9 +70,10 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     }
 
     // URL da imagem (usa placeholder se não houver)
-    const imagemSrc = task.imagem || "/placeholder.jpg";
-
-      // console.log("tasks:", tasks);
+    const imagemSrc = (task.imagem && typeof task.imagem === 'string' && task.imagem.startsWith('http'))
+      ? task.imagem
+      : '/placeholder.jpg';
+    // console.log("tasks:", tasks);
     // console.log("filteredTasks:", filteredTasks);
 
     return (
