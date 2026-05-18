@@ -111,7 +111,7 @@ export default function SetoresTable({ searchTerm = "" }) {
     setPendingAction({ id: setor.id, type: "delete" });
     try {
       const res = await apiFetch(`/api/setores/${setor.id}`, {
-        method: "PATCH",
+        method: "DELETE",
       });
       if (!res.ok) {
         const err = await res.json();
