@@ -18,13 +18,52 @@ export async function getMediaMensal(_req, res) {
 
 export async function getMaiorNotaDia(_req, res) {
   try {
-    const result = await prisma.$queryRaw`
-      SELECT MAX("Pontuacao") AS "MaiorNotaDoDia"
+    const resultMax = await prisma.$queryRaw`
+      SELECT ROUND(MAX("Pontuacao")::numeric, 1) AS "MaiorNota"
       FROM "Vistoria"
       WHERE DATE("Data_e_Hora") = CURRENT_DATE
     `;
-    const nota = result[0]?.MaiorNotaDoDia || 0;
-    return res.status(200).json({ maiorNota: Number(nota).toFixed(1) });
+
+    let maiorNota = resultMax[0]?.MaiorNota ?? null;
+    let dataDia = null;
+
+    if (maiorNota != null) {
+      dataDia = 'CURRENT_DATE';
+    } else {
+      const resultFallback = await prisma.$queryRaw`
+        SELECT ROUND(MAX("Pontuacao")::numeric, 1) AS "MaiorNota", DATE(MAX("Data_e_Hora")) AS "DataDia"
+        FROM "Vistoria"
+      `;
+      maiorNota = resultFallback[0]?.MaiorNota ?? 0;
+      dataDia = resultFallback[0]?.DataDia ?? null;
+    }
+
+    let setor = null;
+    if (maiorNota != null && dataDia != null) {
+      const setorRows =
+        dataDia === 'CURRENT_DATE'
+          ? await prisma.$queryRaw`
+              SELECT s."Nome" AS "Setor"
+              FROM "Vistoria" v
+              JOIN "Setor" s ON v."Id_Setor" = s.id
+              WHERE DATE(v."Data_e_Hora") = CURRENT_DATE
+                AND ROUND(v."Pontuacao"::numeric, 1) = ${maiorNota}
+              ORDER BY v."Data_e_Hora" DESC
+              LIMIT 1
+            `
+          : await prisma.$queryRaw`
+              SELECT s."Nome" AS "Setor"
+              FROM "Vistoria" v
+              JOIN "Setor" s ON v."Id_Setor" = s.id
+              WHERE DATE(v."Data_e_Hora") = ${dataDia}
+                AND ROUND(v."Pontuacao"::numeric, 1) = ${maiorNota}
+              ORDER BY v."Data_e_Hora" DESC
+              LIMIT 1
+            `;
+      setor = setorRows[0]?.Setor ?? null;
+    }
+
+    return res.status(200).json({ maiorNota: Number(maiorNota), setor });
   } catch (error) {
     console.error('Erro na API maior-nota-dia:', error);
     return res.status(500).json({ error: 'Erro interno' });
