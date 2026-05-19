@@ -64,7 +64,7 @@ const LoginForm = ({
     <section className={cn("relative flex min-h-screen justify-center overflow-hidden bg-background", className)}>
       <img
         src="home-background-image.png"
-        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-35"
+        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
         alt="background"
       />
 
