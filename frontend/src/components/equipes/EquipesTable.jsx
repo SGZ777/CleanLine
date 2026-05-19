@@ -60,11 +60,7 @@ export default function EquipesTable({ searchTerm = "" }) {
   const filteredEquipes = equipes.filter((equipe) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-    return (
-      equipe.Nome?.toLowerCase().includes(term) ||
-      equipe.Funcionarios?.toLowerCase().includes(term) ||
-      equipe.Setores?.toLowerCase().includes(term)
-    );
+    return equipe.Nome?.toLowerCase().includes(term);
   });
 
   // Excluir equipe
