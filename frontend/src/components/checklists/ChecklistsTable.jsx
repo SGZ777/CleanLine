@@ -47,8 +47,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     if (!term) return true;
     return (
       task.setor?.toLowerCase().includes(term) ||
-      (task.nota !== null && task.nota.toString().includes(term)) ||
-      task.id?.toString().includes(term)
+      (task.nota !== null && task.nota.toString().includes(term))
     );
   });
 

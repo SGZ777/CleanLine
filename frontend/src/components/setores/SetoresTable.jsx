@@ -98,12 +98,7 @@ export default function SetoresTable({ searchTerm = "" }) {
   const filteredSetores = setores.filter((setor) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-    return (
-      setor.Nome?.toLowerCase().includes(term) ||
-      setor.TagNfc?.toLowerCase().includes(term) ||
-      setor.Equipe?.toLowerCase().includes(term) ||
-      setor.Rotas?.toLowerCase().includes(term)
-    );
+    return setor.Nome?.toLowerCase().includes(term);
   });
 
   // Handlers de exclusão

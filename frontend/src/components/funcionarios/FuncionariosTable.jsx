@@ -96,7 +96,6 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     if (!term) return true;
     return (
       func.Nome?.toLowerCase().includes(term) ||
-      func.Email?.toLowerCase().includes(term) ||
       func.Cargo?.toLowerCase().includes(term) ||
       func.Setor?.toLowerCase().includes(term)
     );

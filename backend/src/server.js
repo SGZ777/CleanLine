@@ -11,6 +11,7 @@ import rotasRoutes from './routes/rotas.js';
 import dashboardRoutes from './routes/dashboard.js';
 import inspecoesRoutes from './routes/inspecoes.js';
 import vistoriasRoutes from './routes/vistorias.js';
+import supervisorRoutes from './routes/supervisor.js';
 
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use('/api/rotas', rotasRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/inspecoes', inspecoesRoutes);
 app.use('/api/vistoria', vistoriasRoutes);
+app.use('/api/supervisor', supervisorRoutes);
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
