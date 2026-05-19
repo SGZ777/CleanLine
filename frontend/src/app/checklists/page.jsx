@@ -29,7 +29,7 @@ export default function Checklists() {
   }, [carregarChecklists]);
 console.log("loading:", loading, "checklists:", checklists);
   return (
-    <div className="min-h-screen justify-content-center bg-background text-foreground">
+    <div className="min-h-screen justify-self-center bg-background text-foreground">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
       <div className="flex flex-col md:flex-row">
         <Sidebar
