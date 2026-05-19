@@ -11,7 +11,7 @@ import rotasRoutes from './routes/rotas.js';
 import dashboardRoutes from './routes/dashboard.js';
 import inspecoesRoutes from './routes/inspecoes.js';
 import vistoriasRoutes from './routes/vistorias.js';
-import supervisorRoutes from './routes/supervisorRoutes.js';
+import supervisorRoutes from './routes/supervisor.js';
 
 
 dotenv.config();
