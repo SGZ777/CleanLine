@@ -194,7 +194,7 @@ export default function TutorialModal({ userName, onClose }) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="bg-[#24bff6]"
+                  className="border-[#24bff6] bg-white text-[#127ca1] hover:bg-[#e7f8ff] hover:text-[#0d6f95] disabled:border-[#d8dceb] disabled:text-[#8a96b6]"
                   onClick={handlePrev}
                   disabled={current === 0}
                 >
@@ -203,7 +203,7 @@ export default function TutorialModal({ userName, onClose }) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="border bg-transparent"
+                  className="border-[#d8dceb] bg-white text-[#5f6f98] hover:bg-[#f7faff] hover:text-[#18255f]"
                   onClick={onClose}
                 >
                   Pular
@@ -212,7 +212,7 @@ export default function TutorialModal({ userName, onClose }) {
 
               <Button
                 type="button"
-                className="bg-[#18255f] px-8 text-white hover:bg-[#0f1840]"
+                className="bg-[#24bff6] px-8 text-[#062235] shadow-sm hover:bg-[#1c96c2] hover:text-white"
                 onClick={handleNext}
               >
                 {slide.button}
