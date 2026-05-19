@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-export default function ExpandableImage({ src, alt, width = 320, height = 550 }) {
+export default function ExpandableImage({ src, alt, width = 320, height = 250 }) {
   const [open, setOpen] = useState(false)
 
   if (!src) return null // <- evita o erro se src vier vazio
