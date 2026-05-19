@@ -7,7 +7,6 @@ import ChecklistsTable from "@/components/checklists/ChecklistsTable";
 import SearchBar from "@/components/funcionarios/SearchBar";
 import { getChecklistsHoje } from "@/lib/controllers/dashboard";
 
-// Página de listagem de checklists com responsividade melhorada
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [checklists, setChecklists] = useState([]);
@@ -32,18 +31,20 @@ console.log("loading:", loading, "checklists:", checklists);
   return (
     <div className="min-h-screen bg-background text-foreground">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
-      <div className="flex flex-col md:flex-row gap-0">
+      <div className="flex flex-col md:flex-row">
         <Sidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
-        <main className="flex-1 p-3 sm:p-6 md:p-10">
-          <div className="justify-between flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 sm:mb-10">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-inter">
-              Checklists
-            </h1>
-            <div className="w-full sm:w-auto md:pe-35">
-              <SearchBar value={searchTerm} onChange={setSearchTerm} />
+        <main className="flex-1 p-6 md:p-10">
+          <div className="justify-between flex items-center mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
+              <h1 className="text-2xl md:text-3xl font-inter">
+                Checklists
+              </h1>
+              <div className="flex justify-end md:pe-35">
+                <SearchBar value={searchTerm} onChange={setSearchTerm} />
+              </div>
             </div>
           </div>
           {loading ? (

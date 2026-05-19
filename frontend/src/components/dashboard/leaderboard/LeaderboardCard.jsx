@@ -48,18 +48,18 @@ const LeaderboardCard = ({ className }) => {
   return (
     <Card
       className={cn(
-        "justify-self-center m-3 sm:m-5 h-auto w-full max-w-full sm:max-w-lg border border-border bg-card p-2 sm:p-3 pt-6 sm:pt-10 pb-6 sm:pb-10 shadow-md",
+        "justify-self-center m-5 h-auto w-full max-w-lg border border-border bg-card p-2 pt-10 pb-10 shadow-md",
         className
       )}
     >
-      <CardHeader className="p-2 sm:p-4">
-        <CardTitle className="text-2xl sm:text-3xl md:text-4xl">Ranking do mes</CardTitle>
-        <CardDescription className="text-xs sm:text-sm md:text-lg mt-2">
+      <CardHeader>
+        <CardTitle className="text-4xl">Ranking do mês</CardTitle>
+        <CardDescription className="text-lg">
           O setor de{" "}
           <span className="font-semibold text-foreground">
             {primeiro.NomeSetor}
           </span>{" "}
-          ganhou o trofeu de ouro de organizacao este mes
+          ganhou o troféu de ouro de organização este mês
         </CardDescription>
       </CardHeader>
 

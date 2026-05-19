@@ -44,7 +44,7 @@ export default function HeaderAdmin({ onOpenSidebar = () => {} }) {
         <a href=".">
           <img
             src={logoSrc}
-            className="w-32 sm:w-40 md:w-50 lg:w-80 ps-2 sm:ps-3 md:ps-0 lg:ps-15"
+            className="w-50 md:w-80 lg:ps-15 sm:ps-0"
             alt="Cleanline"
           />
         </a>

@@ -13,7 +13,6 @@ function formatNota(value) {
   return notaArredondada.toFixed(1);
 }
 
-// Componente de card de pontuação média mensal com responsividade melhorada
 export default function PontuacaoMedia() {
   const [nota, setNota] = useState(0);
 
@@ -50,15 +49,15 @@ export default function PontuacaoMedia() {
   }, []);
 
   return (
-    <section className="m-3 sm:m-6 h-auto w-full sm:w-80 md:w-105 rounded-[12px] border border-border bg-card text-card-foreground shadow-md">
-      <p className="text-center pt-2 text-base sm:text-lg md:text-xl lg:text-3xl mt-4 px-2">
+    <section className="m-6 h-auto w-80 rounded-[12px] border border-border bg-card text-card-foreground shadow-md md:w-105">
+      <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
         Pontuação média mensal
       </p>
-      <div className="justify-self-center flex gap-2 sm:gap-4 mt-4 pb-4 px-2">
-        <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">{formatNota(nota)}/10</p>
+      <div className="justify-self-center flex gap-4 mt-4">
+        <p className="text-5xl pb-2 lg:text-6xl">{formatNota(nota)}/10</p>
         <img
           src="./icons/icon_green_arrow.png"
-          className="w-5 sm:w-6 md:w-7 h-8 sm:h-10 md:h-11 lg:w-10 lg:h-13"
+          className="w-7 h-11 lg:w-10 lg:h-13"
           alt="Seta indicativa"
         />
       </div>
