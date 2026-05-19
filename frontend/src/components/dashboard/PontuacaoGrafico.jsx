@@ -35,6 +35,7 @@ function formatNota(value) {
   return notaArredondada.toFixed(1);
 }
 
+// Componente de gráfico de pontuação com responsividade melhorada
 export function PontuacaoGrafico() {
   const [chartData, setChartData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -73,7 +74,7 @@ export function PontuacaoGrafico() {
 
   if (loading) {
     return (
-      <Card className="w-full max-w-230 border border-border bg-card shadow-md">
+      <Card className="w-full mx-3 sm:mx-6 max-w-full sm:max-w-230 border border-border bg-card shadow-md">
         <CardContent className="p-6 text-center">
           Carregando dados do grafico...
         </CardContent>
@@ -83,7 +84,7 @@ export function PontuacaoGrafico() {
 
   if (!chartData.length) {
     return (
-      <Card className="w-full max-w-230 border border-border bg-card shadow-md">
+      <Card className="w-full mx-3 sm:mx-6 max-w-full sm:max-w-230 border border-border bg-card shadow-md">
         <CardContent className="p-6 text-center">
           Nenhum dado disponivel para o mes atual.
         </CardContent>
@@ -92,23 +93,23 @@ export function PontuacaoGrafico() {
   }
 
   return (
-    <Card className="w-full ms-6 max-w-222 h-95 overflow-visible border border-border bg-card shadow-md">
-      <CardHeader className="flex flex-row items-center justify-between border-b p-4">
-        <CardTitle>
+    <Card className="w-full mx-3 sm:mx-6 md:ms-6 max-w-full sm:max-w-full md:max-w-222 h-auto md:h-95 overflow-visible border border-border bg-card shadow-md">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b p-3 sm:p-4 gap-2">
+        <CardTitle className="text-base sm:text-lg md:text-xl">
           Média de pontuação 5S -{" "}
           {new Date().toLocaleString("pt-BR", {
             month: "long",
             year: "numeric",
           })}
         </CardTitle>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
           Média geral: {mediaTotal}
         </div>
       </CardHeader>
       <CardContent className="px-2 py-3 sm:px-3 sm:py-2 overflow-visible">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-52 w-full overflow-visible"
+          className="aspect-auto h-48 sm:h-52 w-full overflow-visible"
         >
           <BarChart
             accessibilityLayer
@@ -136,7 +137,7 @@ export function PontuacaoGrafico() {
               cursor={false}
               content={
                 <ChartTooltipContent
-                  className="w-37 border border-border bg-popover shadow-lg"
+                  className="w-32 sm:w-37 border border-border bg-popover shadow-lg text-xs sm:text-sm"
                   nameKey="views"
                   labelFormatter={(value) => {
                     if (!value) return "";

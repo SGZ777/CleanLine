@@ -14,6 +14,7 @@ function formatNota(value) {
   return notaArredondada.toFixed(1);
 }
 
+// Componente de card da maior nota do dia com responsividade melhorada
 export default function MaiorNotaDiaria() {
   const [nota, setNota] = useState(0);
   const [setor, setSetor] = useState('—');
@@ -43,14 +44,14 @@ export default function MaiorNotaDiaria() {
   }, []);
 
   return (
-    <section className="m-6 h-auto w-80 rounded-[12px] border border-border bg-card pb-2 text-card-foreground shadow-md md:w-105">
-      <p className="text-center pt-2 text-xl ps-2 pe-2 lg:text-2xl mt-4">
+    <section className="m-3 sm:m-6 h-auto w-full sm:w-80 md:w-105 rounded-[12px] border border-border bg-card pb-2 text-card-foreground shadow-md">
+      <p className="text-center pt-2 text-base sm:text-lg md:text-xl lg:text-2xl mt-4 px-2">
         Maior nota do dia -{" "}
         <span className="text-[#24bff6]">Setor: {setor}</span>
       </p>
-      <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-5 lg:text-6xl">{formatNota(nota)}/10</p>
-        <img src="./icons/icon_yellow_star.png" className="w-12 h-12 lg:w-14 lg:h-14" />
+      <div className="justify-self-center flex gap-2 sm:gap-4 mt-4 pb-4 px-2">
+        <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">{formatNota(nota)}/10</p>
+        <img src="./icons/icon_yellow_star.png" className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 lg:w-14 lg:h-14" />
       </div>
     </section>
   );

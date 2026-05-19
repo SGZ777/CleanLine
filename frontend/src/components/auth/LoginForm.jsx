@@ -68,21 +68,21 @@ const LoginForm = ({
         alt="background"
       />
 
-      <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
+      <div className="flex flex-col items-center mt-6 sm:mt-10 md:mt-20 justify-self-center gap-6 sm:gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2 px-4 sm:px-0">
         <img
           src={logoSrc}
           alt="logo"
-          className="h-10 scale-170 justify-self-center" />
+          className="h-8 sm:h-10 md:h-12 scale-100 sm:scale-120 md:scale-170 lg:scale-170 justify-self-center" />
 
         <form
           onSubmit={handleLogin}
-          className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md border border-border bg-card px-6 py-8 text-card-foreground shadow-2xl md:scale-120 lg:scale-140">
+          className="flex w-full max-w-xs sm:max-w-sm md:max-w-sm flex-col items-center gap-y-4 rounded-md border border-border bg-card px-4 sm:px-6 py-6 sm:py-8 text-card-foreground shadow-2xl scale-100 sm:scale-100 md:scale-120 lg:scale-140">
 
           <div className=" flex flex-col items-center gap-0.5  ">
-            {heading && <h1 className=" text-3xl font-semibold mb-0 ">{heading}</h1>}
+            {heading && <h1 className=" text-xl sm:text-2xl md:text-3xl font-semibold mb-0 ">{heading}</h1>}
             <div className=" flex justify-center gap-1.5 ">
-              {heading2 && <h1 className=" text-2xl font-semibold mt-0 ">{heading2}</h1>}
-              {heading2azul && <h1 className=" text-2xl font-semibold mt-0 text-[#24bff6] ">{heading2azul}</h1>}
+              {heading2 && <h1 className=" text-lg sm:text-xl md:text-2xl font-semibold mt-0 ">{heading2}</h1>}
+              {heading2azul && <h1 className=" text-lg sm:text-xl md:text-2xl font-semibold mt-0 text-[#24bff6] ">{heading2azul}</h1>}
             </div>
           </div>
 
@@ -120,7 +120,7 @@ const LoginForm = ({
             </button>
           </div>
 
-          <Button type="submit" className="h-10 w-50 bg-primary text-lg text-primary-foreground hover:brightness-110">
+          <Button type="submit" className="h-9 sm:h-10 w-40 sm:w-48 md:w-50 bg-primary text-base sm:text-lg text-primary-foreground hover:brightness-110">
             {buttonText}
           </Button>
         </form>

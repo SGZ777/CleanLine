@@ -12,6 +12,7 @@ import { PontuacaoGrafico } from "@/components/dashboard/PontuacaoGrafico";
 import { LeaderboardCard } from "@/components/dashboard/leaderboard/LeaderboardCard";
 import TutorialModal from "@/components/tutorial/TutorialModal";
 
+// Página de dashboard (home administrativo) com responsividade melhorada
 export default function HomeAdm() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -80,14 +81,14 @@ export default function HomeAdm() {
           onClose={() => setIsSidebarOpen(false)}
         />
 
-        <main className="flex-1 p-6 md:p-10">
-          <h1 className="font-inter text-3xl md:pb-8 md:text-4xl">
+        <main className="flex-1 p-3 sm:p-6 md:p-10">
+          <h1 className="font-inter text-xl sm:text-2xl md:text-3xl lg:text-4xl md:pb-4 lg:pb-8 px-2 sm:px-0">
             Olá, {userName}! | Visão Geral do{" "}
             <span className="text-[#24bff6]">5S</span>
           </h1>
-          <div className="flex flex-col lg:flex-row lg:items-start">
-            <div className="lg:grid">
-              <div className="lg:flex">
+          <div className="flex flex-col lg:flex-row lg:items-start gap-4 sm:gap-6">
+            <div className="w-full lg:w-auto lg:grid">
+              <div className="flex flex-col sm:flex-row lg:flex gap-3 sm:gap-4 lg:gap-6">
                 <PontuacaoMedia />
                 <MaiorNotaDiaria />
               </div>
