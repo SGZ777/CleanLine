@@ -57,11 +57,7 @@ export default function RotasTable({ searchTerm = "" }) {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
 
-    return (
-      rota.Nome?.toLowerCase().includes(term) ||
-      rota.Setores?.toLowerCase().includes(term) ||
-      rota.Administrador?.toLowerCase().includes(term)
-    );
+    return rota.Nome?.toLowerCase().includes(term);
   });
 
   const handleExcluir = async (rota) => {
