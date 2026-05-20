@@ -146,10 +146,10 @@ export async function createFuncionario(req, res) {
 }
 
 /**
- * PATCH /api/funcionarios/:id?tipo=...
- * Inativa (soft delete) um funcionário, alterando status para 'inativo'
+ * DELETE /api/funcionarios/:id?tipo=...
+ * Exclui um funcionário definitivamente
  */
-export async function inativarFuncionario(req, res) {
+export async function deleteFuncionario(req, res) {
   const { id } = req.params;
   const { tipo } = req.query;
 
@@ -160,33 +160,35 @@ export async function inativarFuncionario(req, res) {
   try {
     switch (tipo) {
       case 'ADM':
-        await prisma.aDM.update({
+        await prisma.aDM.delete({
           where: { id: parseInt(id) },
-          data: { status: 'inativo' },
         });
         break;
       case 'Supervisor':
-        await prisma.supervisor.update({
+        await prisma.supervisor.delete({
           where: { id: parseInt(id) },
-          data: { status: 'inativo' },
         });
         break;
       case 'Func_Limpeza':
-        await prisma.func_Limpeza.update({
+        await prisma.func_Limpeza.delete({
           where: { id: parseInt(id) },
-          data: { status: 'inativo' },
         });
         break;
       default:
         return res.status(400).json({ error: 'Tipo inválido' });
     }
-    return res.status(200).json({ message: 'Funcionário inativado com sucesso' });
+    return res.status(200).json({ message: 'Funcionário excluído com sucesso' });
   } catch (error) {
     if (error.code === 'P2025') {
       return res.status(404).json({ error: `Funcionário com ID ${id} não encontrado.` });
     }
-    console.error('Erro ao inativar:', error);
-    return res.status(500).json({ error: 'Erro ao inativar funcionário.' });
+    if (error.code === 'P2003') {
+      return res.status(409).json({
+        error: 'Não é possível excluir este funcionário porque existem registros vinculados a ele.',
+      });
+    }
+    console.error('Erro ao excluir:', error);
+    return res.status(500).json({ error: 'Erro ao excluir funcionário.' });
   }
 }
 
