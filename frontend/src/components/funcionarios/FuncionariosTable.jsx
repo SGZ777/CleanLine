@@ -30,6 +30,18 @@ import {
 } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
+async function getErrorMessage(res, fallback) {
+  const contentType = res.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    const data = await res.json();
+    return data.error || data.message || fallback;
+  }
+
+  const text = await res.text();
+  return text || fallback;
+}
+
 export default function FuncionariosTable({ searchTerm = "" }) {
   const [funcionarios, setFuncionarios] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,19 +113,18 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     );
   });
 
-  // Inativar funcionário (soft delete)
-  const handleInativar = async (func) => {
+  // Excluir funcionário
+  const handleExcluir = async (func) => {
     const funcKey = getFuncKey(func);
     setPendingAction({ key: funcKey, type: "delete" });
 
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
-        method: "PATCH", // agora PATCH para inativar, conforme backend
+        method: "PATCH",
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Erro ao inativar");
+        throw new Error(await getErrorMessage(res, "Erro ao excluir"));
       }
 
       setFuncionarios((prev) =>
@@ -327,7 +338,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              {/* Excluir (inativar) */}
+              {/* Excluir */}
               <Popover
                 open={deletingFunc === funcKey}
                 onOpenChange={(open) => {
@@ -364,7 +375,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     </Button>
                     <Button
                       variant="destructive"
-                      onClick={() => handleInativar(func)}
+                      onClick={() => handleExcluir(func)}
                       disabled={deletePending}
                     >
                       {deletePending ? (

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   getFuncionarios,
   createFuncionario,
-  inativarFuncionario,
+  deleteFuncionario,
   updateFuncionario,
 } from '../controllers/funcionariosController.js';
 
@@ -10,7 +10,8 @@ const router = Router();
 
 router.get('/', getFuncionarios);
 router.post('/', createFuncionario);
-router.patch('/:id', inativarFuncionario);
 router.put('/:id', updateFuncionario);
+router.patch('/:id', deleteFuncionario);
+router.delete('/:id', deleteFuncionario);
 
 export default router;

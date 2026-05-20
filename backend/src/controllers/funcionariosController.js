@@ -146,47 +146,64 @@ export async function createFuncionario(req, res) {
 }
 
 /**
- * PATCH /api/funcionarios/:id?tipo=...
- * Inativa (soft delete) um funcionário, alterando status para 'inativo'
+ * PATCH/DELETE /api/funcionarios/:id?tipo=...
+ * Exclui definitivamente um funcionário.
+ * PATCH foi mantido por compatibilidade com o frontend atual.
  */
-export async function inativarFuncionario(req, res) {
+export async function deleteFuncionario(req, res) {
   const { id } = req.params;
   const { tipo } = req.query;
+  const funcionarioId = parseInt(id, 10);
 
   if (!id || !tipo) {
     return res.status(400).json({ error: 'ID e tipo são obrigatórios' });
   }
 
+  if (Number.isNaN(funcionarioId)) {
+    return res.status(400).json({ error: 'ID inválido' });
+  }
+
   try {
     switch (tipo) {
       case 'ADM':
-        await prisma.aDM.update({
-          where: { id: parseInt(id) },
-          data: { status: 'inativo' },
+        await prisma.$transaction(async (tx) => {
+          await tx.rota.updateMany({
+            where: { Id_Adm: funcionarioId },
+            data: { Id_Adm: null },
+          });
+
+          await tx.aDM.delete({
+            where: { id: funcionarioId },
+          });
         });
         break;
       case 'Supervisor':
-        await prisma.supervisor.update({
-          where: { id: parseInt(id) },
-          data: { status: 'inativo' },
+        await prisma.$transaction(async (tx) => {
+          await tx.vistoria.updateMany({
+            where: { Id_Super: funcionarioId },
+            data: { Id_Super: null },
+          });
+
+          await tx.supervisor.delete({
+            where: { id: funcionarioId },
+          });
         });
         break;
       case 'Func_Limpeza':
-        await prisma.func_Limpeza.update({
-          where: { id: parseInt(id) },
-          data: { status: 'inativo' },
+        await prisma.func_Limpeza.delete({
+          where: { id: funcionarioId },
         });
         break;
       default:
         return res.status(400).json({ error: 'Tipo inválido' });
     }
-    return res.status(200).json({ message: 'Funcionário inativado com sucesso' });
+    return res.status(200).json({ message: 'Funcionário excluído com sucesso' });
   } catch (error) {
     if (error.code === 'P2025') {
       return res.status(404).json({ error: `Funcionário com ID ${id} não encontrado.` });
     }
-    console.error('Erro ao inativar:', error);
-    return res.status(500).json({ error: 'Erro ao inativar funcionário.' });
+    console.error('Erro ao excluir funcionário:', error);
+    return res.status(500).json({ error: 'Erro ao excluir funcionário.' });
   }
 }
 
