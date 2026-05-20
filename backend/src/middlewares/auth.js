@@ -46,7 +46,7 @@ export function authMiddleware(req, res, next) {
 
 export function adminMiddleware(req, res, next) {
   if (!req.user || req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Acesso negado. Requer privilegios de Administrador.' });
+    return res.status(403).json({ error: 'Acesso negado. Requer privilégios de Administrador.' });
   }
 
   next();
