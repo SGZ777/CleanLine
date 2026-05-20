@@ -101,19 +101,19 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     );
   });
 
-  // Excluir funcionário
-  const handleDelete = async (func) => {
+  // Inativar funcionário (soft delete)
+  const handleInativar = async (func) => {
     const funcKey = getFuncKey(func);
     setPendingAction({ key: funcKey, type: "delete" });
 
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
-        method: "DELETE",
+        method: "PATCH", // agora PATCH para inativar, conforme backend
       });
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.error || "Erro ao excluir");
+        throw new Error(err.error || "Erro ao inativar");
       }
 
       setFuncionarios((prev) =>
@@ -327,7 +327,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              {/* Excluir */}
+              {/* Excluir (inativar) */}
               <Popover
                 open={deletingFunc === funcKey}
                 onOpenChange={(open) => {
@@ -364,7 +364,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     </Button>
                     <Button
                       variant="destructive"
-                      onClick={() => handleDelete(func)}
+                      onClick={() => handleInativar(func)}
                       disabled={deletePending}
                     >
                       {deletePending ? (
