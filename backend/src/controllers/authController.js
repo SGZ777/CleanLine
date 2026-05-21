@@ -64,21 +64,31 @@ export async function loginMobile(req, res) {
   try {
     const { email, senha } = req.body;
     const user = await prisma.supervisor.findFirst({
-      where: { Email: email }})
+      where: { Email: email }
+    });
     if (!user) {
       return res.status(401).json({ erro: 'Email incorreto' });
     }
     const senhaValida = await bcrypt.compare(senha, user.Senha);
-     if (senhaValida) {
-        // Senha correta! Retorna os dados para o Android
-        res.json(user);
+    if (senhaValida) {
+      // Senha correta! Gerar token para o supervisor
+      const token = jwt.sign({ id: user.id, role: 'supervisor' }, SECRET_KEY, {
+        expiresIn: '30d',
+      });
+
+      // Retorna os dados sem a senha para o Android, incluindo o token
+      const responseData = { ...user };
+      delete responseData.Senha;
+      responseData.token = token;
+
+      return res.json(responseData);
     } else {
-        // Senha errada
-        res.status(401).json({ message: "Senha incorreta" });
+      // Senha errada
+      return res.status(401).json({ message: "Senha incorreta" });
     }
-    } catch (error) {
-      console.error('Erro no login mobile:', error);
-      return res.status(500).json({ erro: 'Erro interno no servidor' });
-    }
+  } catch (error) {
+    console.error('Erro no login mobile:', error);
+    return res.status(500).json({ erro: 'Erro interno no servidor' });
   }
+}
   

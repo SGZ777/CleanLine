@@ -5,8 +5,11 @@ import {
   deleteFuncionario,
   updateFuncionario,
 } from '../controllers/funcionariosController.js';
+import { authMiddleware } from '../middlewares/auth.js';
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.get('/', getFuncionarios);
 router.post('/', createFuncionario);
