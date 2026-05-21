@@ -5,8 +5,11 @@ import {
   updateSetor,
   deleteSetor,
 } from '../controllers/setoresController.js';
+import { authMiddleware } from '../middlewares/auth.js';
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.get('/', getSetores);
 router.post('/', createSetor);

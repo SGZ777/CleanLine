@@ -38,11 +38,7 @@ npm run dev                  # porta 3000
 ### backend/.env
 | Variável        | Descrição                        |
 |-----------------|----------------------------------|
-| `DB_HOST`       | Host do banco MySQL              |
-| `DB_USER`       | Usuário do banco                 |
-| `DB_PASSWORD`   | Senha do banco                   |
-| `DB_NAME`       | Nome do banco                    |
-| `DB_PORT`       | Porta do banco (padrão: 3306)    |
+| `DATABASE_URL`  | String de conexão PostgreSQL (utilizada pelo Prisma) |
 | `JWT_SECRET`    | Chave secreta para tokens JWT    |
 | `PORT`          | Porta do servidor (padrão: 3001) |
 | `FRONTEND_URL`  | URL do frontend para CORS        |

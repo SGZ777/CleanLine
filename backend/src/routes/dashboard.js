@@ -8,8 +8,11 @@ import {
   getDistribuicaoNotasEquipes,
   getChecklistsHoje
 } from '../controllers/dashboardController.js';
+import { authMiddleware } from '../middlewares/auth.js';
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.get('/media-mensal', getMediaMensal);
 router.get('/maior-nota-dia', getMaiorNotaDia);
