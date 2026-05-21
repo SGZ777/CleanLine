@@ -188,7 +188,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
               Nota do Dia
             </TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-10">
-              Ações
+              Ação
             </TableHead>
           </TableRow>
         </TableHeader>
