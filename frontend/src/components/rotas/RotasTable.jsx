@@ -130,7 +130,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
     return (
       <Card
         key={rota.id}
-        className="border shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+        className="h-full border shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
       >
         <CardHeader className="gap-2">
           <CardTitle className="truncate pr-2">{rota.Nome}</CardTitle>
@@ -178,7 +178,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
           </div>
         </CardContent>
 
-        <CardFooter className="justify-between gap-3">
+        <CardFooter className="mt-auto justify-between gap-3">
           <Badge variant="outline">ID {rota.id}</Badge>
           <div className="flex items-center gap-2">
             <Popover>
@@ -327,7 +327,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
     <button
       type="button"
       onClick={onAddClick}
-      className="flex min-h-82 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-primary/45 bg-card p-6 text-center text-card-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-muted/35 hover:shadow-md focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="flex h-full min-h-82 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-primary/45 bg-card p-6 text-center text-card-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-muted/35 hover:shadow-md focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
       <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
         <PlusIcon className="size-8" />
