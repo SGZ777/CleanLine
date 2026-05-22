@@ -135,7 +135,7 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <div className="rounded-lg border bg-muted/35 p-3">
               <div className="mb-2 flex items-center gap-2 text-muted-foreground">
                 <UsersIcon className="size-4" />
@@ -351,7 +351,7 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
           Nenhuma equipe encontrada.
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {filteredEquipes.map(renderCard)}
           {onAddClick && renderCreateCard()}
         </div>

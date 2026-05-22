@@ -350,7 +350,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
           Nenhuma rota encontrada.
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {filteredRotas.map(renderCard)}
           {onAddClick && renderCreateCard()}
         </div>
