@@ -275,7 +275,7 @@ export async function updateFuncionario(req, res) {
       Tipo: tipo,
       status: updated.status,
       // Incluir idEquipe novamente para que o front receba o valor atualizado
-      idEquipe: tipo === 'Func_Limpeza' ? updated.Id_Equipe : undefined,
+      idEquipe: tipo === 'Funcionário Limpeza' ? updated.Id_Equipe : undefined,
     };
 
     return res.status(200).json({ message: 'Atualizado com sucesso', funcionario });
