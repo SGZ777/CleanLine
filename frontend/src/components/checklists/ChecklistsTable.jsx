@@ -14,13 +14,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Popover,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { TooltipProvider } from "@/components/ui/tooltip";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import ExpandableImage from "./ImageExpandsChecklist";
 
 const PERGUNTAS = [
@@ -106,65 +105,60 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
           </CardTitle>
           <CardDescription>Checklist do dia</CardDescription>
           <CardAction>
-            <TooltipProvider>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="default"
-                    size="icon"
-                    className="h-8 w-8"
-                    aria-label={`Ver detalhes de ${task.setor}`}
-                  >
-                    <EyeIcon className="size-5 text-white" />
-                  </Button>
-                </PopoverTrigger>
-
-                <PopoverContent
-                  className="max-h-[85vh] w-[calc(100vw-2rem)] max-w-5xl overflow-y-auto p-5"
-                  avoidCollisions={true}
-                  collisionPadding={20}
-                  align="end"
-                  side="bottom"
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="default"
+                  size="icon"
+                  className="h-8 w-8"
+                  aria-label={`Ver detalhes de ${task.setor}`}
                 >
-                  <PopoverHeader>
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                      <PopoverTitle className="text-2xl font-bold">
-                        {task.setor}
-                      </PopoverTitle>
-                      <p className="text-xl font-bold">
-                        Nota: {hasVistoria ? task.nota : "Sem vistoria"}
-                      </p>
-                    </div>
-                  </PopoverHeader>
+                  <EyeIcon className="size-5 text-white" />
+                </Button>
+              </DialogTrigger>
 
-                  <div className="space-y-4 text-sm">
-                    <ExpandableImage
-                      src={imagemSrc}
-                      alt={`Foto do setor ${task.setor}`}
-                      width={120}
-                      height={140}
-                    />
-
-                    <p className="font-bold">Respostas:</p>
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                      {respostas.map((resposta) => (
-                        <div
-                          key={resposta.id}
-                          className="rounded-lg border bg-muted/35 p-3"
-                        >
-                          <span className="block text-sm font-bold">
-                            {resposta.theme}
-                          </span>
-                          <span className="text-muted-foreground">
-                            {capitalize(resposta.label)}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+              <DialogContent
+                className="max-h-[90vh] overflow-y-auto p-5 sm:max-w-5xl"
+                overlayClassName="bg-black/60 backdrop-blur-sm"
+              >
+                <DialogHeader>
+                  <div className="flex flex-col gap-2 mt-3 pr-10 sm:flex-row sm:items-start sm:justify-between">
+                    <DialogTitle className="text-2xl font-bold">
+                      {task.setor}
+                    </DialogTitle>
+                    <p className="text-3xl font-bold">
+                      Nota: {hasVistoria ? task.nota : "Sem vistoria"}
+                    </p>
                   </div>
-                </PopoverContent>
-              </Popover>
-            </TooltipProvider>
+                </DialogHeader>
+
+                <div className="space-y-3 text-sm">
+                  <ExpandableImage
+                    src={imagemSrc}
+                    alt={`Foto do setor ${task.setor}`}
+                    width={120}
+                    height={140}
+                  />
+
+                  <p className="font-bold">Respostas:</p>
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {respostas.map((resposta) => (
+                      <div
+                        key={resposta.id}
+                        className="rounded-lg border bg-muted/35 p-3"
+                      >
+                        <span className="block text-sm font-bold">
+                          {resposta.theme}
+                        </span>
+                        <span className="text-muted-foreground">
+                          {capitalize(resposta.label)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </CardAction>
         </CardHeader>
 
@@ -205,7 +199,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
         </CardContent>
 
         <CardFooter className="justify-end">
-          <Badge variant="outline" className="{getNotaBadgeClass(task.nota)} text-white bg-[#05df72] border-none">
+          <Badge variant="outline" className={getNotaBadgeClass(task.nota)}>
             {hasVistoria ? `Nota ${task.nota}` : "Sem vistoria"}
           </Badge>
         </CardFooter>
