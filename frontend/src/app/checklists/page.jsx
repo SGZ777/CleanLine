@@ -27,7 +27,7 @@ export default function Checklists() {
   useEffect(() => {
     carregarChecklists();
   }, [carregarChecklists]);
-console.log("loading:", loading, "checklists:", checklists);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
@@ -42,7 +42,7 @@ console.log("loading:", loading, "checklists:", checklists);
               <h1 className="text-2xl md:text-3xl font-inter">
                 Checklists
               </h1>
-              <div className="flex justify-end md:pe-35">
+              <div className="relative w-full items-center flex">
                 <SearchBar value={searchTerm} onChange={setSearchTerm} />
               </div>
             </div>

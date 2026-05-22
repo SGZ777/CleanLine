@@ -44,7 +44,11 @@ export default function Rotas() {
               </div>
             </div>
           </div>
-          <RotasTable key={refreshKey} searchTerm={searchTerm} />
+          <RotasTable
+            key={refreshKey}
+            searchTerm={searchTerm}
+            onAddClick={() => setShowAddModal(true)}
+          />
         </main>
       </div>
       {showAddModal && (

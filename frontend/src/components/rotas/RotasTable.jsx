@@ -1,10 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/api";
-import { EyeIcon, Loader2, PencilIcon, Trash2Icon } from "lucide-react";
+import {
+  EyeIcon,
+  Loader2,
+  MapPinnedIcon,
+  PencilIcon,
+  PlusIcon,
+  RouteIcon,
+  Trash2Icon,
+  UserRoundIcon,
+} from "lucide-react";
 
+import { apiFetch } from "@/lib/api";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -15,17 +33,8 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default function RotasTable({ searchTerm = "" }) {
+export default function RotasTable({ searchTerm = "", onAddClick }) {
   const [rotas, setRotas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
@@ -56,7 +65,6 @@ export default function RotasTable({ searchTerm = "" }) {
   const filteredRotas = rotas.filter((rota) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-
     return rota.Nome?.toLowerCase().includes(term);
   });
 
@@ -112,7 +120,7 @@ export default function RotasTable({ searchTerm = "" }) {
     }
   };
 
-  const renderRow = (rota) => {
+  const renderCard = (rota) => {
     const busy = pendingAction?.id === rota.id;
     const deletePending =
       pendingAction?.id === rota.id && pendingAction.type === "delete";
@@ -120,170 +128,233 @@ export default function RotasTable({ searchTerm = "" }) {
       pendingAction?.id === rota.id && pendingAction.type === "edit";
 
     return (
-      <TableRow key={rota.id} className="hover:bg-muted/50">
-        <TableCell className="h-16 px-6 font-medium">{rota.Nome}</TableCell>
-        <TableCell className="h-16 px-6">
-          <TooltipProvider>
-            <div className="flex items-center justify-end gap-2">
-              <Popover>
-                <PopoverTrigger asChild>
+      <Card
+        key={rota.id}
+        className="h-full border shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+      >
+        <CardHeader className="gap-2">
+          <CardTitle className="truncate pr-2">{rota.Nome}</CardTitle>
+          <CardDescription>Rota operacional</CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-lg border bg-muted/35 p-3">
+              <div className="mb-2 flex items-center gap-2 text-muted-foreground">
+                <MapPinnedIcon className="size-4" />
+                <span className="text-xs font-medium uppercase">Setores</span>
+              </div>
+              <p className="text-2xl font-semibold">
+                {rota.TotalSetores ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border bg-muted/35 p-3">
+              <div className="mb-2 flex items-center gap-2 text-muted-foreground">
+                <RouteIcon className="size-4" />
+                <span className="text-xs font-medium uppercase">Rota</span>
+              </div>
+              <p className="truncate text-sm font-medium">{rota.Nome}</p>
+            </div>
+          </div>
+
+          <div className="space-y-2 text-sm">
+            <div>
+              <p className="flex items-center gap-2 text-xs font-medium uppercase text-muted-foreground">
+                <UserRoundIcon className="size-3.5" />
+                Administrador
+              </p>
+              <p className="text-card-foreground">
+                {rota.Administrador || "Nao informado"}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-medium uppercase text-muted-foreground">
+                Setores vinculados
+              </p>
+              <p className="line-clamp-2 text-card-foreground">
+                {rota.Setores || "Nenhum setor vinculado"}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+
+        <CardFooter className="mt-auto justify-between gap-3">
+          <Badge variant="outline">ID {rota.id}</Badge>
+          <div className="flex items-center gap-2">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
+                  disabled={busy}
+                  aria-label={`Ver detalhes de ${rota.Nome}`}
+                >
+                  <EyeIcon className="size-5" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-80">
+                <PopoverHeader>
+                  <PopoverTitle>{rota.Nome}</PopoverTitle>
+                  <PopoverDescription>
+                    {rota.TotalSetores} setor(es) vinculado(s)
+                  </PopoverDescription>
+                </PopoverHeader>
+                <div className="space-y-2 text-sm">
+                  <p>
+                    <span className="font-medium">Administrador:</span>{" "}
+                    {rota.Administrador || "Não informado"}
+                  </p>
+                  <p>
+                    <span className="font-medium">Setores:</span>{" "}
+                    {rota.Setores || "Nenhum"}
+                  </p>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <Popover
+              open={editingRota === rota.id}
+              onOpenChange={(open) => {
+                if (open) handleEdit(rota);
+                else setEditingRota(null);
+              }}
+            >
+              <PopoverTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
+                  disabled={busy}
+                  aria-label={`Editar ${rota.Nome}`}
+                >
+                  <PencilIcon className="size-5" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-80">
+                <PopoverHeader>
+                  <PopoverTitle>Editar rota</PopoverTitle>
+                </PopoverHeader>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor={`edit-rota-${rota.id}`}>Nome</Label>
+                    <Input
+                      id={`edit-rota-${rota.id}`}
+                      value={editForm.nome}
+                      onChange={(event) =>
+                        setEditForm({
+                          ...editForm,
+                          nome: event.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() => setEditingRota(null)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button onClick={handleSaveEdit} disabled={editPending}>
+                      {editPending ? (
+                        <Loader2 className="size-4 animate-spin" />
+                      ) : (
+                        "Salvar"
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <Popover
+              open={deletingRota === rota.id}
+              onOpenChange={(open) => {
+                setDeletingRota(open ? rota.id : null);
+              }}
+            >
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
+                  disabled={busy}
+                  aria-label={`Excluir ${rota.Nome}`}
+                >
+                  {deletePending ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <Trash2Icon className="size-5" />
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-80">
+                <PopoverHeader>
+                  <PopoverTitle>Confirmar exclusão</PopoverTitle>
+                  <PopoverDescription>
+                    Tem certeza que deseja excluir "{rota.Nome}"?
+                  </PopoverDescription>
+                </PopoverHeader>
+                <div className="mt-4 flex justify-end gap-2">
                   <Button
                     variant="outline"
-                    size="icon"
-                    className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
-                    disabled={busy}
+                    onClick={() => setDeletingRota(null)}
                   >
-                    <EyeIcon color="white" className="size-5" />
+                    Cancelar
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
-                  <PopoverHeader>
-                    <PopoverTitle>{rota.Nome}</PopoverTitle>
-                    <PopoverDescription>
-                      {rota.TotalSetores} setor(es) vinculado(s)
-                    </PopoverDescription>
-                  </PopoverHeader>
-                  <div className="space-y-2 text-sm">
-                    <p>
-                      <span className="font-medium">Administrador:</span>{" "}
-                      {rota.Administrador}
-                    </p>
-                    <p>
-                      <span className="font-medium">Setores:</span>{" "}
-                      {rota.Setores}
-                    </p>
-                  </div>
-                </PopoverContent>
-              </Popover>
-
-              <Popover
-                open={editingRota === rota.id}
-                onOpenChange={(open) => {
-                  if (open) handleEdit(rota);
-                  else setEditingRota(null);
-                }}
-              >
-                <PopoverTrigger asChild>
                   <Button
-                    variant="secondary"
-                    size="icon"
-                    className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
-                    disabled={busy}
-                  >
-                    <PencilIcon color="white" className="size-5" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
-                  <PopoverHeader>
-                    <PopoverTitle>Editar rota</PopoverTitle>
-                  </PopoverHeader>
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor={`edit-rota-${rota.id}`}>Nome</Label>
-                      <Input
-                        id={`edit-rota-${rota.id}`}
-                        value={editForm.nome}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, nome: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={() => setEditingRota(null)}
-                      >
-                        Cancelar
-                      </Button>
-                      <Button onClick={handleSaveEdit} disabled={editPending}>
-                        {editPending ? (
-                          <Loader2 className="size-4 animate-spin" />
-                        ) : (
-                          "Salvar"
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
-
-              <Popover
-                open={deletingRota === rota.id}
-                onOpenChange={(open) => {
-                  setDeletingRota(open ? rota.id : null);
-                }}
-              >
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
-                    disabled={busy}
+                    variant="destructive"
+                    onClick={() => handleExcluir(rota)}
+                    disabled={deletePending}
                   >
                     {deletePending ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
-                      <Trash2Icon color="white" className="size-5" />
+                      "Excluir"
                     )}
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
-                  <PopoverHeader>
-                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
-                    <PopoverDescription>
-                      Tem certeza que deseja excluir "{rota.Nome}"?
-                    </PopoverDescription>
-                  </PopoverHeader>
-                  <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" onClick={() => setDeletingRota(null)}>
-                      Cancelar
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      onClick={() => handleExcluir(rota)}
-                      disabled={deletePending}
-                    >
-                      {deletePending ? (
-                        <Loader2 className="size-4 animate-spin" />
-                      ) : (
-                        "Excluir"
-                      )}
-                    </Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
-          </TooltipProvider>
-        </TableCell>
-      </TableRow>
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
+        </CardFooter>
+      </Card>
     );
   };
 
-  if (loading) return <div className="p-6 text-center">Carregando rotas...</div>;
+  const renderCreateCard = () => (
+    <button
+      type="button"
+      onClick={onAddClick}
+      className="flex h-full min-h-82 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-primary/45 bg-card p-6 text-center text-card-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-muted/35 hover:shadow-md focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+    >
+      <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+        <PlusIcon className="size-8" />
+      </span>
+      <span className="text-lg font-semibold">Criar nova rota</span>
+      <span className="text-sm text-muted-foreground">
+        Adicionar uma rota ao cadastro
+      </span>
+    </button>
+  );
+
+  if (loading) {
+    return <div className="p-6 text-center">Carregando rotas...</div>;
+  }
 
   return (
-    <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
-      <Table>
-        <TableHeader>
-          <TableRow className="border-b hover:bg-transparent">
-            <TableHead className="h-12 px-6 font-medium">Nome</TableHead>
-            <TableHead className="h-12 px-6 text-right font-medium pe-20">
-              Ações
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredRotas.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={2} className="py-6 text-center text-muted-foreground">
-                Nenhuma rota encontrada.
-              </TableCell>
-            </TableRow>
-          ) : (
-            filteredRotas.map(renderRow)
-          )}
-        </TableBody>
-      </Table>
+    <div className="mx-auto w-full max-w-7xl">
+      {filteredRotas.length === 0 ? (
+        <div className="rounded-xl border bg-card p-8 text-center text-muted-foreground shadow-sm">
+          Nenhuma rota encontrada.
+        </div>
+      ) : (
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
+          {filteredRotas.map(renderCard)}
+          {onAddClick && renderCreateCard()}
+        </div>
+      )}
     </div>
   );
 }
