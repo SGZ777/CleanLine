@@ -55,7 +55,11 @@ export async function getDistribuicaoNotasEquipes() {
 }
 
 export async function getChecklistsHoje() {
-  const res = await apiFetch('/api/dashboard/checklists-hoje');
+  // 🔥 O timestamp na URL garante que o Next.js nunca use o cache
+  const timestamp = new Date().getTime();
+  const res = await apiFetch(`/api/dashboard/checklists-hoje?t=${timestamp}`);
+  
   if (!res.ok) throw new Error('Erro ao buscar checklists de hoje');
+  
   return await res.json(); 
 }
