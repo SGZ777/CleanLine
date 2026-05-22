@@ -8,17 +8,12 @@ import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 const LoginForm = ({
   heading = "Fazer login",
   heading2 = "Bem-vindo",
   heading2azul = "de volta!",
-
-  logo = {
-    src: "logoCleanline.png",
-    alt: "logo",
-    title: "shadcnblocks.com",
-  },
 
   buttonText = "Entrar",
   className
@@ -28,6 +23,11 @@ const LoginForm = ({
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const router = useRouter();
+  const { mounted, theme } = useTheme();
+  const logoSrc =
+    mounted && theme === "dark"
+      ? "/logoCleanlineEscuro.png"
+      : "/logoCleanline.png";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,8 +42,6 @@ const LoginForm = ({
       });
 
       const data = await res.json();
-      console.log(data.token)
-      console.log(Object.keys(data))
 
       if (res.ok) {
         setAuthSession(data.token)
@@ -61,19 +59,22 @@ const LoginForm = ({
   };
 
   return (
-    <section className={cn("h-screen bg-muted flex justify-center ", className)}>
-      <img src="home-background-image.png" className="w-full absolute mt-25 z-1" alt="background" />
+    <section className={cn("relative flex min-h-screen justify-center overflow-hidden bg-background", className)}>
+      <img
+        src="home-background-image.png"
+        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
+        alt="background"
+      />
 
       <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
         <img
-          src={logo.src}
-          alt={logo.alt}
-          title={logo.title}
+          src={logoSrc}
+          alt="logo"
           className="h-10 scale-170 justify-self-center" />
 
         <form
           onSubmit={handleLogin}
-          className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md  bg-white px-6 py-8 shadow-2xl md:scale-120 lg:scale-140">
+          className="flex w-full max-w-sm min-w-sm flex-col items-center gap-y-4 rounded-md border border-border bg-card px-6 py-8 text-card-foreground shadow-2xl md:scale-120 lg:scale-140">
 
           <div className=" flex flex-col items-center gap-0.5  ">
             {heading && <h1 className=" text-3xl font-semibold mb-0 ">{heading}</h1>}
@@ -88,7 +89,7 @@ const LoginForm = ({
           <Input
             type="email"
             placeholder="Email"
-            className="text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6]"
+            className="bg-background/80 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6]"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -98,7 +99,7 @@ const LoginForm = ({
             <Input
               type={showPassword ? "text" : "password"}
               placeholder="Senha"
-              className="login-password-input text-sm focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6] pr-10"
+              className="login-password-input bg-background/80 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-[#24bff6] focus-visible:ring-[#24bff6]"
               required
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
@@ -110,14 +111,14 @@ const LoginForm = ({
               aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
             >
               {showPassword ? (
-                <EyeOff color="black" className="h-4 w-4" />
+                <EyeOff className="h-4 w-4" />
               ) : (
-                <Eye color="black" className="h-4 w-4" />
+                <Eye className="h-4 w-4" />
               )}
             </button>
           </div>
 
-          <Button type="submit" className="w-50 h-10 text-lg text-white bg-[#24bff6]">
+          <Button type="submit" className="h-10 w-50 bg-primary text-lg text-primary-foreground hover:brightness-110">
             {buttonText}
           </Button>
         </form>

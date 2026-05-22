@@ -47,8 +47,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     if (!term) return true;
     return (
       task.setor?.toLowerCase().includes(term) ||
-      (task.nota !== null && task.nota.toString().includes(term)) ||
-      task.id?.toString().includes(term)
+      (task.nota !== null && task.nota.toString().includes(term))
     );
   });
 
@@ -70,10 +69,11 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     }
 
     // URL da imagem (usa placeholder se não houver)
-    const imagemSrc = task.imagem || "/placeholder.jpg";
-
-    console.log("tasks:", tasks);
-    console.log("filteredTasks:", filteredTasks);
+    const imagemSrc = (task.imagem && typeof task.imagem === 'string' && task.imagem.startsWith('http'))
+      ? task.imagem
+      : '/placeholder.jpg';
+    // console.log("tasks:", tasks);
+    // console.log("filteredTasks:", filteredTasks);
 
     return (
       <TableRow key={task.id} className="hover:bg-muted/50">
@@ -98,17 +98,17 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant="default"
                     size="icon"
                     className="h-8 w-8"
                     aria-label={`Ver detalhes de ${task.setor}`}
                   >
-                    <EyeIcon color="white" className="size-5" />
+                    <EyeIcon className="size-5 text-white" />
                   </Button>
                 </PopoverTrigger>
 
                 <PopoverContent
-                  className=" sm:w-1/1 sm:h-4/5 md:w-255 md:h-115 p-5"
+                  className=" sm:w-1/1 sm:h-4/5 md:w-255 md:h-120 p-5"
                   avoidCollisions={true}
                   collisionPadding={20}
                   align="end"
@@ -188,7 +188,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
               Nota do Dia
             </TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-10">
-              Ações
+              Ação
             </TableHead>
           </TableRow>
         </TableHeader>

@@ -12,8 +12,8 @@ export default function HeaderAdmin({ onOpenSidebar = () => {} }) {
   const { mounted, theme } = useTheme();
   const logoSrc =
     mounted && theme === "dark"
-      ? "logoCleanlineEscuro.png"
-      : "logoCleanline.png";
+      ? "/logoCleanlineEscuro.png"
+      : "/logoCleanline.png";
 
   const handleLogout = async () => {
     try {

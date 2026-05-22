@@ -8,7 +8,7 @@ export default function LeaderboardThird({ setor, nota }) {
             <img src="icons/icon_trofeu_bronze.png" alt="Bronze" className="h-20 w-20" />
           </span>
           <div className="flex flex-col gap-5">
-            <span className="text-xl text-foreground">{setor} - Trofeu Bronze</span>
+            <span className="text-xl text-foreground">{setor} - Troféu Bronze</span>
             <span className="text-xl text-foreground">Nota {nota}</span>
           </div>
         </div>

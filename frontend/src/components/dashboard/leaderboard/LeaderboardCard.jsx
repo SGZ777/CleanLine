@@ -48,7 +48,7 @@ const LeaderboardCard = ({ className }) => {
   return (
     <Card
       className={cn(
-        "justify-self-center m-5 h-auto w-full max-w-lg border border-border bg-card p-3 pt-10 pb-10 shadow-md ring-0",
+        "justify-self-center m-5 h-auto w-full max-w-lg border border-border bg-card p-2 pt-10 pb-10 shadow-md",
         className
       )}
     >

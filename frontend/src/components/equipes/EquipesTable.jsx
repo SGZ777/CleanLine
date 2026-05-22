@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
-import { EyeIcon, Loader2, PencilIcon, Trash2Icon } from "lucide-react";
+import {
+  EyeIcon,
+  Loader2,
+  PencilIcon,
+  Trash2Icon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,16 +35,14 @@ export default function EquipesTable({ searchTerm = "" }) {
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
   const [editingEquipe, setEditingEquipe] = useState(null);
-  const [deletingEquipe, setDeletingEquipe] = useState(null);
-  const [editForm, setEditForm] = useState({
-    nome: "",
-  });
+  const [editForm, setEditForm] = useState({ nome: "" });
 
+  // Buscar equipes
   const fetchEquipes = async () => {
     setLoading(true);
     try {
       const res = await apiFetch("/api/equipes");
-      if (!res.ok) throw new Error("Erro ao carregar");
+      if (!res.ok) throw new Error("Erro ao carregar equipes");
       const data = await res.json();
       setEquipes(data);
     } catch (error) {
@@ -53,29 +56,25 @@ export default function EquipesTable({ searchTerm = "" }) {
     fetchEquipes();
   }, []);
 
+  // Filtrar equipes pela busca
   const filteredEquipes = equipes.filter((equipe) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-
-    return (
-      equipe.Nome?.toLowerCase().includes(term) ||
-      equipe.Funcionarios?.toLowerCase().includes(term) ||
-      equipe.Setores?.toLowerCase().includes(term)
-    );
+    return equipe.Nome?.toLowerCase().includes(term);
   });
 
+  // Excluir equipe
   const handleExcluir = async (equipe) => {
-    setPendingAction({ id: equipe.id, type: "delete" });
+    setPendingAction({ id: equipe.Id, type: "delete" });
     try {
-      const res = await apiFetch(`/api/equipes/${equipe.id}`, {
-        method: "DELETE",
+      const res = await apiFetch(`/api/equipes/${equipe.Id}`, {
+        method: "PATCH",
       });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || "Erro ao excluir");
       }
-      setEquipes((prev) => prev.filter((item) => item.id !== equipe.id));
-      setDeletingEquipe(null);
+      setEquipes((prev) => prev.filter((item) => item.Id !== equipe.Id));
     } catch (error) {
       alert(error.message);
     } finally {
@@ -83,13 +82,13 @@ export default function EquipesTable({ searchTerm = "" }) {
     }
   };
 
+  // Iniciar edição
   const handleEdit = (equipe) => {
-    setEditingEquipe(equipe.id);
-    setEditForm({
-      nome: equipe.Nome ?? "",
-    });
+    setEditingEquipe(equipe.Id);
+    setEditForm({ nome: equipe.Nome });
   };
 
+  // Salvar edição
   const handleSaveEdit = async () => {
     if (!editingEquipe) return;
 
@@ -98,7 +97,7 @@ export default function EquipesTable({ searchTerm = "" }) {
       const res = await apiFetch(`/api/equipes/${editingEquipe}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editForm),
+        body: JSON.stringify({ nome: editForm.nome }),
       });
       if (!res.ok) {
         const err = await res.json();
@@ -106,9 +105,7 @@ export default function EquipesTable({ searchTerm = "" }) {
       }
       const updated = await res.json();
       setEquipes((prev) =>
-        prev.map((equipe) =>
-          equipe.id === editingEquipe ? updated.equipe : equipe
-        )
+        prev.map((eq) => (eq.Id === editingEquipe ? { ...eq, Nome: editForm.nome } : eq))
       );
       setEditingEquipe(null);
     } catch (error) {
@@ -118,19 +115,21 @@ export default function EquipesTable({ searchTerm = "" }) {
     }
   };
 
+  // Renderizar cada linha
   const renderRow = (equipe) => {
-    const busy = pendingAction?.id === equipe.id;
+    const busy = pendingAction?.id === equipe.Id;
     const deletePending =
-      pendingAction?.id === equipe.id && pendingAction.type === "delete";
+      pendingAction?.id === equipe.Id && pendingAction?.type === "delete";
     const editPending =
-      pendingAction?.id === equipe.id && pendingAction.type === "edit";
+      pendingAction?.id === equipe.Id && pendingAction?.type === "edit";
 
     return (
-      <TableRow key={equipe.id} className="hover:bg-muted/50">
+      <TableRow key={equipe.Id} className="hover:bg-muted/50">
         <TableCell className="h-16 px-6 font-medium">{equipe.Nome}</TableCell>
         <TableCell className="h-16 px-6">
           <TooltipProvider>
             <div className="flex items-center justify-end gap-2">
+              {/* Visualizar */}
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -138,6 +137,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                     size="icon"
                     className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
                     disabled={busy}
+                    aria-label={`Ver detalhes de ${equipe.Nome}`}
                   >
                     <EyeIcon color="white" className="size-5" />
                   </Button>
@@ -146,25 +146,19 @@ export default function EquipesTable({ searchTerm = "" }) {
                   <PopoverHeader>
                     <PopoverTitle>{equipe.Nome}</PopoverTitle>
                     <PopoverDescription>
-                      {equipe.TotalFuncionarios} funcionario(s) e{" "}
-                      {equipe.TotalSetores} setor(es) vinculado(s)
+                      {equipe.TotalFuncionarios} funcionário(s), {equipe.TotalSetores} setor(es)
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="space-y-2 text-sm">
-                    <p>
-                      <span className="font-medium">Funcionarios:</span>{" "}
-                      {equipe.Funcionarios}
-                    </p>
-                    <p>
-                      <span className="font-medium">Setores:</span>{" "}
-                      {equipe.Setores}
-                    </p>
+                    <p><span className="font-medium">Funcionários:</span> {equipe.Funcionarios}</p>
+                    <p><span className="font-medium">Setores:</span> {equipe.Setores}</p>
                   </div>
                 </PopoverContent>
               </Popover>
 
+              {/* Editar */}
               <Popover
-                open={editingEquipe === equipe.id}
+                open={editingEquipe === equipe.Id}
                 onOpenChange={(open) => {
                   if (open) handleEdit(equipe);
                   else setEditingEquipe(null);
@@ -176,6 +170,7 @@ export default function EquipesTable({ searchTerm = "" }) {
                     size="icon"
                     className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
                     disabled={busy}
+                    aria-label={`Editar ${equipe.Nome}`}
                   >
                     <PencilIcon color="white" className="size-5" />
                   </Button>
@@ -186,9 +181,9 @@ export default function EquipesTable({ searchTerm = "" }) {
                   </PopoverHeader>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`edit-equipe-${equipe.id}`}>Nome</Label>
+                      <Label htmlFor={`edit-equipe-${equipe.Id}`}>Nome</Label>
                       <Input
-                        id={`edit-equipe-${equipe.id}`}
+                        id={`edit-equipe-${equipe.Id}`}
                         value={editForm.nome}
                         onChange={(e) =>
                           setEditForm({ ...editForm, nome: e.target.value })
@@ -198,16 +193,11 @@ export default function EquipesTable({ searchTerm = "" }) {
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="outline"
-                        className="bg-transparent ring-1"
                         onClick={() => setEditingEquipe(null)}
                       >
                         Cancelar
                       </Button>
-                      <Button
-                        className="bg-transparent ring-1"
-                        onClick={handleSaveEdit}
-                        disabled={editPending}
-                      >
+                      <Button onClick={handleSaveEdit} disabled={editPending}>
                         {editPending ? (
                           <Loader2 className="size-4 animate-spin" />
                         ) : (
@@ -219,18 +209,15 @@ export default function EquipesTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              <Popover
-                open={deletingEquipe === equipe.id}
-                onOpenChange={(open) => {
-                  setDeletingEquipe(open ? equipe.id : null);
-                }}
-              >
+              {/* Excluir */}
+              <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
                     disabled={busy}
+                    aria-label={`Excluir ${equipe.Nome}`}
                   >
                     {deletePending ? (
                       <Loader2 className="size-4 animate-spin" />
@@ -247,16 +234,11 @@ export default function EquipesTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button
-                      variant="outline"
-                      className="bg-transparent ring-1"
-                      onClick={() => setDeletingEquipe(null)}
-                    >
+                    <Button variant="outline" onClick={() => {}}>
                       Cancelar
                     </Button>
                     <Button
                       variant="destructive"
-                      className="bg-transparent ring-1"
                       onClick={() => handleExcluir(equipe)}
                       disabled={deletePending}
                     >
@@ -292,10 +274,7 @@ export default function EquipesTable({ searchTerm = "" }) {
         <TableBody>
           {filteredEquipes.length === 0 ? (
             <TableRow>
-              <TableCell
-                colSpan={2}
-                className="py-6 text-center text-muted-foreground"
-              >
+              <TableCell colSpan={2} className="py-6 text-center text-muted-foreground">
                 Nenhuma equipe encontrada.
               </TableCell>
             </TableRow>

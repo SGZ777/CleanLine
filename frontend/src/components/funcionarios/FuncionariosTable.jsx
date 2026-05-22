@@ -30,20 +30,60 @@ import {
 } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
+async function getErrorMessage(res, fallback) {
+  const contentType = res.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    const data = await res.json();
+    return data.error || data.message || fallback;
+  }
+
+  const text = await res.text();
+  return text || fallback;
+}
+
 export default function FuncionariosTable({ searchTerm = "" }) {
   const [funcionarios, setFuncionarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
-  const [editingFunc, setEditingFunc] = useState(null);
-  const [deletingFunc, setDeletingFunc] = useState(null);
+  const [editingFunc, setEditingFunc] = useState(null); // armazena a chave composta
+  const [deletingFunc, setDeletingFunc] = useState(null); // chave composta
   const [editForm, setEditForm] = useState({
     nome: "",
     email: "",
     tel: "",
+    idEquipe: "",
   });
 
+  // Dados auxiliares para dropdown de equipes
+  const [equipes, setEquipes] = useState([]);
+  const [loadingEquipes, setLoadingEquipes] = useState(true);
+
+  // Gera chave única combinando Tipo e id
   const getFuncKey = (func) => `${func.Tipo}-${func.id}`;
 
+  // Carrega equipes (para o dropdown no popover de edição)
+  useEffect(() => {
+    async function carregarEquipes() {
+      setLoadingEquipes(true);
+      try {
+        const res = await apiFetch("/api/equipes");
+        if (res.ok) {
+          const data = await res.json();
+          setEquipes(data);
+        } else {
+          console.error("Erro ao buscar equipes");
+        }
+      } catch (err) {
+        console.error("Erro ao buscar equipes:", err);
+      } finally {
+        setLoadingEquipes(false);
+      }
+    }
+    carregarEquipes();
+  }, []);
+
+  // Busca funcionários
   const fetchFuncionarios = async () => {
     setLoading(true);
     try {
@@ -62,30 +102,29 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     fetchFuncionarios();
   }, []);
 
+  // Filtro por termo de busca
   const filteredFuncionarios = funcionarios.filter((func) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-
     return (
       func.Nome?.toLowerCase().includes(term) ||
-      func.Email?.toLowerCase().includes(term) ||
       func.Cargo?.toLowerCase().includes(term) ||
       func.Setor?.toLowerCase().includes(term)
     );
   });
 
-  const handleInativar = async (func) => {
+  // Excluir funcionário
+  const handleExcluir = async (func) => {
     const funcKey = getFuncKey(func);
     setPendingAction({ key: funcKey, type: "delete" });
 
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
-        method: "DELETE",
+        method: "PATCH",
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Erro ao inativar");
+        throw new Error(await getErrorMessage(res, "Erro ao excluir"));
       }
 
       setFuncionarios((prev) =>
@@ -99,31 +138,44 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     }
   };
 
+  // Iniciar edição
   const handleEdit = (func) => {
     setEditingFunc(getFuncKey(func));
     setEditForm({
-      nome: func.Nome ?? "",
-      email: func.Email ?? "",
-      tel: func.Tel ?? "",
+      nome: func.Nome,
+      email: func.Email,
+      tel: func.Tel,
+      idEquipe: func.idEquipe ?? "", // preenche com ID da equipe (se houver)
     });
   };
 
+  // Salvar edição
   const handleSaveEdit = async () => {
     if (!editingFunc) return;
 
+    // Encontra o objeto funcionário pela chave
     const func = funcionarios.find((f) => getFuncKey(f) === editingFunc);
     if (!func) return;
 
     setPendingAction({ key: editingFunc, type: "edit" });
 
     try {
+      const body = {
+        tipo: func.Tipo,
+        nome: editForm.nome,
+        email: editForm.email,
+        tel: editForm.tel,
+      };
+
+      // Envia idEquipe apenas se for Funcionário de Limpeza e tiver valor
+      if (func.Tipo === "Func_Limpeza" && editForm.idEquipe) {
+        body.idEquipe = Number(editForm.idEquipe);
+      }
+
       const res = await apiFetch(`/api/funcionarios/${func.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tipo: func.Tipo,
-          ...editForm,
-        }),
+        body: JSON.stringify(body),
       });
 
       if (!res.ok) {
@@ -145,13 +197,14 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     }
   };
 
+  // Renderiza cada linha da tabela
   const renderRow = (func) => {
     const funcKey = getFuncKey(func);
     const busy = pendingAction?.key === funcKey;
     const deletePending =
-      pendingAction?.key === funcKey && pendingAction.type === "delete";
+      pendingAction?.key === funcKey && pendingAction?.type === "delete";
     const editPending =
-      pendingAction?.key === funcKey && pendingAction.type === "edit";
+      pendingAction?.key === funcKey && pendingAction?.type === "edit";
 
     return (
       <TableRow key={funcKey} className="hover:bg-muted/50">
@@ -165,6 +218,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
         <TableCell className="h-16 px-6">
           <TooltipProvider>
             <div className="flex items-center justify-end gap-2">
+              {/* Visualizar detalhes */}
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -182,22 +236,15 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     <PopoverDescription>{func.Cargo}</PopoverDescription>
                   </PopoverHeader>
                   <div className="space-y-2 text-sm">
-                    <p>
-                      <span className="font-medium">Email:</span> {func.Email}
-                    </p>
-                    <p>
-                      <span className="font-medium">Telefone:</span> {func.Tel}
-                    </p>
-                    <p>
-                      <span className="font-medium">Setor:</span> {func.Setor}
-                    </p>
-                    <p>
-                      <span className="font-medium">Tipo:</span> {func.Tipo}
-                    </p>
+                    <p><span className="font-medium">Email:</span> {func.Email}</p>
+                    <p><span className="font-medium">Telefone:</span> {func.Tel}</p>
+                    <p><span className="font-medium">Setor:</span> {func.Setor}</p>
+                    <p><span className="font-medium">Tipo:</span> {func.Tipo}</p>
                   </div>
                 </PopoverContent>
               </Popover>
 
+              {/* Editar funcionário */}
               <Popover
                 open={editingFunc === funcKey}
                 onOpenChange={(open) => {
@@ -225,9 +272,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                       <Input
                         id="edit-nome"
                         value={editForm.nome}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, nome: e.target.value })
-                        }
+                        onChange={(e) => setEditForm({ ...editForm, nome: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
@@ -235,9 +280,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                       <Input
                         id="edit-email"
                         value={editForm.email}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, email: e.target.value })
-                        }
+                        onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
@@ -245,21 +288,42 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                       <Input
                         id="edit-tel"
                         value={editForm.tel}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, tel: e.target.value })
-                        }
+                        onChange={(e) => setEditForm({ ...editForm, tel: e.target.value })}
                       />
                     </div>
+
+                    {/* Dropdown de equipe (somente para Funcionário de Limpeza) */}
+                    {func.Tipo === "Func_Limpeza" && (
+                      <div className="space-y-2">
+                        <Label htmlFor="edit-equipe">Equipe</Label>
+                        {loadingEquipes ? (
+                          <p className="text-sm text-gray-500">Carregando equipes...</p>
+                        ) : (
+                          <select
+                            id="edit-equipe"
+                            value={editForm.idEquipe}
+                            onChange={(e) => setEditForm({ ...editForm, idEquipe: e.target.value })}
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                          >
+                            <option value="">Selecione uma equipe</option>
+                            {equipes.map((eq) => (
+                              <option key={eq.Id} value={eq.Id}>
+                                {eq.Nome}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      </div>
+                    )}
+
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="outline"
-                        className="bg-transparent ring-1"
                         onClick={() => setEditingFunc(null)}
                       >
                         Cancelar
                       </Button>
                       <Button
-                        className="bg-transparent ring-1"
                         onClick={handleSaveEdit}
                         disabled={editPending}
                       >
@@ -274,6 +338,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
+              {/* Excluir */}
               <Popover
                 open={deletingFunc === funcKey}
                 onOpenChange={(open) => {
@@ -304,15 +369,13 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                   <div className="mt-4 flex justify-end gap-2">
                     <Button
                       variant="outline"
-                      className="bg-transparent ring-1"
                       onClick={() => setDeletingFunc(null)}
                     >
                       Cancelar
                     </Button>
                     <Button
                       variant="destructive"
-                      className="bg-transparent ring-1"
-                      onClick={() => handleInativar(func)}
+                      onClick={() => handleExcluir(func)}
                       disabled={deletePending}
                     >
                       {deletePending ? (
@@ -351,14 +414,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
         <TableBody>
           {filteredFuncionarios.length === 0 ? (
             <TableRow>
-              <TableCell
-                colSpan={4}
-                className="py-6 text-center text-muted-foreground"
-              >
+              <TableCell colSpan={4} className="py-6 text-center text-muted-foreground">
                 Nenhum funcionário encontrado.
               </TableCell>
             </TableRow>
           ) : (
+            
             filteredFuncionarios.map(renderRow)
           )}
         </TableBody>

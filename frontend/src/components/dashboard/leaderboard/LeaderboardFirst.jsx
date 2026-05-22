@@ -8,7 +8,7 @@ export default function LeaderboardFirst({ setor, nota }) {
             <img src="icons/icon_trofeu-ouro.svg" alt="Ouro" className="h-20 w-20" />
           </span>
           <div className="flex flex-col gap-5">
-            <span className="text-xl text-foreground">{setor} - Trofeu Ouro</span>
+            <span className="text-xl text-foreground">{setor} - Troféu Ouro</span>
             <span className="text-xl text-foreground">Nota {nota}</span>
           </div>
         </div>

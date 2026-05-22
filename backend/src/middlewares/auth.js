@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
+const SECRET_KEY = process.env.JWT_SECRET || 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
 
 function getTokenFromRequest(req) {
   if (req.cookies?.cleanline_token) {
@@ -21,12 +21,7 @@ export function authMiddleware(req, res, next) {
 
   if (!token) {
     return res.status(401).json({
-      error: 'Token nao enviado',
-      authDebug: {
-        hasCookieHeader: Boolean(req.headers.cookie),
-        hasParsedCookies: Boolean(req.cookies && Object.keys(req.cookies).length),
-        hasCleanlineToken: Boolean(req.cookies?.cleanline_token),
-      },
+      error: 'Token não enviado',
     });
   }
 
@@ -36,17 +31,14 @@ export function authMiddleware(req, res, next) {
     next();
   } catch {
     return res.status(401).json({
-      error: 'Token invalido ou expirado',
-      authDebug: {
-        hasCleanlineToken: true,
-      },
+      error: 'Token inválido ou expirado',
     });
   }
 }
 
 export function adminMiddleware(req, res, next) {
   if (!req.user || req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Acesso negado. Requer privilegios de Administrador.' });
+    return res.status(403).json({ error: 'Acesso negado. Requer privilégios de Administrador.' });
   }
 
   next();

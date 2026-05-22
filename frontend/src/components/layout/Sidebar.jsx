@@ -44,14 +44,14 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           </button>
         </div>
 
-        <div className="hidden md:flex justify-end px-3 mb-2">
+        <div className={["flex items-center px-3 mb-2", isMinimized ? "justify-center" : "justify-end"].join(" ")}>
           <button
             type="button"
             onClick={() => setIsMinimized(!isMinimized)}
-            className="rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
+            className="hidden md:block rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
             aria-label={isMinimized ? "Expandir sidebar" : "Minimizar sidebar"}
           >
-           {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
+            {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
           </button>
         </div>
 

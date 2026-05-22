@@ -98,12 +98,7 @@ export default function SetoresTable({ searchTerm = "" }) {
   const filteredSetores = setores.filter((setor) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
-    return (
-      setor.Nome?.toLowerCase().includes(term) ||
-      setor.TagNfc?.toLowerCase().includes(term) ||
-      setor.Equipe?.toLowerCase().includes(term) ||
-      setor.Rotas?.toLowerCase().includes(term)
-    );
+    return setor.Nome?.toLowerCase().includes(term);
   });
 
   // Handlers de exclusão
@@ -111,7 +106,7 @@ export default function SetoresTable({ searchTerm = "" }) {
     setPendingAction({ id: setor.id, type: "delete" });
     try {
       const res = await apiFetch(`/api/setores/${setor.id}`, {
-        method: "PATCH",
+        method: "DELETE",
       });
       if (!res.ok) {
         const err = await res.json();
@@ -400,7 +395,7 @@ export default function SetoresTable({ searchTerm = "" }) {
           <TableRow className="border-b hover:bg-transparent">
             <TableHead className="h-12 px-6 font-medium">Nome</TableHead>
             <TableHead className="h-12 px-6 text-right font-medium pe-20">
-              Acoes
+              Ações
             </TableHead>
           </TableRow>
         </TableHeader>

@@ -57,11 +57,7 @@ export default function RotasTable({ searchTerm = "" }) {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true;
 
-    return (
-      rota.Nome?.toLowerCase().includes(term) ||
-      rota.Setores?.toLowerCase().includes(term) ||
-      rota.Administrador?.toLowerCase().includes(term)
-    );
+    return rota.Nome?.toLowerCase().includes(term);
   });
 
   const handleExcluir = async (rota) => {
@@ -195,12 +191,11 @@ export default function RotasTable({ searchTerm = "" }) {
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="outline"
-                        className="bg-transparent ring-1"
                         onClick={() => setEditingRota(null)}
                       >
                         Cancelar
                       </Button>
-                      <Button className="bg-transparent ring-1" onClick={handleSaveEdit} disabled={editPending}>
+                      <Button onClick={handleSaveEdit} disabled={editPending}>
                         {editPending ? (
                           <Loader2 className="size-4 animate-spin" />
                         ) : (
@@ -240,11 +235,11 @@ export default function RotasTable({ searchTerm = "" }) {
                     </PopoverDescription>
                   </PopoverHeader>
                   <div className="mt-4 flex justify-end gap-2">
-                    <Button variant="outline" className="bg-transparent ring-1" onClick={() => setDeletingRota(null)}>
+                    <Button variant="outline" onClick={() => setDeletingRota(null)}>
                       Cancelar
                     </Button>
                     <Button
-                      variant="destructive" className="bg-transparent ring-1"
+                      variant="destructive"
                       onClick={() => handleExcluir(rota)}
                       disabled={deletePending}
                     >
