@@ -77,7 +77,7 @@ export default function Checklists() {
               <h1 className="text-2xl md:text-3xl font-inter">
                 Checklists
               </h1>
-              <div className="flex justify-end md:pe-35">
+              <div className="relative w-full items-center flex">
                 <SearchBar value={searchTerm} onChange={setSearchTerm} />
               </div>
             </div>

@@ -45,7 +45,11 @@ export default function Equipes() {
               </div>
             </div>
           </div>
-          <EquipesTable key={refreshKey} searchTerm={searchTerm} />
+          <EquipesTable
+            key={refreshKey}
+            searchTerm={searchTerm}
+            onAddClick={() => setShowAddModal(true)}
+          />
         </main>
       </div>
       {showAddModal && (
