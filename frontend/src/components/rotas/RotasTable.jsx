@@ -6,6 +6,7 @@ import {
   Loader2,
   MapPinnedIcon,
   PencilIcon,
+  PlusIcon,
   RouteIcon,
   Trash2Icon,
   UserRoundIcon,
@@ -33,7 +34,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export default function RotasTable({ searchTerm = "" }) {
+export default function RotasTable({ searchTerm = "", onAddClick }) {
   const [rotas, setRotas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState(null);
@@ -322,6 +323,22 @@ export default function RotasTable({ searchTerm = "" }) {
     );
   };
 
+  const renderCreateCard = () => (
+    <button
+      type="button"
+      onClick={onAddClick}
+      className="flex min-h-82 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-primary/45 bg-card p-6 text-center text-card-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-muted/35 hover:shadow-md focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+    >
+      <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+        <PlusIcon className="size-8" />
+      </span>
+      <span className="text-lg font-semibold">Criar nova rota</span>
+      <span className="text-sm text-muted-foreground">
+        Adicionar uma rota ao cadastro
+      </span>
+    </button>
+  );
+
   if (loading) {
     return <div className="p-6 text-center">Carregando rotas...</div>;
   }
@@ -335,6 +352,7 @@ export default function RotasTable({ searchTerm = "" }) {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {filteredRotas.map(renderCard)}
+          {onAddClick && renderCreateCard()}
         </div>
       )}
     </div>
