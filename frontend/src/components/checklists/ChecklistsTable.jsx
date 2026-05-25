@@ -36,8 +36,8 @@ const PERGUNTAS = [
 const getNotaColor = (nota) => {
   if (nota === null || nota === undefined) return "text-muted-foreground";
   const valor = Number(nota);
-  if (valor >= 8) return "text-green-600 font-semibold dark:text-green-400";
-  if (valor >= 6) return "text-yellow-600 font-semibold dark:text-yellow-300";
+  if (valor >= 8) return "text-green-500 font-semibold dark:text-green-400";
+  if (valor >= 6) return "text-yellow-800 font-semibold dark:text-yellow-500";
   return "text-red-500 font-semibold dark:text-red-400";
 };
 
@@ -48,12 +48,12 @@ const getNotaBadgeClass = (nota) => {
 
   const valor = Number(nota);
   if (valor >= 8) {
-    return "border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-300";
+    return "border-green-500/30 bg-green-500 text-green-700 dark:text-green-50";
   }
   if (valor >= 6) {
-    return "border-yellow-500/30 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300";
+    return "border-yellow-500/30 bg-yellow-500 text-yellow-700 dark:text-yellow-50";
   }
-  return "border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-300";
+  return "border-red-500/30 bg-red-500 text-red-600 dark:text-red-50";
 };
 
 const capitalize = (value) => {
