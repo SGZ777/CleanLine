@@ -24,17 +24,17 @@ export default function Indicadores() {
             Painel de indicadores
           </h1>
 
-          <div className="mt-10 flex justify-around">
+          <div className="mt-10 bg-white p-10 rounded-2xl shadow-md flex justify-around">
             <div className="grid w-full justify-items-center">
-              <h1 className="text-lg text-foreground md:text-2xl">
+              <h1 className="text-lg mb-5 text-foreground md:text-2xl">
                 Média dos setores no último trimestre
               </h1>
               <SimpleBarChart />
             </div>
           </div>
 
-          <div className="flex flex-col text-center">
-            <h1 className="mt-16 text-lg text-foreground md:text-2xl">
+          <div className="flex flex-col bg-white rounded-2xl pb-5 shadow-md mt-10 text-center">
+            <h1 className="mt-16 text-lg mb-5 text-foreground md:text-2xl">
               Média das equipes no último trimestre
             </h1>
             <PieChartInFlexbox />
