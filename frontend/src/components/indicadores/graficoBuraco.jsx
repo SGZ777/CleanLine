@@ -112,10 +112,10 @@ const ChartPieDonutActive = () => {
         {equipesGraficos.map(({ equipe, total, activeIndex, chartData }) => (
           <div
             key={equipe}
-            className="w-full max-w-xs rounded-md border bg-background p-4"
+            className="w-full max-w-xs rounded-md"
           >
             <ChartContainer
-              className="mx-auto aspect-square max-h-[250px]"
+              className="mx-auto aspect-square max-h-62.5"
               config={chartConfig}
             >
               <PieChart>
@@ -181,15 +181,14 @@ const ChartPieDonutActive = () => {
                 </Pie>
               </PieChart>
             </ChartContainer>
-
-            <h2 className="mt-3 truncate text-center text-base font-medium text-foreground">
+            <h2 className="truncate text-center text-base font-medium text-foreground">
               {equipe}
             </h2>
           </div>
         ))}
       </div>
 
-      <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+      <div className="mt-6 flex flex-wrap justify-center mb-10 gap-4 text-sm text-muted-foreground">
         {FAIXAS.map(({ faixa, label, fill }) => (
           <div key={faixa} className="flex items-center gap-2">
             <span
