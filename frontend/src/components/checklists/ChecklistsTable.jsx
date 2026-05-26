@@ -107,14 +107,14 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
           <CardAction>
             <Dialog>
               <DialogTrigger asChild>
-                <Button
-                  variant="default"
-                  size="icon"
-                  className="h-8 w-8"
-                  aria-label={`Ver detalhes de ${task.setor}`}
-                >
-                  <EyeIcon className="size-5 text-white" />
-                </Button>
+              <Button
+                    variant="secondary"
+                    size="icon"
+                    className="h-8 w-8 border-none bg-(--btn-bg-eye-blue) text-[#3870CA] hover:bg-(--btn-bg-eye-blue) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
+                    
+                  >
+                    <EyeIcon className="size-5 text-(--eye-blue)" />
+                  </Button>
               </DialogTrigger>
 
               <DialogContent
