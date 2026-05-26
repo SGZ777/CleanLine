@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Label,
+  Tooltip,
+} from "recharts";
 import { getDistribuicaoNotasEquipes } from "@/lib/controllers/dashboard";
 
 // Mapeamento fixo de cores por faixa
@@ -13,6 +20,22 @@ const CORES = {
 
 // Ordem desejada das faixas (para consistência)
 const ORDEM_FAIXAS = ["0-4", "4.1-6.9", "7-10"];
+
+function CustomTooltip({ active, payload }) {
+  if (!active || !payload?.length) {
+    return null;
+  }
+
+  const { name, value, percent } = payload[0].payload;
+
+  return (
+    <div className="rounded border bg-background px-3 py-2 text-sm shadow">
+      <p className="font-semibold">Faixa: {name}</p>
+      <p>Quantidade: {value}</p>
+      <p>Porcentagem: {percent.toFixed(1)}%</p>
+    </div>
+  );
+}
 
 export default function PieChartInFlexbox() {
   const [equipesGraficos, setEquipesGraficos] = useState([]);
@@ -46,7 +69,18 @@ export default function PieChartInFlexbox() {
               fill: CORES[f],
             };
           });
-          return { equipe: g.equipe, dados: faixasCompletas };
+
+          const total = faixasCompletas.reduce(
+            (soma, faixa) => soma + faixa.value,
+            0
+          );
+
+          const faixasComPorcentagem = faixasCompletas.map((faixa) => ({
+            ...faixa,
+            percent: total > 0 ? (faixa.value / total) * 100 : 0,
+          }));
+
+          return { equipe: g.equipe, dados: faixasComPorcentagem };
         });
 
         setEquipesGraficos(graficos);
@@ -111,6 +145,7 @@ export default function PieChartInFlexbox() {
                     <Cell key={`cell-${i}`} fill={entry.fill} />
                   ))}
                 </Pie>
+                <Tooltip content={<CustomTooltip />} />
                 <Label
                   position="center"
                   fill="var(--foreground)"
