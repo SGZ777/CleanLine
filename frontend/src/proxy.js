@@ -24,6 +24,7 @@ export const config = {
     '/',
     '/login',
     '/homeAdm/:path*',
+    '/equipes/:path*',
     '/funcionarios/:path*',
     '/setores/:path*',
     '/rotas/:path*',

@@ -2,7 +2,11 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../../prisma/client.js';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
+const DEFAULT_JWT_SECRET = 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
+
+function getJwtSecret() {
+  return process.env.JWT_SECRET || DEFAULT_JWT_SECRET;
+}
 
 export async function login(req, res) {
   try {
@@ -20,7 +24,7 @@ export async function login(req, res) {
       return res.status(401).json({ erro: 'Email ou senha incorretos' });
     }
 
-    const token = jwt.sign({ id: user.id, role: 'admin' }, SECRET_KEY, {
+    const token = jwt.sign({ id: user.id, role: 'admin' }, getJwtSecret(), {
       expiresIn: '8h',
     });
 
@@ -44,7 +48,7 @@ export async function getUser(req, res) {
     });
 
     if (!adm) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
+      return res.status(404).json({ error: 'Usuario nao encontrado' });
     }
 
     return res.status(200).json({
@@ -64,31 +68,20 @@ export async function loginMobile(req, res) {
   try {
     const { email, senha } = req.body;
     const user = await prisma.supervisor.findFirst({
-      where: { Email: email }
-    });
+      where: { Email: email }})
     if (!user) {
       return res.status(401).json({ erro: 'Email incorreto' });
     }
     const senhaValida = await bcrypt.compare(senha, user.Senha);
-    if (senhaValida) {
-      // Senha correta! Gerar token para o supervisor
-      const token = jwt.sign({ id: user.id, role: 'supervisor' }, SECRET_KEY, {
-        expiresIn: '30d',
-      });
-
-      // Retorna os dados sem a senha para o Android, incluindo o token
-      const responseData = { ...user };
-      delete responseData.Senha;
-      responseData.token = token;
-
-      return res.json(responseData);
+     if (senhaValida) {
+        // Senha correta! Retorna os dados para o Android
+        res.json(user);
     } else {
-      // Senha errada
-      return res.status(401).json({ message: "Senha incorreta" });
+        // Senha errada
+        res.status(401).json({ message: "Senha incorreta" });
     }
-  } catch (error) {
-    console.error('Erro no login mobile:', error);
-    return res.status(500).json({ erro: 'Erro interno no servidor' });
+    } catch (error) {
+      console.error('Erro no login mobile:', error);
+      return res.status(500).json({ erro: 'Erro interno no servidor' });
+    }
   }
-}
-  

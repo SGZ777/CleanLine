@@ -45,7 +45,6 @@ const LoginForm = ({
 
       if (res.ok) {
         setAuthSession(data.token)
-        localStorage.setItem("cleanline_token", data.token);
         setTimeout(() => {
           router.push("/homeAdm");
         }, 100)
