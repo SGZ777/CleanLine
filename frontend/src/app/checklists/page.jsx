@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { io } from "socket.io-client";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import ChecklistsTable from "@/components/checklists/ChecklistsTable";
 import SearchBar from "@/components/funcionarios/SearchBar";
 import { getChecklistsHoje } from "@/lib/controllers/dashboard";
+
+const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001';
 
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,19 +18,51 @@ export default function Checklists() {
 
   const carregarChecklists = useCallback(async () => {
     try {
+      setLoading(true);
       const data = await getChecklistsHoje();
       setChecklists(data);
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao carregar checklists:', error);
     } finally {
       setLoading(false);
     }
   }, []);
 
+  // 1. useEffect responsável apenas por carregar os dados iniciais
   useEffect(() => {
     carregarChecklists();
   }, [carregarChecklists]);
-console.log("loading:", loading, "checklists:", checklists);
+
+  // 2. useEffect responsável exclusivamente pela conexão em tempo real (Socket.io)
+  // 2. useEffect responsável exclusivamente pela conexão em tempo real
+  useEffect(() => {
+    // 🔥 Removemos o bloco { transports: ... } 
+    // 🔥 Garantimos que a URL seja estritamente localhost
+    // 🔥 Forçando o caminho completo e apenas requisições normais (polling)
+    const socket = io('http://localhost:3001', {
+      path: '/socket.io/',
+      transports: ['polling'],
+      reconnectionDelay: 1000
+    });
+
+    socket.on('connect', () => {
+      console.log('🔌 Conectado ao Socket.IO com ID:', socket.id);
+    });
+
+    socket.on('novaVistoria', (data) => {
+      console.log('📡 Nova vistoria detectada! Atualizando checklists...', data);
+      carregarChecklists();
+    });
+
+    socket.on('connect_error', (err) => {
+      console.error('❌ Erro de conexão no Socket:', err.message);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [carregarChecklists]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <HeaderAdmin onOpenSidebar={() => setIsSidebarOpen(true)} />
@@ -36,19 +71,22 @@ console.log("loading:", loading, "checklists:", checklists);
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
-        <main className="flex-1 p-6 md:p-10">
+        <main className="flex-1 p-6 md:p-10 transition-all duration-300">
           <div className="justify-between flex items-center mb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
               <h1 className="text-2xl md:text-3xl font-inter">
                 Checklists
               </h1>
-              <div className="flex justify-end md:pe-35">
+              <div className="relative w-full items-center flex">
                 <SearchBar value={searchTerm} onChange={setSearchTerm} />
               </div>
             </div>
           </div>
-          {loading ? (
-            <div className="text-center">Carregando checklists...</div>
+
+          {loading && checklists.length === 0 ? (
+            <div className="text-center py-10 text-gray-500">
+              Carregando checklists...
+            </div>
           ) : (
             <ChecklistsTable tasks={checklists} searchTerm={searchTerm} />
           )}

@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
+import { adminMiddleware, authMiddleware } from './middlewares/auth.js';
 import authRoutes from './routes/auth.js';
 import equipesRoutes from './routes/equipes.js';
 import funcionariosRoutes from './routes/funcionarios.js';
@@ -11,6 +12,7 @@ import rotasRoutes from './routes/rotas.js';
 import dashboardRoutes from './routes/dashboard.js';
 import inspecoesRoutes from './routes/inspecoes.js';
 import vistoriasRoutes from './routes/vistorias.js';
+import supervisorRoutes from './routes/supervisor.js';
 
 
 dotenv.config();
@@ -35,13 +37,14 @@ app.use(cookieParser());
 
 // Rotas
 app.use('/api', authRoutes);
-app.use('/api/equipes', equipesRoutes);
-app.use('/api/funcionarios', funcionariosRoutes);
-app.use('/api/setores', setoresRoutes);
-app.use('/api/rotas', rotasRoutes);
-app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/inspecoes', inspecoesRoutes);
+app.use('/api/equipes', authMiddleware, adminMiddleware, equipesRoutes);
+app.use('/api/funcionarios', authMiddleware, adminMiddleware, funcionariosRoutes);
+app.use('/api/setores', authMiddleware, adminMiddleware, setoresRoutes);
+app.use('/api/rotas', authMiddleware, adminMiddleware, rotasRoutes);
+app.use('/api/dashboard', authMiddleware, adminMiddleware, dashboardRoutes);
+app.use('/api/inspecoes', authMiddleware, adminMiddleware, inspecoesRoutes);
 app.use('/api/vistoria', vistoriasRoutes);
+app.use('/api/supervisor', supervisorRoutes);
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

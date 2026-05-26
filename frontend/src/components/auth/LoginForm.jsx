@@ -42,12 +42,9 @@ const LoginForm = ({
       });
 
       const data = await res.json();
-      console.log(data.token)
-      console.log(Object.keys(data))
 
       if (res.ok) {
         setAuthSession(data.token)
-        localStorage.setItem("cleanline_token", data.token);
         setTimeout(() => {
           router.push("/homeAdm");
         }, 100)
@@ -64,7 +61,7 @@ const LoginForm = ({
     <section className={cn("relative flex min-h-screen justify-center overflow-hidden bg-background", className)}>
       <img
         src="home-background-image.png"
-        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-35"
+        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
         alt="background"
       />
 

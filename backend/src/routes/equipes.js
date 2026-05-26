@@ -5,8 +5,11 @@ import {
   getEquipes,
   updateEquipe,
 } from '../controllers/equipesController.js';
+import { authMiddleware } from '../middlewares/auth.js';
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.get('/', getEquipes);
 router.post('/', createEquipe);

@@ -2,7 +2,11 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../../prisma/client.js';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
+const DEFAULT_JWT_SECRET = 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
+
+function getJwtSecret() {
+  return process.env.JWT_SECRET || DEFAULT_JWT_SECRET;
+}
 
 export async function login(req, res) {
   try {
@@ -20,7 +24,7 @@ export async function login(req, res) {
       return res.status(401).json({ erro: 'Email ou senha incorretos' });
     }
 
-    const token = jwt.sign({ id: user.id, role: 'admin' }, SECRET_KEY, {
+    const token = jwt.sign({ id: user.id, role: 'admin' }, getJwtSecret(), {
       expiresIn: '8h',
     });
 
@@ -81,4 +85,3 @@ export async function loginMobile(req, res) {
       return res.status(500).json({ erro: 'Erro interno no servidor' });
     }
   }
-  

@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'chave-secreta-super-segura-cleanline';
+const DEFAULT_JWT_SECRET = 'fdbhjeanuivreauvreuif4ui398f389f3ivojdcnjkvdnjksad@@fdfsfsmmhmjsfsdvxcxcvx';
+
+function getJwtSecret() {
+  return process.env.JWT_SECRET || DEFAULT_JWT_SECRET;
+}
 
 function getTokenFromRequest(req) {
   if (req.cookies?.cleanline_token) {
@@ -31,7 +35,7 @@ export function authMiddleware(req, res, next) {
   }
 
   try {
-    const payload = jwt.verify(token, SECRET_KEY);
+    const payload = jwt.verify(token, getJwtSecret());
     req.user = payload;
     next();
   } catch {

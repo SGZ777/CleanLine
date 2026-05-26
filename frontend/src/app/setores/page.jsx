@@ -28,10 +28,10 @@ export default function Setores() {
           onClose={() => setIsSidebarOpen(false)}
         />
 
-        <main className="flex-1 p-6 md:p-10">
+        <main className="flex-1 p-6 md:p-10 w-full ">
           <div className=" justify-between flex items-center mb-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-              <h1 className="text-2xl md:text-3xl font-inter">Setores</h1>
+              <h1 className="text-2xl md:text-3xl font-inter md:ms-35">Setores</h1>
               <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
                 <div className=" relative w-full items-center flex ">
                   <SearchBar value={searchTerm} onChange={setSearchTerm} />
@@ -45,7 +45,9 @@ export default function Setores() {
               </div>
             </div>
           </div>
-          <SetoresTable key={refreshKey} searchTerm={searchTerm} />
+          <div className="flex w-full justify-center">
+            <SetoresTable key={refreshKey} searchTerm={searchTerm} />
+          </div>
         </main>
       </div>
       {showAddModal && (

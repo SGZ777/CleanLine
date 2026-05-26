@@ -30,6 +30,18 @@ import {
 } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
+async function getErrorMessage(res, fallback) {
+  const contentType = res.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    const data = await res.json();
+    return data.error || data.message || fallback;
+  }
+
+  const text = await res.text();
+  return text || fallback;
+}
+
 export default function FuncionariosTable({ searchTerm = "" }) {
   const [funcionarios, setFuncionarios] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -96,25 +108,23 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     if (!term) return true;
     return (
       func.Nome?.toLowerCase().includes(term) ||
-      func.Email?.toLowerCase().includes(term) ||
       func.Cargo?.toLowerCase().includes(term) ||
       func.Setor?.toLowerCase().includes(term)
     );
   });
 
-  // Inativar funcionário (soft delete)
-  const handleInativar = async (func) => {
+  // Excluir funcionário
+  const handleExcluir = async (func) => {
     const funcKey = getFuncKey(func);
     setPendingAction({ key: funcKey, type: "delete" });
 
     try {
       const res = await apiFetch(`/api/funcionarios/${func.id}?tipo=${func.Tipo}`, {
-        method: "PATCH", // agora PATCH para inativar, conforme backend
+        method: "PATCH",
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Erro ao inativar");
+        throw new Error(await getErrorMessage(res, "Erro ao excluir"));
       }
 
       setFuncionarios((prev) =>
@@ -212,12 +222,12 @@ export default function FuncionariosTable({ searchTerm = "" }) {
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
+                    className="h-8 w-8 border-none bg-[#e5ecfc] text-white hover:text-white"
                     disabled={busy}
                   >
-                    <EyeIcon color="white" className="size-5" />
+                    <EyeIcon color="#3870CA" className="size-5" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
@@ -246,10 +256,10 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
+                    className="h-8 w-8 border-[#c08e32] bg-[#fcecca] text-white  hover:text-white"
                     disabled={busy}
                   >
-                    <PencilIcon color="white" className="size-5" />
+                    <PencilIcon color="#c08e32" className="size-5" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
@@ -328,7 +338,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 </PopoverContent>
               </Popover>
 
-              {/* Excluir (inativar) */}
+              {/* Excluir */}
               <Popover
                 open={deletingFunc === funcKey}
                 onOpenChange={(open) => {
@@ -339,13 +349,13 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
+                    className="h-8 w-8 border-[#C42C29] bg-[#f8dcdc] text-white  hover:bg-[#fcc6c6]"
                     disabled={busy}
                   >
                     {deletePending ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
-                      <Trash2Icon color="white" className="size-5" />
+                      <Trash2Icon color="#C42C29" className="size-5" />
                     )}
                   </Button>
                 </PopoverTrigger>
@@ -365,7 +375,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                     </Button>
                     <Button
                       variant="destructive"
-                      onClick={() => handleInativar(func)}
+                      onClick={() => handleExcluir(func)}
                       disabled={deletePending}
                     >
                       {deletePending ? (
@@ -389,7 +399,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   }
 
   return (
-    <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
+    <div className="self-center w-full max-w-7xl rounded-xl border bg-card shadow-sm">
       <Table>
         <TableHeader>
           <TableRow className="border-b hover:bg-transparent">
