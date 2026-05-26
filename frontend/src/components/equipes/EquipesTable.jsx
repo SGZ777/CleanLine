@@ -185,15 +185,14 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
           <div className="flex items-center gap-2">
             <Popover>
               <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
-                  disabled={busy}
-                  aria-label={`Ver detalhes de ${equipe.Nome}`}
-                >
-                  <EyeIcon className="size-5" />
-                </Button>
+              <Button
+                    variant="secondary"
+                    size="icon"
+                    className="h-8 w-8 border-none bg-(--btn-bg-eye-blue) text-[#3870CA] hover:bg-(--btn-bg-eye-blue) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
+                    disabled={busy}
+                  >
+                    <EyeIcon className="size-5 text-(--eye-blue)" />
+                  </Button>
               </PopoverTrigger>
               <PopoverContent align="end" className="w-80">
                 <PopoverHeader>
@@ -224,15 +223,14 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
               }}
             >
               <PopoverTrigger asChild>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
-                  disabled={busy}
-                  aria-label={`Editar ${equipe.Nome}`}
-                >
-                  <PencilIcon className="size-5" />
-                </Button>
+              <Button
+                    variant="secondary"
+                    size="icon"
+                    className="h-8 w-8 bg-(--btn-bg-pencil-yellow) text-[#3870CA] hover:bg-(--btn-bg-pencil-yellow) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
+                    disabled={busy}
+                  >
+                    <PencilIcon className="size-5 text-(--pencil-yellow)" />  
+                  </Button>
               </PopoverTrigger>
               <PopoverContent align="end" className="w-80">
                 <PopoverHeader>
@@ -276,19 +274,18 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
               onOpenChange={(open) => setDeletingEquipe(open ? equipe.Id : null)}
             >
               <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
-                  disabled={busy}
-                  aria-label={`Excluir ${equipe.Nome}`}
-                >
-                  {deletePending ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    <Trash2Icon className="size-5" />
-                  )}
-                </Button>
+              <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 border-[#C42C29] bg-(--btn-bg-trash-red) text-white  hover:bg-[#fcc6c6]"
+                    disabled={busy}
+                  >
+                    {deletePending ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <Trash2Icon className="size-5 text-(--trash-red)" />
+                    )}
+                  </Button>
               </PopoverTrigger>
               <PopoverContent align="end" className="w-80">
                 <PopoverHeader>
