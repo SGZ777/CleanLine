@@ -92,7 +92,7 @@ export function PontuacaoGrafico() {
   }
 
   return (
-    <Card className="w-full ms-6 max-w-222 h-95 overflow-visible border border-border bg-card shadow-md">
+    <Card className="w-full ms-6 max-w-222 h-95 overflow-visible bg-card shadow-md">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
           Média de pontuação 5S -{" "}

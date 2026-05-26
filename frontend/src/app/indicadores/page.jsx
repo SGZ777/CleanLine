@@ -4,7 +4,7 @@ import { useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import SimpleBarChart from "@/components/indicadores/graficoBarra";
-import PieChartInFlexbox from "@/components/indicadores/graficosBuraco";
+import ChartPieDonutActive from "@/components/indicadores/graficoBuraco";
 
 export default function Indicadores() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -20,11 +20,11 @@ export default function Indicadores() {
         />
 
         <main className="flex-1 overflow-y-auto p-6 md:p-10">
-          <h1 className="font-inter text-2xl md:text-3xl">
+          <h1 className="font-inter text-2xl md:text-3xl md:ms-35">
             Painel de indicadores
           </h1>
 
-          <div className="mt-10 flex justify-around">
+          <div className="rounded-2xl w-full md:w-7xl justify-self-center shadow-md mt-10 p-8 bg-white flex justify-around">
             <div className="grid w-full justify-items-center">
               <h1 className="text-lg text-foreground md:text-2xl">
                 Média dos setores no último trimestre
@@ -33,11 +33,13 @@ export default function Indicadores() {
             </div>
           </div>
 
-          <div className="flex flex-col text-center">
+          <div className="flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white text-center">
             <h1 className="mt-16 text-lg text-foreground md:text-2xl">
               Média das equipes no último trimestre
             </h1>
-            <PieChartInFlexbox />
+            <div className="mb-5 flex justify-center">
+              <ChartPieDonutActive />
+            </div>
           </div>
         </main>
       </div>

@@ -33,13 +33,9 @@ export default function Checklists() {
     carregarChecklists();
   }, [carregarChecklists]);
 
-  // 2. useEffect responsável exclusivamente pela conexão em tempo real (Socket.io)
-  // 2. useEffect responsável exclusivamente pela conexão em tempo real
   useEffect(() => {
-    // 🔥 Removemos o bloco { transports: ... } 
-    // 🔥 Garantimos que a URL seja estritamente localhost
-    // 🔥 Forçando o caminho completo e apenas requisições normais (polling)
-    const socket = io('http://localhost:3001', {
+
+    const socket = io('https://cleanline-4kf1.onrender.com', {
       path: '/socket.io/',
       transports: ['polling'],
       reconnectionDelay: 1000
@@ -74,7 +70,7 @@ export default function Checklists() {
         <main className="flex-1 p-6 md:p-10 transition-all duration-300">
           <div className="justify-between flex items-center mb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-              <h1 className="text-2xl md:text-3xl font-inter">
+              <h1 className="text-2xl md:text-3xl md:ms-35 font-inter">
                 Checklists
               </h1>
               <div className="relative w-full items-center flex">
