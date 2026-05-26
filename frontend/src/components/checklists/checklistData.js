@@ -1,10 +1,10 @@
 export const INITIAL_CHECKLISTS = [
   {
     id: "TASK-001",
-    setor: "Logistica",
+    setor: "Logística",
     cargo: "Supervisor",
     status: "pending",
-    notes: "Checklist aguardando inicio.",
+    notes: "Checklist aguardando início.",
   },
   {
     id: "TASK-002",
@@ -18,19 +18,19 @@ export const INITIAL_CHECKLISTS = [
     setor: "RH",
     cargo: "Supervisor",
     status: "blocked",
-    notes: "Checklist pausado aguardando validacao.",
+    notes: "Checklist pausado aguardando validação.",
   },
   {
     id: "TASK-004",
     setor: "Usinagem",
-    cargo: "Funcionario",
+    cargo: "Funcionário",
     status: "pending",
-    notes: "Checklist preparado para execucao.",
+    notes: "Checklist preparado para execução.",
   },
   {
     id: "TASK-005",
-    setor: "Manutencao",
-    cargo: "Funcionario",
+    setor: "Manutenção",
+    cargo: "Funcionário",
     status: "completed",
     notes: "Checklist finalizado com sucesso.",
   },

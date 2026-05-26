@@ -1,12 +1,8 @@
 "use client";
+
 import * as React from "react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
@@ -16,14 +12,14 @@ import { getGraficoPontuacaoMensal } from "@/lib/controllers/dashboard";
 
 const chartConfig = {
   media: {
-    label: "Media Diaria",
+    label: "Média Diária",
     theme: {
       light: "var(--primary)",
       dark: "#ffffff",
     },
   },
 };
-// Formata a nota 
+
 function formatNota(value) {
   const notaNumerica = Number(value) || 0;
   const notaArredondada = Math.round(notaNumerica * 10) / 10;
@@ -49,7 +45,7 @@ export function PontuacaoGrafico() {
           console.error("Formato inesperado:", json);
         }
       } catch (error) {
-        console.error("Erro ao carregar grafico:", error);
+        console.error("Erro ao carregar gráfico:", error);
       } finally {
         setLoading(false);
       }
@@ -75,7 +71,7 @@ export function PontuacaoGrafico() {
     return (
       <Card className="w-full max-w-230 border border-border bg-card shadow-md">
         <CardContent className="p-6 text-center">
-          Carregando dados do grafico...
+          Carregando dados do gráfico...
         </CardContent>
       </Card>
     );
@@ -85,7 +81,7 @@ export function PontuacaoGrafico() {
     return (
       <Card className="w-full max-w-230 border border-border bg-card shadow-md">
         <CardContent className="p-6 text-center">
-          Nenhum dado disponivel para o mes atual.
+          Nenhum dado disponível para o mês atual.
         </CardContent>
       </Card>
     );

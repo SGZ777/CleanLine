@@ -24,7 +24,7 @@ export default function PontuacaoMedia() {
         const response = await apiFetch("/api/dashboard/media-mensal");
 
         if (!response.ok) {
-          throw new Error("Falha ao buscar media mensal");
+          throw new Error("Falha ao buscar média mensal");
         }
 
         const data = await response.json();
@@ -33,7 +33,7 @@ export default function PontuacaoMedia() {
           setNota(data.MediaMensal ?? 0);
         }
       } catch (error) {
-        console.error("Erro ao carregar pontuacao media:", error);
+        console.error("Erro ao carregar pontuação média:", error);
 
         if (ativo) {
           setNota(0);

@@ -1,5 +1,5 @@
 export const sidebarItems = [
-   {
+  {
     label: "Visão Geral",
     href: "/homeAdm",
     icon: "./icons/icon_home.png",
@@ -9,7 +9,7 @@ export const sidebarItems = [
     label: "Funcionários",
     href: "/funcionarios",
     icon: "./icons/icon_funcionarios.png",
-    alt: "Funcionarios",
+    alt: "Funcionários",
   },
   {
     label: "Setores",
@@ -33,15 +33,15 @@ export const sidebarItems = [
     label: "Gestão de Checklists",
     href: "/checklists",
     icon: "./icons/icon_checklists.png",
-    alt: "Gestao de Checklists",
+    alt: "Gestão de Checklists",
   },
-  { 
+  {
     label: "Painel de indicadores",
     href: "/indicadores",
     icon: "./icons/icon_indicadores.png",
     alt: "Painel de indicadores",
   },
-]
+];
 
 export function getSidebarItemClass(currentPath, itemPath, isMinimized = false) {
   const isActive = currentPath === itemPath;

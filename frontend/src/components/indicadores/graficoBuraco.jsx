@@ -10,7 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const title = "Distribuicao de notas das equipes";
+export const title = "Distribuição de notas das equipes";
 
 const FAIXAS = [
   { faixa: "0-4", label: "0 - 4", fill: "#ff4d4d" },
@@ -70,7 +70,7 @@ const ChartPieDonutActive = () => {
         const response = await getDistribuicaoNotasEquipes();
         setDados(response || []);
       } catch (err) {
-        console.error("Erro ao carregar distribuicao de notas:", err);
+        console.error("Erro ao carregar distribuição de notas:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -85,7 +85,7 @@ const ChartPieDonutActive = () => {
   if (loading) {
     return (
       <div className="p-8 text-center text-muted-foreground">
-        Carregando graficos...
+        Carregando gráficos...
       </div>
     );
   }

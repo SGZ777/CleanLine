@@ -164,7 +164,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
                 Administrador
               </p>
               <p className="text-card-foreground">
-                {rota.Administrador || "Nao informado"}
+                {rota.Administrador || "Não informado"}
               </p>
             </div>
             <div>

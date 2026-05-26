@@ -55,7 +55,7 @@ const LoginForm = ({
         setErro(data.erro);
       }
     } catch {
-      setErro("Erro de conexao com o servidor.");
+      setErro("Erro de conexão com o servidor.");
     }
   };
 
