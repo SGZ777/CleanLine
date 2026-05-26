@@ -4,7 +4,7 @@ import { useState } from "react";
 import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import SimpleBarChart from "@/components/indicadores/graficoBarra";
-import PieChartInFlexbox from "@/components/indicadores/graficosBuraco";
+import ChartPieDonutActive from "@/components/chart-pie-donut-active";
 
 export default function Indicadores() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -37,7 +37,9 @@ export default function Indicadores() {
             <h1 className="mt-16 text-lg text-foreground md:text-2xl">
               Média das equipes no último trimestre
             </h1>
-            <PieChartInFlexbox />
+            <div className="mt-8 flex justify-center">
+              <ChartPieDonutActive />
+            </div>
           </div>
         </main>
       </div>

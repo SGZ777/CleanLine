@@ -33,13 +33,9 @@ export default function Checklists() {
     carregarChecklists();
   }, [carregarChecklists]);
 
-  // 2. useEffect responsável exclusivamente pela conexão em tempo real (Socket.io)
-  // 2. useEffect responsável exclusivamente pela conexão em tempo real
   useEffect(() => {
-    // 🔥 Removemos o bloco { transports: ... } 
-    // 🔥 Garantimos que a URL seja estritamente localhost
-    // 🔥 Forçando o caminho completo e apenas requisições normais (polling)
-    const socket = io('http://localhost:3001', {
+
+    const socket = io('https://cleanline-4kf1.onrender.com', {
       path: '/socket.io/',
       transports: ['polling'],
       reconnectionDelay: 1000
