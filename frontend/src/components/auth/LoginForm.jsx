@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
-const [loading, setLoading] = React.useState(true);
 const LoginForm = ({
   heading = "Fazer login",
   heading2 = "Bem-vindo",
