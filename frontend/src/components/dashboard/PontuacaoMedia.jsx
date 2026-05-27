@@ -49,7 +49,7 @@ export default function PontuacaoMedia() {
   }, []);
 
   return (
-    <section className="m-6 h-auto w-80 rounded-xl bg-card text-card-foreground shadow-md md:w-105">
+    <section className="m-6 h-auto transition-all hover:scale-105 w-80 rounded-xl bg-card text-card-foreground shadow-md md:w-105">
       <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
         Pontuação média mensal
       </p>
