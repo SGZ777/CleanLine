@@ -20,7 +20,7 @@ export async function getEquipes(_req, res) {
       Nome: equipe.Nome,
       Funcionarios:
         equipe.Funcionarios.map((funcionario) => funcionario.Nome).join(', ') ||
-        'Sem funcionarios',
+        'Sem funcionários',
       Setores:
         equipe.Setores.map((setor) => setor.Nome).join(', ') || 'Sem setores',
       TotalFuncionarios: equipe.Funcionarios.length,
@@ -51,7 +51,7 @@ export async function createEquipe(req, res) {
       equipe: {
         id: equipe.Id,
         Nome: equipe.Nome,
-        Funcionarios: 'Sem funcionarios',
+        Funcionarios: 'Sem funcionários',
         Setores: 'Sem setores',
         TotalFuncionarios: 0,
         TotalSetores: 0,
@@ -94,7 +94,7 @@ export async function updateEquipe(req, res) {
         Nome: updated.Nome,
         Funcionarios:
           updated.Funcionarios.map((funcionario) => funcionario.Nome).join(', ') ||
-          'Sem funcionarios',
+          'Sem funcionários',
         Setores:
           updated.Setores.map((setor) => setor.Nome).join(', ') || 'Sem setores',
         TotalFuncionarios: updated.Funcionarios.length,

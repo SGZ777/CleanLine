@@ -31,7 +31,6 @@ export default function HomeAdm() {
             clearAuthSession();
             router.replace("/login");
           }
-
           return;
         }
 
@@ -81,7 +80,7 @@ export default function HomeAdm() {
         />
 
         <main className="flex-1 p-6 md:p-10">
-          <h1 className="font-inter text-3xl md:pb-8 md:text-4xl">
+          <h1 className="font-inter text-3xl md:pb-8 md:ms-10 md:text-4xl">
             Olá, {userName}! | Visão Geral do{" "}
             <span className="text-[#24bff6]">5S</span>
           </h1>

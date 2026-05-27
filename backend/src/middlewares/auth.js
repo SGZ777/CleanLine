@@ -25,7 +25,7 @@ export function authMiddleware(req, res, next) {
 
   if (!token) {
     return res.status(401).json({
-      error: 'Token nao enviado',
+      error: 'Token não enviado',
       authDebug: {
         hasCookieHeader: Boolean(req.headers.cookie),
         hasParsedCookies: Boolean(req.cookies && Object.keys(req.cookies).length),

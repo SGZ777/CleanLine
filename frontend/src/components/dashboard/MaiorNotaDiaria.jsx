@@ -16,7 +16,7 @@ function formatNota(value) {
 
 export default function MaiorNotaDiaria() {
   const [nota, setNota] = useState(0);
-  const [setor, setSetor] = useState('—');
+  const [setor, setSetor] = useState("—");
 
   useEffect(() => {
     let ativo = true;
@@ -26,13 +26,13 @@ export default function MaiorNotaDiaria() {
         const data = await getMaiorNotaDia();
         if (ativo) {
           setNota(data.maiorNota ?? 0);
-          setSetor(data.setor ?? '—');
+          setSetor(data.setor ?? "—");
         }
       } catch (error) {
-        console.error("Erro ao carregar maior nota diaria:", error);
+        console.error("Erro ao carregar maior nota diária:", error);
         if (ativo) {
           setNota(0);
-          setSetor('—');
+          setSetor("—");
         }
       }
     }
@@ -50,7 +50,11 @@ export default function MaiorNotaDiaria() {
       </p>
       <div className="justify-self-center flex gap-4 mt-4">
         <p className="text-5xl pb-5 lg:text-6xl">{formatNota(nota)}/10</p>
-        <img src="./icons/icon_yellow_star.png" className="w-12 h-12 lg:w-14 lg:h-14" />
+        <img
+          src="./icons/icon_yellow_star.png"
+          className="w-12 h-12 lg:w-14 lg:h-14"
+          alt="Estrela indicativa"
+        />
       </div>
     </section>
   );

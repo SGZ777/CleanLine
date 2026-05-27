@@ -48,7 +48,7 @@ export async function getUser(req, res) {
     });
 
     if (!adm) {
-      return res.status(404).json({ error: 'Usuario nao encontrado' });
+      return res.status(404).json({ error: 'Usuário não encontrado' });
     }
 
     return res.status(200).json({
