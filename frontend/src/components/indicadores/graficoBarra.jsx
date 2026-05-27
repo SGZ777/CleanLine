@@ -13,8 +13,24 @@ import {
 } from "recharts";
 
 import { getGraficoSetoresMensal } from "@/lib/controllers/dashboard";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { BarChart2, TableProperties } from "lucide-react";
 
 const MONTH_COLORS = ["#00afdc", "#2ad7eb", "#0d005d"];
+
+const getNotaStyle = (val) => {
+  const num = Number(val);
+  if (num >= 8.0) return "text-green-500 font-semibold dark:text-green-400";
+  if (num >= 6.0) return "text-yellow-600 font-semibold dark:text-yellow-500";
+  return "text-destructive font-semibold";
+};
 
 
 const SimpleBarChart = () => {
@@ -22,6 +38,7 @@ const SimpleBarChart = () => {
   const [meses, setMeses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [viewMode, setViewMode] = useState("chart"); // "chart" | "table"
 
   useEffect(() => {
     async function carregarDados() {
@@ -90,28 +107,100 @@ const SimpleBarChart = () => {
   }
 
   return (
-    <div style={{ width: "90%", maxWidth: "1000px", margin: "0 auto" }}>
-      <ResponsiveContainer width="100%" aspect={1.618} maxHeight={350}>
-        <BarChart
-          data={chartData}
-          margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+    <div className="w-full max-w-[1000px] mx-auto">
+      {/* Selector premium de visualização */}
+      <div className="mb-6 flex justify-end gap-2 pr-2">
+        <button
+          onClick={() => setViewMode("chart")}
+          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all cursor-pointer ${
+            viewMode === "chart"
+              ? "bg-primary text-primary-foreground shadow-md scale-105"
+              : "bg-muted text-muted-foreground hover:bg-muted/80"
+          }`}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis width={30} domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} />
-          <Tooltip />
-          <Legend className="m-20" content={<CustomLegend meses={meses} />} />
+          <BarChart2 className="h-4 w-4" />
+          Gráfico
+        </button>
+        <button
+          onClick={() => setViewMode("table")}
+          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all cursor-pointer ${
+            viewMode === "table"
+              ? "bg-primary text-primary-foreground shadow-md scale-105"
+              : "bg-muted text-muted-foreground hover:bg-muted/80"
+          }`}
+        >
+          <TableProperties className="h-4 w-4" />
+          Tabela
+        </button>
+      </div>
 
-          {meses.map((mes, index) => (
-            <Bar
-              key={mes}
-              dataKey={mes}
-              fill={MONTH_COLORS[index % MONTH_COLORS.length]}
-              radius={[5, 5, 0, 0]}
-            />
-          ))}
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="w-full transition-all duration-300">
+        {viewMode === "chart" ? (
+          <div className="animate-fade-in-up">
+            <ResponsiveContainer width="100%" aspect={1.618} maxHeight={350}>
+              <BarChart
+                data={chartData}
+                margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis width={30} domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} />
+                <Tooltip />
+                <Legend className="m-20" content={<CustomLegend meses={meses} />} />
+
+                {meses.map((mes, index) => (
+                  <Bar
+                    key={mes}
+                    dataKey={mes}
+                    fill={MONTH_COLORS[index % MONTH_COLORS.length]}
+                    radius={[5, 5, 0, 0]}
+                  />
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        ) : (
+          <div className="animate-fade-in-up overflow-hidden rounded-xl border border-border shadow-md bg-card text-card-foreground">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/40 hover:bg-muted/40">
+                  <TableHead className="font-semibold text-foreground px-6 py-4">Setor</TableHead>
+                  {meses.map((mes) => (
+                    <TableHead key={mes} className="font-semibold text-foreground px-6 py-4 text-center">
+                      {formatMes(mes)}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {chartData.map((row, index) => (
+                  <TableRow
+                    key={row.name}
+                    className="hover-row-effect animate-fade-in-left"
+                    style={{ animationDelay: `${index * 60}ms` }}
+                  >
+                    <TableCell className="font-medium text-foreground px-6 py-4">{row.name}</TableCell>
+                    {meses.map((mes) => {
+                      const val = row[mes];
+                      return (
+                        <TableCell key={mes} className="px-6 py-4 text-center">
+                          {val !== undefined && val !== null ? (
+                            <span className={getNotaStyle(val)}>
+                              {Number(val).toFixed(1)}
+                            </span>
+                          ) : (
+                            <span className="text-muted-foreground">-</span>
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
