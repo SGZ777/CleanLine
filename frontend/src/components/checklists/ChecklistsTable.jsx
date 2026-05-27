@@ -23,14 +23,14 @@ import {
 import ExpandableImage from "./ImageExpandsChecklist";
 
 const PERGUNTAS = [
-  "Organizacao do ambiente",
-  "Limpeza de superficies",
-  "Descarte de residuos",
-  "Identificacao visual",
-  "Conservacao de equipamentos",
-  "Limpeza de areas de dificil acesso",
+  "Organização do ambiente",
+  "Limpeza de superfícies",
+  "Descarte de resíduos",
+  "Identificação visual",
+  "Conservação de equipamentos",
+  "Limpeza de áreas de difícil acesso",
   "Controle de odores e pragas",
-  "Conformidade com os procedimentos padrao",
+  "Conformidade com os procedimentos padrão",
 ];
 
 const getNotaColor = (nota) => {
@@ -108,12 +108,11 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
             <Dialog>
               <DialogTrigger asChild>
                 <Button
-                  variant="default"
+                  variant="secondary"
                   size="icon"
-                  className="h-8 w-8"
-                  aria-label={`Ver detalhes de ${task.setor}`}
+                  className="h-8 w-8 border-none bg-(--btn-bg-eye-blue) text-[#3870CA] hover:bg-(--btn-bg-eye-blue) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
                 >
-                  <EyeIcon className="size-5 text-white" />
+                  <EyeIcon className="size-5 text-(--eye-blue)" />
                 </Button>
               </DialogTrigger>
 
@@ -181,7 +180,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
                 <span className="text-xs font-medium uppercase">Imagem</span>
               </div>
               <p className="text-sm font-medium">
-                {task.imagem ? "Disponivel" : "Pendente"}
+                {task.imagem ? "Disponível" : "Pendente"}
               </p>
             </div>
           </div>

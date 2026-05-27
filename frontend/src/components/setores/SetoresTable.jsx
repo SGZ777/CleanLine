@@ -218,10 +218,10 @@ export default function SetoresTable({ searchTerm = "" }) {
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#e5ecfc] text-white hover:text-white"
+                    className="h-8 w-8 border-none bg-(--btn-bg-eye-blue) text-[#3870CA] hover:bg-(--btn-bg-eye-blue) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
                     disabled={busy}
                   >
-                    <EyeIcon color="#3870CA" className="size-5" />
+                    <EyeIcon className="size-5 text-(--eye-blue)" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
@@ -257,10 +257,10 @@ export default function SetoresTable({ searchTerm = "" }) {
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="h-8 w-8 border-[#c08e32] bg-[#fcecca] text-white  hover:text-white"
+                    className="h-8 w-8 bg-(--btn-bg-pencil-yellow) text-[#3870CA] hover:bg-(--btn-bg-pencil-yellow) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
                     disabled={busy}
                   >
-                    <PencilIcon color="#c08e32" className="size-5" />
+                    <PencilIcon className="size-5 text-(--pencil-yellow)" />  
                   </Button>
                 </PopoverTrigger>
 
@@ -379,19 +379,19 @@ export default function SetoresTable({ searchTerm = "" }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 border-[#C42C29] bg-[#f8dcdc] text-white  hover:bg-[#fcc6c6]"
+                    className="h-8 w-8 border-[#C42C29] bg-(--btn-bg-trash-red) text-white  hover:bg-[#fcc6c6]"
                     disabled={busy}
                   >
                     {deletePending ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
-                      <Trash2Icon color="#C42C29" className="size-5" />
+                      <Trash2Icon className="size-5 text-(--trash-red)" />
                     )}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
                   <PopoverHeader>
-                    <PopoverTitle>Confirmar exclusao</PopoverTitle>
+                    <PopoverTitle>Confirmar exclusão</PopoverTitle>
                     <PopoverDescription>
                       Tem certeza que deseja excluir "{setor.Nome}"?
                     </PopoverDescription>

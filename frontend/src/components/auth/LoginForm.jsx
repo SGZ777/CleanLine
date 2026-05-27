@@ -40,12 +40,13 @@ const LoginForm = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
       });
+      
+      
 
       const data = await res.json();
 
       if (res.ok) {
         setAuthSession(data.token)
-        localStorage.setItem("cleanline_token", data.token);
         setTimeout(() => {
           router.push("/homeAdm");
         }, 100)
@@ -54,7 +55,7 @@ const LoginForm = ({
         setErro(data.erro);
       }
     } catch {
-      setErro("Erro de conexao com o servidor.");
+      setErro("Erro de conexão com o servidor.");
     }
   };
 

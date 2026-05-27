@@ -30,7 +30,7 @@ export default function Rotas() {
         <main className="flex-1 p-6 md:p-10">
           <div className=" justify-between flex items-center mb-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-              <h1 className="text-2xl md:text-3xl font-inter">Rotas</h1>
+              <h1 className="text-2xl md:text-3xl md:ms-35 font-inter">Rotas</h1>
               <div className="grid grid-cols-1 md:flex md:justify-between items-center md:pe-35">
                 <div className=" relative w-full items-center flex ">
                   <SearchBar value={searchTerm} onChange={setSearchTerm} />

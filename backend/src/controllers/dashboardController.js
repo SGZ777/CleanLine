@@ -138,19 +138,30 @@ export async function getGraficoSetoresMensal(_req, res) {
 export async function getDistribuicaoNotasEquipes(_req, res) {
   try {
     const dados = await prisma.$queryRaw`
+      WITH faixas(faixa, ordem) AS (
+        VALUES
+          ('0-4', 1),
+          ('4.1-6.9', 2),
+          ('7-10', 3)
+      )
       SELECT
         el."Nome" AS equipe,
-        CASE
-          WHEN v."Pontuacao" <= 4 THEN '0-4'
-          WHEN v."Pontuacao" <= 6.9 THEN '4.1-6.9'
-          ELSE '7-10'
-        END AS faixa,
-        COUNT(*)::int AS quantidade
-      FROM "Vistoria" v
-      JOIN "Setor" s ON s.id = v."Id_Setor"
-      JOIN "Equipe_Limpeza" el ON el."Id" = s."Id_Limp"
-      GROUP BY el."Nome", faixa
-      ORDER BY el."Nome", faixa
+        f.faixa,
+        COUNT(v."Id")::int AS quantidade
+      FROM "Equipe_Limpeza" el
+      CROSS JOIN faixas f
+      LEFT JOIN "Setor" s ON s."Id_Limp" = el."Id"
+      LEFT JOIN "Vistoria" v
+        ON v."Id_Setor" = s.id
+       AND v."Data_e_Hora" >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '2 months'
+       AND v."Data_e_Hora" < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month'
+       AND CASE
+         WHEN v."Pontuacao" <= 4 THEN '0-4'
+         WHEN v."Pontuacao" <= 6.9 THEN '4.1-6.9'
+         ELSE '7-10'
+       END = f.faixa
+      GROUP BY el."Id", el."Nome", f.faixa, f.ordem
+      ORDER BY el."Nome", f.ordem
     `;
     return res.status(200).json({ dados });
   } catch (error) {
@@ -158,6 +169,7 @@ export async function getDistribuicaoNotasEquipes(_req, res) {
     return res.status(500).json({ error: 'Erro interno' });
   }
 }
+
 export async function getChecklistsHoje(_req, res) {
   try {
     const setores = await prisma.$queryRaw`

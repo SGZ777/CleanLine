@@ -221,13 +221,13 @@ export default function FuncionariosTable({ searchTerm = "" }) {
               {/* Visualizar detalhes */}
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
+                <Button
+                    variant="secondary"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#00AFDC] text-white hover:bg-[#0098c0] hover:text-white"
+                    className="h-8 w-8 border-none bg-(--btn-bg-eye-blue) text-[#3870CA] hover:bg-(--btn-bg-eye-blue) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
                     disabled={busy}
                   >
-                    <EyeIcon color="white" className="size-5" />
+                    <EyeIcon className="size-5 text-(--eye-blue)" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
@@ -253,13 +253,13 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 }}
               >
                 <PopoverTrigger asChild>
-                  <Button
+                <Button
                     variant="secondary"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#FFBF00] text-white hover:bg-[#e0a800] hover:text-white"
+                    className="h-8 w-8 bg-(--btn-bg-pencil-yellow) text-[#3870CA] hover:bg-(--btn-bg-pencil-yellow) hover:text-[#3870CA] hover:opacity-90 dark:text-white dark:hover:text-white"
                     disabled={busy}
                   >
-                    <PencilIcon color="white" className="size-5" />
+                    <PencilIcon className="size-5 text-(--pencil-yellow)" />  
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80">
@@ -346,16 +346,16 @@ export default function FuncionariosTable({ searchTerm = "" }) {
                 }}
               >
                 <PopoverTrigger asChild>
-                  <Button
+                <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 border-none bg-[#FF3131] text-white hover:bg-[#db2c2c] hover:text-white"
+                    className="h-8 w-8 border-[#C42C29] bg-(--btn-bg-trash-red) text-white  hover:bg-[#fcc6c6]"
                     disabled={busy}
                   >
                     {deletePending ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
-                      <Trash2Icon color="white" className="size-5" />
+                      <Trash2Icon className="size-5 text-(--trash-red)" />
                     )}
                   </Button>
                 </PopoverTrigger>
@@ -399,7 +399,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   }
 
   return (
-    <div className="w-full max-w-6xl rounded-xl border bg-card shadow-sm">
+    <div className="self-center w-full max-w-7xl rounded-xl border bg-card shadow-sm">
       <Table>
         <TableHeader>
           <TableRow className="border-b hover:bg-transparent">
@@ -427,3 +427,4 @@ export default function FuncionariosTable({ searchTerm = "" }) {
     </div>
   );
 }
+

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #eef3f7;
   --foreground: #102238;
@@ -27,6 +29,12 @@
   --sidebar-hover: rgba(36, 191, 246, 0.26);
   --sidebar-active: #24bff6;
   --sidebar-overlay: rgba(8, 23, 34, 0.52);
+  --btn-bg-eye-blue: #dce7fc;
+  --eye-blue: #3172f3;
+  --btn-bg-pencil-yellow: #fdebca;
+  --pencil-yellow: #bd9016;
+  --btn-bg-trash-red: #fcc9c9;
+  --trash-red: #a10808;
 }
 
 .dark {
@@ -57,6 +65,12 @@
   --sidebar-hover: rgba(89, 214, 255, 0.22);
   --sidebar-active: #37cfff;
   --sidebar-overlay: rgba(1, 10, 17, 0.7);
+  --btn-bg-eye-blue: #24bff6;
+  --eye-blue: #ffffff;
+  --btn-bg-pencil-yellow: #ffbf00;
+  --pencil-yellow: #ffffff;
+  --btn-bg-trash-red: #ff6b6b;
+  --trash-red: #ffffff;
 }
 
 @theme inline {
