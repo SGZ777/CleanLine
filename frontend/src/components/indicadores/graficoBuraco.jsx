@@ -148,10 +148,11 @@ const ChartPieDonutActive = () => {
         {viewMode === "chart" ? (
           <div className="animate-fade-in-up">
             <div className="grid w-full grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {equipesGraficos.map(({ equipe, total, activeIndex, chartData }) => (
+              {equipesGraficos.map(({ equipe, total, activeIndex, chartData }, idx) => (
                 <div
                   key={equipe}
-                  className="w-full max-w-xs rounded-md"
+                  className="w-full max-w-xs rounded-md animate-spin-in"
+                  style={{ animationDelay: `${idx * 150}ms` }}
                 >
                   <ChartContainer
                     className="mx-auto aspect-square max-h-62.5"

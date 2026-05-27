@@ -136,7 +136,7 @@ const SimpleBarChart = () => {
 
       <div className="w-full transition-all duration-300">
         {viewMode === "chart" ? (
-          <div className="animate-fade-in-up">
+          <div className="animate-slide-up-rise">
             <ResponsiveContainer width="100%" aspect={1.618} maxHeight={350}>
               <BarChart
                 data={chartData}
