@@ -36,7 +36,7 @@ export default function Rotas() {
                   <SearchBar value={searchTerm} onChange={setSearchTerm} />
                 </div>
                 <Button
-                  className="mt-3 px-4 md:mt-0 md:scale-120 shadow-md"
+                  className="mt-3 transition-all hover:scale-125 px-4 md:mt-0 md:scale-120 shadow-md"
                   onClick={() => setShowAddModal(true)}
                 >
                   Adicionar +

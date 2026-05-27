@@ -21,7 +21,7 @@ export default function Home() {
           </a>
         </section>
         <img src="home-background-image.png" className="w-full absolute mt-25 z-1"/>
-        <img src="home-background-smartphone-image.png" className="hidden md:hidden lg:block absolute right-50 bottom-0 w-140 z-2"/>
+        <img src="home-background-smartphone-image.png" className="hidden md:hidden transition-all hover:scale-105 lg:block absolute right-50 bottom-0 w-140 z-2"/>
       </section>
   );
 }
