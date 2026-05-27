@@ -24,7 +24,7 @@ export default function Indicadores() {
             Painel de indicadores
           </h1>
 
-          <div className="rounded-2xl w-full md:w-7xl bg-white dark:bg-[#0C1D2C] justify-self-center shadow-md mt-10 p-8  flex justify-around">
+          <div className="rounded-2xl w-full md:w-7xl bg-white dark:bg-[#0C1D2C] justify-self-center shadow-md mt-10 p-6 flex justify-around">
             <div className="grid w-full justify-items-center">
               <h1 className="text-lg mb-5 text-foreground md:text-2xl">
                 Média dos setores no último trimestre

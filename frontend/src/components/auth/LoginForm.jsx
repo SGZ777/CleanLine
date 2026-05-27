@@ -14,7 +14,6 @@ const LoginForm = ({
   heading = "Fazer login",
   heading2 = "Bem-vindo",
   heading2azul = "de volta!",
-
   buttonText = "Entrar",
   className
 }) => {

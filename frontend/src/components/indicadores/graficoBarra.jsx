@@ -16,6 +16,7 @@ import { getGraficoSetoresMensal } from "@/lib/controllers/dashboard";
 
 const MONTH_COLORS = ["#00afdc", "#2ad7eb", "#0d005d"];
 
+
 const SimpleBarChart = () => {
   const [chartData, setChartData] = useState([]);
   const [meses, setMeses] = useState([]);
@@ -61,7 +62,6 @@ const SimpleBarChart = () => {
         setLoading(false);
       }
     }
-
     carregarDados();
   }, []);
 
@@ -90,8 +90,8 @@ const SimpleBarChart = () => {
   }
 
   return (
-    <div style={{ width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
-      <ResponsiveContainer width="100%" aspect={1.618} maxHeight={400}>
+    <div style={{ width: "90%", maxWidth: "1000px", margin: "0 auto" }}>
+      <ResponsiveContainer width="100%" aspect={1.618} maxHeight={350}>
         <BarChart
           data={chartData}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
@@ -154,7 +154,6 @@ function CustomLegend({ meses }) {
               borderRadius: 2,
             }}
           />
-
           <span>{formatMes(mes)}</span>
         </div>
       ))}
