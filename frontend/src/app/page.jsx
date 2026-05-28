@@ -3,7 +3,7 @@ import Header from "@/components/layout/Header";
 export default function Home() {
   return (
     <>
-      <section className="relative w-full min-h-screen pb-10 overflow-hidden bg-gradient-to-br from-[#f8fafb] via-[#f5f8fb] to-[#eff3f7]">
+      <section className="relative w-full min-h-screen pb-10 overflow-hidden bg-gradient-to-br from-[#f8fafb] via-[#f5f8fb] to-[#eff3f7] dark:from-[#07131d] dark:via-[#0c1d2c] dark:to-[#163045]">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -right-40 -top-40 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
           <div className="absolute right-0 top-1/3 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-15" />
@@ -175,7 +175,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] dark:from-[#07131d] to-transparent pointer-events-none" />
 
       <section className="relative w-full py-20 px-6 overflow-hidden flex flex-col items-center">
         <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-xl p-12 bg-popover text-center items-center overflow-hidden">
