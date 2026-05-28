@@ -201,18 +201,18 @@ export default function Home() {
 
       <section className="relative w-full py-0  overflow-hidden flex flex-col items-center md:h-190">
         <img src="home-background-image.png" className="hidden md:block w-full mt-12 absolute" />
-        <h2 className="text-4xl font-semibold mb-12 mt-20 z-10">
+        <h2 className="text-2xl md:text-4xl font-semibold mb-12 mt-20 z-10">
           Por que somos a melhor opção?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
             <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Checklists</h3>
             <p className=" text-lg leading-relaxed">
               Auditorias preenchidas na hora, após a confirmação física.
             </p>
           </div>
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
             <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>
             <p className=" text-lg leading-relaxed">
@@ -220,7 +220,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
             <img src="icon_ranking_principal.png" alt="Ranking gamificado" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Ranking gamificado</h3>
             <p className=" text-lg leading-relaxed">
@@ -228,7 +228,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-primary-foreground transition-all dark:border hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
             <img src="icon_painel_principal.webp" alt="Painel online" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Painel online</h3>
             <p className=" text-lg leading-relaxed">
