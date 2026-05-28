@@ -13,7 +13,7 @@ export default function Header() {
       <div className="flex items-center">
         <img
           src={logoSrc}
-          className="w-50 md:w-80 "
+          className="w-50 md:w-70 "
           alt="Cleanline"
         />
       </div>  

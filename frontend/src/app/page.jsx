@@ -3,39 +3,19 @@ import Header from "@/components/layout/Header";
 export default function Home() {
   return (
     <>
-      {/* Hero Section - Premium SaaS Design */}
       <section className="relative w-full min-h-screen pb-10 overflow-hidden bg-gradient-to-br from-[#f8fafb] via-[#f5f8fb] to-[#eff3f7]">
-        {/* Decorative gradient background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Soft blue glow on the right side */}
           <div className="absolute -right-40 -top-40 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
           <div className="absolute right-0 top-1/3 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-15" />
-          
-          {/* Subtle wave patterns */}
-          <svg
-            className="absolute inset-0 w-full h-full opacity-[0.03]"
-            viewBox="0 0 1200 600"
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <pattern id="wave" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-                <path d="M0,60 Q30,30 60,60 T120,60" fill="none" stroke="#1c96c2" strokeWidth="1" opacity="0.1" />
-              </pattern>
-            </defs>
-            <rect width="1200" height="600" fill="url(#wave)" />
-          </svg>
         </div>
         <Header />
 
-        {/* Main Content Container */}
         <div className="relative z-10 w-full h-full">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
               
-              {/* Left Column - Content */}
               <div className="flex flex-col h-auto justify-center space-y-8">
-                {/* Headline */}
+
                 <div className="md:w-200">
                   <h1 className="text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
                     <span className="text-[#102238] dark:text-[#e7f0f7]">Garanta auditorias</span>
@@ -48,12 +28,10 @@ export default function Home() {
                   </h1>
                 </div>
 
-                {/* Subheadline */}
-                <p className="text-lg lg:text-xl text-[#58708c] dark:text-[#93abc0] leading-relaxed max-w-xl font-light">
+                <p className="text-lg lg:text-xl text-[#58708c] dark:text-[#93abc0] leading-relaxed max-w-xl">
                   Confirme que cada auditoria foi realizada no local correto, com evidências reais do ambiente auditado.
                 </p>
 
-                {/* CTA Button */}
                 <div className="pt-4">
                   <a href="/login" className="inline-block">
                     <button className="group relative px-8 py-4 bg-gradient-to-r from-[#1c96c2] to-[#24bff6] text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3 text-lg">
@@ -68,7 +46,7 @@ export default function Home() {
                 {/* Benefits Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8">
                   {/* Benefit 1 */}
-                  <div className="flex flex-col items-start space-y-3 p-4 rounded-lg bg-white/40 dark:bg-[#0c1d2c]/40 backdrop-blur-sm border border-white/60 dark:border-[#22384b]/60 hover:bg-white/60 dark:hover:bg-[#0c1d2c]/60 transition-all">
+                  <div className="flex transition-all hover:scale-104 shadow-md flex-col items-start space-y-3 p-4 rounded-lg bg-white/40 dark:bg-[#0c1d2c]/40 backdrop-blur-sm border border-white/60 dark:border-[#22384b]/60 hover:bg-white/60 dark:hover:bg-[#0c1d2c]/60 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -79,7 +57,7 @@ export default function Home() {
                   </div>
 
                   {/* Benefit 2 */}
-                  <div className="flex flex-col items-start space-y-3 p-4 rounded-lg bg-white/40 dark:bg-[#0c1d2c]/40 backdrop-blur-sm border border-white/60 dark:border-[#22384b]/60 hover:bg-white/60 dark:hover:bg-[#0c1d2c]/60 transition-all">
+                  <div className="flex transition-all hover:scale-104 shadow-md flex-col items-start space-y-3 p-4 rounded-lg bg-white/40 dark:bg-[#0c1d2c]/40 backdrop-blur-sm border border-white/60 dark:border-[#22384b]/60 hover:bg-white/60 dark:hover:bg-[#0c1d2c]/60 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -91,7 +69,7 @@ export default function Home() {
                   </div>
 
                   {/* Benefit 3 */}
-                  <div className="flex flex-col items-start space-y-3 p-4 rounded-lg bg-white/40 dark:bg-[#0c1d2c]/40 backdrop-blur-sm border border-white/60 dark:border-[#22384b]/60 hover:bg-white/60 dark:hover:bg-[#0c1d2c]/60 transition-all">
+                  <div className="flex transition-all hover:scale-104 shadow-md flex-col items-start space-y-3 p-4 rounded-lg bg-white/40 dark:bg-[#0c1d2c]/40 backdrop-blur-sm border border-white/60 dark:border-[#22384b]/60 hover:bg-white/60 dark:hover:bg-[#0c1d2c]/60 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -105,7 +83,7 @@ export default function Home() {
               </div>
 
               {/* Right Column - Smartphone Mockup */}
-              <div className="relative hidden lg:flex items-center justify-center">
+              <div className="relative ms-50 hidden lg:flex items-center justify-center">
                 {/* Glow effect behind phone */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-80 h-96 bg-gradient-to-r from-[#24bff6]/30 to-[#1c96c2]/20 rounded-full filter blur-3xl opacity-60 animate-pulse" />
@@ -200,12 +178,12 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] to-transparent pointer-events-none" />
 
       <section className="relative w-full py-20 px-6 overflow-hidden flex flex-col items-center">
-        <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md p-10 bg-popover text-center items-center overflow-hidden">
+        <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-xl p-12 bg-popover text-center items-center overflow-hidden">
           <div className="relative z-10 max-w-5xl text-center">
             <h2 className="text-4xl mb-5 font-semibold">
               Sobre a <span className="text-[#24bff6]">Clean</span>Line
             </h2>
-            <div className="text-xl leading-relaxed space-y-4">
+            <div className="text-xl text-justify leading-relaxed space-y-4">
               <p>
                 O 5S-Track é um sistema moderno criado para transformar a forma com o as auditorias 5S são
                 realizadas dentro das empresas. Com ele, a verificação de limpeza, organização e segurança deixa
@@ -222,11 +200,10 @@ export default function Home() {
               </p>
             </div>
           </div>
-
         </div>
       </section>
 
-      <section className="relative w-full py-0 pt-10 overflow-hidden flex flex-col items-center md:h-190">
+      <section className="relative w-full py-0  overflow-hidden flex flex-col items-center md:h-190">
         <img src="home-background-image.png" className="hidden md:block w-full mt-12 absolute" />
         <h2 className="text-4xl font-semibold mb-12 mt-20 z-10">
           Por que somos a melhor opção?
