@@ -36,7 +36,7 @@ export default function Home() {
               {/* Left Column - Content */}
               <div className="flex flex-col h-auto justify-center space-y-8">
                 {/* Headline */}
-                <div className="w-200">
+                <div className="md:w-200">
                   <h1 className="text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
                     <span className="text-[#102238] dark:text-[#e7f0f7]">Garanta auditorias</span>
                     <br />
@@ -201,7 +201,6 @@ export default function Home() {
 
       <section className="relative w-full py-20 px-6 overflow-hidden flex flex-col items-center">
         <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md p-10 bg-popover text-center items-center overflow-hidden">
-          <img src=".png" className="hidden md:hidden lg:block absolute right-50 bottom-0 w-140 z-20" />
           <div className="relative z-10 max-w-5xl text-center">
             <h2 className="text-4xl mb-5 font-semibold">
               Sobre a <span className="text-[#24bff6]">Clean</span>Line
@@ -233,14 +232,14 @@ export default function Home() {
           Por que somos a melhor opção?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
-          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
+          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
             <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Checklists</h3>
             <p className=" text-lg leading-relaxed">
               Auditorias preenchidas na hora, após a confirmação física.
             </p>
           </div>
-          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>
             <p className=" text-lg leading-relaxed">
@@ -248,7 +247,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_ranking_principal.png" alt="Ranking gamificado" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Ranking gamificado</h3>
             <p className=" text-lg leading-relaxed">
@@ -256,7 +255,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_painel_principal.webp" alt="Painel online" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Painel online</h3>
             <p className=" text-lg leading-relaxed">
