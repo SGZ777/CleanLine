@@ -152,6 +152,9 @@ export function PontuacaoGrafico() {
               dataKey="media"
               fill="var(--color-media)"
               radius={[4, 4, 0, 0]}
+              isAnimationActive={true}
+              animationDuration={1500}
+              animationBegin={200}
             />
           </BarChart>
         </ChartContainer>

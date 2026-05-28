@@ -163,6 +163,9 @@ const SimpleBarChart = () => {
                     dataKey={mes}
                     fill={MONTH_COLORS[index % MONTH_COLORS.length]}
                     radius={[5, 5, 0, 0]}
+                    isAnimationActive={true}
+                    animationDuration={1500}
+                    animationBegin={index * 150}
                   />
                 ))}
               </BarChart>
