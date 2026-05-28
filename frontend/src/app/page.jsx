@@ -156,12 +156,8 @@ export default function Home() {
                           <span className="text-xs">Início</span>
                         </button>
                         <button className="flex flex-col items-center gap-1 text-gray-400">
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM15 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2zM5 13a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM15 13a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2h-2z" /></svg>
-                          <span className="text-xs">Auditorias</span>
-                        </button>
-                        <button className="flex flex-col items-center gap-1 text-gray-400">
                           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" /></svg>
-                          <span className="text-xs">Relatórios</span>
+                          <span className="text-xs">Perfil</span>
                         </button>
                       </div>
                     </div>
@@ -177,8 +173,8 @@ export default function Home() {
 
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] dark:from-[#07131d] to-transparent pointer-events-none" />
 
-      <section className="relative w-full py-20 px-6 overflow-hidden flex flex-col items-center">
-        <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-xl p-12 bg-popover text-center items-center overflow-hidden">
+      <section className="relative  w-full py-20 px-6 overflow-hidden flex flex-col items-center">
+        <div className="relative transition hover:scale-102 flex w-full md:w-7xl dark:border justify-self-center flex-col rounded-2xl shadow-2xl p-12 bg-popover text-center items-center overflow-hidden">
           <div className="relative z-10 max-w-5xl text-center">
             <h2 className="text-4xl mb-5 font-semibold">
               Sobre a <span className="text-[#24bff6]">Clean</span>Line
@@ -209,14 +205,14 @@ export default function Home() {
           Por que somos a melhor opção?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
-          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
             <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Checklists</h3>
             <p className=" text-lg leading-relaxed">
               Auditorias preenchidas na hora, após a confirmação física.
             </p>
           </div>
-          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>
             <p className=" text-lg leading-relaxed">
@@ -224,7 +220,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_ranking_principal.png" alt="Ranking gamificado" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Ranking gamificado</h3>
             <p className=" text-lg leading-relaxed">
@@ -232,7 +228,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-primary-foreground transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+          <div className="bg-primary-foreground transition-all dark:border hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_painel_principal.webp" alt="Painel online" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Painel online</h3>
             <p className=" text-lg leading-relaxed">
