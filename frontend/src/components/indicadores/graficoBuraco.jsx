@@ -185,6 +185,11 @@ const ChartPieDonutActive = () => {
                         innerRadius={60}
                         nameKey="label"
                         strokeWidth={5}
+                        isAnimationActive={true}
+                        animationDuration={1500}
+                        animationBegin={200}
+                        startAngle={90}
+                        endAngle={-270}
                       >
                         <Label
                           content={({ viewBox }) => {
