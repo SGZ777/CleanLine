@@ -399,7 +399,7 @@ export default function FuncionariosTable({ searchTerm = "" }) {
   }
 
   return (
-    <div className="self-center w-full max-w-7xl rounded-xl border bg-card shadow-sm">
+    <div className="self-center w-full shadow-md transition-all hover:scale-101 max-w-7xl rounded-xl bg-card">
       <Table>
         <TableHeader>
           <TableRow className="border-b hover:bg-transparent">

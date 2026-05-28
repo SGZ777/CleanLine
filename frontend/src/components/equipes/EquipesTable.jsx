@@ -127,7 +127,7 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
     return (
       <Card
         key={equipe.Id}
-        className="h-full border shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+        className="h-full shadow-md transition-all hover:scale-102"
       >
         <CardHeader className="gap-2">
           <CardTitle className="truncate pr-2">{equipe.Nome}</CardTitle>

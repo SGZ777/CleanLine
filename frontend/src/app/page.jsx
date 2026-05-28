@@ -30,7 +30,7 @@ export default function Home() {
 
         {/* Main Content Container */}
         <div className="relative z-10 w-full h-full">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
               
               {/* Left Column - Content */}
@@ -197,17 +197,13 @@ export default function Home() {
           </div>
         </div>
 
-
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] to-transparent pointer-events-none" />
-     
 
       <section className="relative w-full py-20 px-6 overflow-hidden flex flex-col items-center">
-        <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md mt-15 p-10 bg-popover text-center items-center overflow-hidden">
+        <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md p-10 bg-popover text-center items-center overflow-hidden">
           <img src=".png" className="hidden md:hidden lg:block absolute right-50 bottom-0 w-140 z-20" />
-
-
           <div className="relative z-10 max-w-5xl text-center">
-            <h2 className="text-4xl font-semibold mb-8">
+            <h2 className="text-4xl mb-5 font-semibold">
               Sobre a <span className="text-[#24bff6]">Clean</span>Line
             </h2>
             <div className="text-xl leading-relaxed space-y-4">
@@ -231,15 +227,11 @@ export default function Home() {
         </div>
       </section>
 
-
-
-      <section className="relative w-full py-0 px-6 overflow-hidden flex flex-col items-center md:h-190">
-        <img src="home-background-image.png" className="w-full mt-12 absolute z-10" />
-
+      <section className="relative w-full py-0 pt-10 overflow-hidden flex flex-col items-center md:h-190">
+        <img src="home-background-image.png" className="hidden md:block w-full mt-12 absolute" />
         <h2 className="text-4xl font-semibold mb-12 mt-20 z-10">
           Por que somos a melhor opção?
         </h2>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
           <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
             <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
@@ -248,7 +240,6 @@ export default function Home() {
               Auditorias preenchidas na hora, após a confirmação física.
             </p>
           </div>
-
           <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
             <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
             <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>

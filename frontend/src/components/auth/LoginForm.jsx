@@ -74,7 +74,7 @@ const LoginForm = ({
 
         <form
           onSubmit={handleLogin}
-          className="flex w-full max-w-sm min-w-sm transition-all hover:scale-145 flex-col items-center gap-y-4 rounded-md border border-border bg-card px-6 py-8 text-card-foreground shadow-2xl md:scale-120 lg:scale-140">
+          className="flex w-full max-w-sm min-w-sm transition-all hover:scale-145 flex-col items-center gap-y-4 rounded-md bg-card px-6 py-8 text-card-foreground shadow-2xl md:scale-120 lg:scale-140">
 
           <div className=" flex flex-col items-center gap-0.5  ">
             {heading && <h1 className=" text-3xl font-semibold mb-0 ">{heading}</h1>}

@@ -97,7 +97,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     return (
       <Card
         key={task.id ?? task.setor}
-        className="border shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+        className="h-auto shadow-md transition-all hover:scale-102"
       >
         <CardHeader className="gap-2">
           <CardTitle className={`truncate pr-2 ${setorColorClass}`}>
@@ -209,7 +209,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
   return (
     <div className="mx-auto w-full max-w-7xl">
       {filteredTasks.length === 0 ? (
-        <div className="rounded-xl border bg-card p-8 text-center text-muted-foreground shadow-sm">
+        <div className="rounded-xl bg-card p-8 text-center text-muted-foreground shadow-sm">
           Nenhum checklist encontrado.
         </div>
       ) : (
