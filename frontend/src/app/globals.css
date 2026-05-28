@@ -222,3 +222,25 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* Animação de entrada para linhas de tabela (sem translateX para não vazar do overflow) */
+@keyframes tableRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table-row-animated {
+  opacity: 0;
+  animation: tableRowIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: background-color 0.15s ease;
+}
+
+.table-row-animated:hover {
+  background-color: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+

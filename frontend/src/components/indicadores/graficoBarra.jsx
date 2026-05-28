@@ -39,6 +39,7 @@ const SimpleBarChart = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState("chart"); // "chart" | "table"
+  const [tableKey, setTableKey] = useState(0);
 
   useEffect(() => {
     async function carregarDados() {
@@ -82,6 +83,14 @@ const SimpleBarChart = () => {
     carregarDados();
   }, []);
 
+  const handleViewMode = (mode) => {
+    setViewMode(mode);
+    if (mode === "table") {
+      // Reinicia a key para forçar re-render e disparar animações
+      setTableKey((k) => k + 1);
+    }
+  };
+
   if (loading) {
     return (
       <div className="p-8 text-center text-muted-foreground">
@@ -111,7 +120,7 @@ const SimpleBarChart = () => {
       {/* Selector premium de visualização */}
       <div className="mb-6 flex justify-end gap-2 pr-2">
         <button
-          onClick={() => setViewMode("chart")}
+          onClick={() => handleViewMode("chart")}
           className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all cursor-pointer ${
             viewMode === "chart"
               ? "bg-primary text-primary-foreground shadow-md scale-105"
@@ -122,7 +131,7 @@ const SimpleBarChart = () => {
           Gráfico
         </button>
         <button
-          onClick={() => setViewMode("table")}
+          onClick={() => handleViewMode("table")}
           className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all cursor-pointer ${
             viewMode === "table"
               ? "bg-primary text-primary-foreground shadow-md scale-105"
@@ -160,30 +169,40 @@ const SimpleBarChart = () => {
             </ResponsiveContainer>
           </div>
         ) : (
-          <div className="animate-fade-in-up overflow-hidden rounded-xl border border-border shadow-md bg-card text-card-foreground">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/40 hover:bg-muted/40">
-                  <TableHead className="font-semibold text-foreground px-6 py-4">Setor</TableHead>
+          <div
+            key={tableKey}
+            className="animate-fade-in-up w-full overflow-x-auto rounded-xl border border-border shadow-md bg-card text-card-foreground"
+          >
+            <table className="w-full caption-bottom text-sm">
+              <thead className="[&_tr]:border-b">
+                <tr className="border-b border-border/70 bg-muted/40">
+                  <th className="h-10 px-4 py-4 text-left align-middle font-semibold text-foreground whitespace-nowrap min-w-[120px]">
+                    Setor
+                  </th>
                   {meses.map((mes) => (
-                    <TableHead key={mes} className="font-semibold text-foreground px-6 py-4 text-center">
+                    <th
+                      key={mes}
+                      className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[100px]"
+                    >
                       {formatMes(mes)}
-                    </TableHead>
+                    </th>
                   ))}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+                </tr>
+              </thead>
+              <tbody className="[&_tr:last-child]:border-0">
                 {chartData.map((row, index) => (
-                  <TableRow
+                  <tr
                     key={row.name}
-                    className="hover-row-effect animate-fade-in-left"
-                    style={{ animationDelay: `${index * 60}ms` }}
+                    className="table-row-animated border-b border-border/70 even:bg-muted/35"
+                    style={{ animationDelay: `${index * 80}ms` }}
                   >
-                    <TableCell className="font-medium text-foreground px-6 py-4">{row.name}</TableCell>
+                    <td className="px-4 py-4 align-middle font-medium text-foreground whitespace-nowrap">
+                      {row.name}
+                    </td>
                     {meses.map((mes) => {
                       const val = row[mes];
                       return (
-                        <TableCell key={mes} className="px-6 py-4 text-center">
+                        <td key={mes} className="px-4 py-4 align-middle text-center whitespace-nowrap">
                           {val !== undefined && val !== null ? (
                             <span className={getNotaStyle(val)}>
                               {Number(val).toFixed(1)}
@@ -191,13 +210,13 @@ const SimpleBarChart = () => {
                           ) : (
                             <span className="text-muted-foreground">-</span>
                           )}
-                        </TableCell>
+                        </td>
                       );
                     })}
-                  </TableRow>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
         )}
       </div>

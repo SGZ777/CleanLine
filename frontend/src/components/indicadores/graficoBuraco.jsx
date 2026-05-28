@@ -9,14 +9,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { BarChart2, TableProperties } from "lucide-react";
 
 export const title = "Distribuição de notas das equipes";
@@ -73,6 +65,7 @@ const ChartPieDonutActive = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState("chart"); // "chart" | "table"
+  const [tableKey, setTableKey] = useState(0);
 
   useEffect(() => {
     async function carregarDados() {
@@ -91,6 +84,13 @@ const ChartPieDonutActive = () => {
   }, []);
 
   const equipesGraficos = useMemo(() => montarGraficos(dados), [dados]);
+
+  const handleViewMode = (mode) => {
+    setViewMode(mode);
+    if (mode === "table") {
+      setTableKey((k) => k + 1);
+    }
+  };
 
   if (loading) {
     return (
@@ -121,7 +121,7 @@ const ChartPieDonutActive = () => {
       {/* Selector premium de visualização */}
       <div className="mb-6 flex justify-end gap-2 pr-2">
         <button
-          onClick={() => setViewMode("chart")}
+          onClick={() => handleViewMode("chart")}
           className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all cursor-pointer ${
             viewMode === "chart"
               ? "bg-primary text-primary-foreground shadow-md scale-105"
@@ -132,7 +132,7 @@ const ChartPieDonutActive = () => {
           Gráfico
         </button>
         <button
-          onClick={() => setViewMode("table")}
+          onClick={() => handleViewMode("table")}
           className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all cursor-pointer ${
             viewMode === "table"
               ? "bg-primary text-primary-foreground shadow-md scale-105"
@@ -240,18 +240,40 @@ const ChartPieDonutActive = () => {
             </div>
           </div>
         ) : (
-          <div className="animate-fade-in-up overflow-hidden rounded-xl border border-border shadow-md bg-card text-card-foreground">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/40 hover:bg-muted/40">
-                  <TableHead className="font-semibold text-foreground px-6 py-4">Equipe</TableHead>
-                  <TableHead className="font-semibold text-foreground px-6 py-4 text-center">0 - 4 (Insatisfatório)</TableHead>
-                  <TableHead className="font-semibold text-foreground px-6 py-4 text-center">4,1 - 6,9 (Regular)</TableHead>
-                  <TableHead className="font-semibold text-foreground px-6 py-4 text-center">7 - 10 (Excelente)</TableHead>
-                  <TableHead className="font-semibold text-foreground px-6 py-4 text-center">Total Vistorias</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+          <div
+            key={tableKey}
+            className="animate-fade-in-up w-full overflow-x-auto rounded-xl border border-border shadow-md bg-card text-card-foreground"
+          >
+            <table className="w-full caption-bottom text-sm">
+              <thead className="[&_tr]:border-b">
+                <tr className="border-b border-border/70 bg-muted/40">
+                  <th className="h-10 px-4 py-4 text-left align-middle font-semibold text-foreground whitespace-nowrap min-w-[120px]">
+                    Equipe
+                  </th>
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[80px]">
+                    <span className="flex flex-col items-center gap-0.5">
+                      <span className="text-red-500 dark:text-red-400">0 – 4</span>
+                      <span className="text-xs font-normal text-muted-foreground">Insatisfatório</span>
+                    </span>
+                  </th>
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[80px]">
+                    <span className="flex flex-col items-center gap-0.5">
+                      <span className="text-yellow-600 dark:text-yellow-500">4,1 – 6,9</span>
+                      <span className="text-xs font-normal text-muted-foreground">Regular</span>
+                    </span>
+                  </th>
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[80px]">
+                    <span className="flex flex-col items-center gap-0.5">
+                      <span className="text-green-500 dark:text-green-400">7 – 10</span>
+                      <span className="text-xs font-normal text-muted-foreground">Excelente</span>
+                    </span>
+                  </th>
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[90px]">
+                    Total
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="[&_tr:last-child]:border-0">
                 {equipesGraficos.map(({ equipe, total, chartData }, index) => {
                   const getFaixaVal = (fKey) => {
                     const item = chartData.find((x) => x.faixa === fKey);
@@ -263,35 +285,37 @@ const ChartPieDonutActive = () => {
                   const valGreen = getFaixaVal("7-10");
 
                   return (
-                    <TableRow
+                    <tr
                       key={equipe}
-                      className="hover-row-effect animate-fade-in-left"
-                      style={{ animationDelay: `${index * 60}ms` }}
+                      className="table-row-animated border-b border-border/70 even:bg-muted/35"
+                      style={{ animationDelay: `${index * 80}ms` }}
                     >
-                      <TableCell className="font-semibold text-foreground px-6 py-4">{equipe}</TableCell>
-                      <TableCell className="px-6 py-4 text-center">
+                      <td className="px-4 py-4 align-middle font-semibold text-foreground whitespace-nowrap">
+                        {equipe}
+                      </td>
+                      <td className="px-4 py-4 align-middle text-center whitespace-nowrap">
                         <span className={valRed > 0 ? "text-red-500 font-medium dark:text-red-400" : "text-muted-foreground/50"}>
                           {valRed}
                         </span>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-center">
+                      </td>
+                      <td className="px-4 py-4 align-middle text-center whitespace-nowrap">
                         <span className={valYellow > 0 ? "text-yellow-600 font-medium dark:text-yellow-500" : "text-muted-foreground/50"}>
                           {valYellow}
                         </span>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-center">
+                      </td>
+                      <td className="px-4 py-4 align-middle text-center whitespace-nowrap">
                         <span className={valGreen > 0 ? "text-green-500 font-medium dark:text-green-400" : "text-muted-foreground/50"}>
                           {valGreen}
                         </span>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-center font-bold text-foreground">
+                      </td>
+                      <td className="px-4 py-4 align-middle text-center whitespace-nowrap font-bold text-foreground">
                         {total}
-                      </TableCell>
-                    </TableRow>
+                      </td>
+                    </tr>
                   );
                 })}
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
         )}
       </div>
