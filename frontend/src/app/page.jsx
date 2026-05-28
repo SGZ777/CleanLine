@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section - Premium SaaS Design */}
-      <section className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#f8fafb] via-[#f5f8fb] to-[#eff3f7]">
+      <section className="relative w-full min-h-screen pb-10 overflow-hidden bg-gradient-to-br from-[#f8fafb] via-[#f5f8fb] to-[#eff3f7]">
         {/* Decorative gradient background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Soft blue glow on the right side */}
@@ -26,8 +26,6 @@ export default function Home() {
             <rect width="1200" height="600" fill="url(#wave)" />
           </svg>
         </div>
-
-        {/* Header */}
         <Header />
 
         {/* Main Content Container */}
@@ -36,9 +34,9 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
               
               {/* Left Column - Content */}
-              <div className="flex flex-col justify-center space-y-8">
+              <div className="flex flex-col h-auto justify-center space-y-8">
                 {/* Headline */}
-                <div>
+                <div className="w-200">
                   <h1 className="text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
                     <span className="text-[#102238] dark:text-[#e7f0f7]">Garanta auditorias</span>
                     <br />
@@ -114,16 +112,16 @@ export default function Home() {
                 </div>
 
                 {/* Phone container with 3D perspective */}
-                <div className="relative z-10 w-80 h-96 perspective">
+                <div className="relative mb-50 z-10 w-80 h-auto perspective">
                   {/* Phone frame */}
-                  <div className="relative w-full h-full rounded-3xl bg-black shadow-2xl overflow-hidden border-8 border-gray-900 transform hover:scale-105 transition-transform duration-300"
+                  <div className="relative w-full h-auto rounded-3xl bg-black shadow-2xl overflow-hidden border-8 border-gray-900 transform hover:scale-105 transition-transform duration-300"
                     style={{
                       boxShadow: '0 20px 60px rgba(36, 191, 246, 0.3), 0 0 80px rgba(36, 191, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                       transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)'
                     }}
                   >
                     {/* Phone screen content */}
-                    <div className="w-full h-full bg-gradient-to-b from-white to-gray-50 dark:from-[#0c1d2c] dark:to-[#07131d] overflow-hidden flex flex-col">
+                    <div className="w-full h-auto bg-gradient-to-b from-white to-gray-50 dark:from-[#0c1d2c] dark:to-[#07131d] overflow-hidden flex flex-col">
                       {/* Status bar */}
                       <div className="flex justify-between items-center px-6 py-3 text-xs font-semibold text-gray-900 dark:text-white">
                         <span>9:41</span>
@@ -136,7 +134,7 @@ export default function Home() {
 
                       {/* App header */}
                       <div className="px-6 py-4 border-b border-gray-200 dark:border-[#22384b]">
-                        <h2 className="text-lg font-bold text-[#24bff6]">CleanLine+</h2>
+                        <h2 className="text-lg font-bold text-[#24bff6]">CleanLine</h2>
                         <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Auditoria 5S</p>
                       </div>
 
@@ -199,139 +197,84 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Social Proof - Companies */}
-        <div className="relative z-10 w-full pb-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#58708c] mb-8">Empresas que confiam na CleanLine</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16">
-              <span className="text-2xl font-bold text-[#102238] dark:text-[#e7f0f7]">ambev</span>
-              <span className="text-2xl font-serif font-bold text-[#102238] dark:text-[#e7f0f7]">Coca-Cola</span>
-              <span className="text-2xl font-bold text-[#102238] dark:text-[#e7f0f7]">Nestlé</span>
-              <span className="text-2xl font-bold text-[#102238] dark:text-[#e7f0f7]">Braskem</span>
-              <span className="text-2xl font-bold text-[#102238] dark:text-[#e7f0f7]">raízen</span>
-            </div>
-          </div>
-        </div>
 
-        {/* Bottom gradient fade */}
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] to-transparent pointer-events-none" />
-      </section>
+     
 
-      {/* About Section */}
-      <section className="relative w-full py-20 px-6 overflow-hidden bg-white dark:bg-[#07131d]">
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-2xl bg-gradient-to-br from-white dark:from-[#0c1d2c] to-gray-50 dark:to-[#112334] p-12 shadow-lg border border-gray-100 dark:border-[#22384b]">
-            {/* Decorative waves */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-5"
-              viewBox="0 0 860 400"
-              preserveAspectRatio="xMidYMid slice"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M -20 185 Q 80 140, 200 190 Q 320 240, 440 175 Q 560 110, 680 180 Q 790 240, 900 190"
-                fill="none" stroke="#24bff6" strokeWidth="26" opacity="0.15" strokeLinecap="round"
-              />
-              <path
-                d="M -20 235 Q 80 190, 200 240 Q 320 290, 440 225 Q 560 160, 680 230 Q 790 290, 900 240"
-                fill="none" stroke="#24bff6" strokeWidth="20" opacity="0.15" strokeLinecap="round"
-              />
-            </svg>
+      <section className="relative w-full py-20 px-6 overflow-hidden flex flex-col items-center">
+        <div className="relative flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md mt-15 p-10 bg-popover text-center items-center overflow-hidden">
+          <img src=".png" className="hidden md:hidden lg:block absolute right-50 bottom-0 w-140 z-20" />
 
-            <div className="relative z-10 max-w-4xl mx-auto text-center">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-[#102238] dark:text-[#e7f0f7]">
-                Sobre a <span className="text-[#24bff6] dark:text-[#59d6ff]">CleanLine</span>
-              </h2>
-              <div className="text-lg text-[#58708c] dark:text-[#93abc0] leading-relaxed space-y-6">
-                <p>
-                  O CleanLine é um sistema moderno criado para transformar a forma como as auditorias 5S são realizadas dentro das empresas. Com ele, a verificação de limpeza, organização e segurança deixa de ser feita em papel e passa a ser digital, prática e confiável.
-                </p>
-                <p>
-                  Através do aplicativo, os colaboradores realizam checklists diretamente no local da inspeção, garantindo que cada etapa do processo seja realmente verificada. O sistema também permite registrar fotos do ambiente e acompanhar os resultados em um painel simples e intuitivo.
-                </p>
-                <p>
-                  Com o CleanLine, gestores conseguem acompanhar o desempenho dos setores, incentivar boas práticas e manter o ambiente de trabalho sempre organizado, seguro e produtivo.
-                </p>
-              </div>
+
+          <div className="relative z-10 max-w-5xl text-center">
+            <h2 className="text-4xl font-semibold mb-8">
+              Sobre a <span className="text-[#24bff6]">Clean</span>Line
+            </h2>
+            <div className="text-xl leading-relaxed space-y-4">
+              <p>
+                O 5S-Track é um sistema moderno criado para transformar a forma com o as auditorias 5S são
+                realizadas dentro das empresas. Com ele, a verificação de limpeza, organização e segurança deixa
+                de ser feita em papel e passa a ser digital, prática e confiável.
+              </p>
+              <p>
+                Através do aplicativo, os colaboradores realizam checklists diretamente no local da inspeção,
+                garantindo que cada etapa do processo seja realmente verificada. O sistema também permite
+                registrar fotos do ambiente e acompanhar os resultados em um painel simples e intuitivo.
+              </p>
+              <p>
+                Com o 5S-Track, gestores conseguem acompanhar o desempenho dos setores, incentivar boas
+                práticas e manter o ambiente de trabalho sempre organizado, seguro e produtivo.
+              </p>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="relative w-full py-20 px-6 overflow-hidden bg-gradient-to-b from-white dark:from-[#07131d] to-gray-50 dark:to-[#0c1d2c]">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl lg:text-5xl font-bold text-center mb-16 text-[#102238] dark:text-[#e7f0f7]">
-            Por que somos a melhor opção?
-          </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Feature 1 */}
-            <div className="group relative rounded-2xl p-8 bg-white dark:bg-[#0c1d2c] border border-gray-100 dark:border-[#22384b] shadow-md hover:shadow-xl hover:border-[#24bff6] dark:hover:border-[#59d6ff] transition-all duration-300 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#24bff6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-[#102238] dark:text-[#e7f0f7] mb-3">Checklists</h3>
-                <p className="text-[#58708c] dark:text-[#93abc0] leading-relaxed">
-                  Auditorias preenchidas na hora, após a confirmação física.
-                </p>
-              </div>
-            </div>
 
-            {/* Feature 2 */}
-            <div className="group relative rounded-2xl p-8 bg-white dark:bg-[#0c1d2c] border border-gray-100 dark:border-[#22384b] shadow-md hover:shadow-xl hover:border-[#24bff6] dark:hover:border-[#59d6ff] transition-all duration-300 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#24bff6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-[#102238] dark:text-[#e7f0f7] mb-3">Fotos do local</h3>
-                <p className="text-[#58708c] dark:text-[#93abc0] leading-relaxed">
-                  Registro fotográfico obrigando a comprovação visual.
-                </p>
-              </div>
-            </div>
+      <section className="relative w-full py-0 px-6 overflow-hidden flex flex-col items-center md:h-190">
+        <img src="home-background-image.png" className="w-full mt-12 absolute z-10" />
 
-            {/* Feature 3 */}
-            <div className="group relative rounded-2xl p-8 bg-white dark:bg-[#0c1d2c] border border-gray-100 dark:border-[#22384b] shadow-md hover:shadow-xl hover:border-[#24bff6] dark:hover:border-[#59d6ff] transition-all duration-300 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#24bff6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-[#102238] dark:text-[#e7f0f7] mb-3">Ranking gamificado</h3>
-                <p className="text-[#58708c] dark:text-[#93abc0] leading-relaxed">
-                  Competição saudável entre equipes e setores.
-                </p>
-              </div>
-            </div>
+        <h2 className="text-4xl font-semibold mb-12 mt-20 z-10">
+          Por que somos a melhor opção?
+        </h2>
 
-            {/* Feature 4 */}
-            <div className="group relative rounded-2xl p-8 bg-white dark:bg-[#0c1d2c] border border-gray-100 dark:border-[#22384b] shadow-md hover:shadow-xl hover:border-[#24bff6] dark:hover:border-[#59d6ff] transition-all duration-300 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#24bff6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#24bff6] to-[#1c96c2] flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-[#102238] dark:text-[#e7f0f7] mb-3">Painel online</h3>
-                <p className="text-[#58708c] dark:text-[#93abc0] leading-relaxed">
-                  Dashboard atualizado com auditorias em tempo real.
-                </p>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
+          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl ">
+            <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
+            <h3 className="text-xl font-bold  mb-2">Checklists</h3>
+            <p className=" text-lg leading-relaxed">
+              Auditorias preenchidas na hora, após a confirmação física.
+            </p>
+          </div>
+
+          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+            <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
+            <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>
+            <p className=" text-lg leading-relaxed">
+              Registro fotográfico obrigando a comprovação visual.
+            </p>
+          </div>
+
+          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+            <img src="icon_ranking_principal.png" alt="Ranking gamificado" className="w-24 h-24 object-contain mb-4" />
+            <h3 className="text-xl font-bold  mb-2">Ranking gamificado</h3>
+            <p className=" text-lg leading-relaxed">
+              Competição saudável entre equipes e setores.
+            </p>
+          </div>
+
+          <div className="bg-primary-foreground rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl">
+            <img src="icon_painel_principal.webp" alt="Painel online" className="w-24 h-24 object-contain mb-4" />
+            <h3 className="text-xl font-bold  mb-2">Painel online</h3>
+            <p className=" text-lg leading-relaxed">
+              Dashboard atualizado com auditorias em tempo real.
+            </p>
           </div>
         </div>
       </section>
+ </section>
     </>
   );
 }
