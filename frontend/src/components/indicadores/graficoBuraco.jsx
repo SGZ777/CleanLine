@@ -252,28 +252,28 @@ const ChartPieDonutActive = () => {
             <table className="w-full caption-bottom text-sm">
               <thead className="[&_tr]:border-b">
                 <tr className="border-b border-border/70 bg-muted/40">
-                  <th className="h-10 px-4 py-4 text-left align-middle font-semibold text-foreground whitespace-nowrap min-w-[120px]">
+                  <th className="h-10 px-4 py-4 text-left align-middle font-semibold text-foreground whitespace-nowrap min-w-30">
                     Equipe
                   </th>
-                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[80px]">
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-20">
                     <span className="flex flex-col items-center gap-0.5">
                       <span className="text-red-500 dark:text-red-400">0 – 4</span>
                       <span className="text-xs font-normal text-muted-foreground">Insatisfatório</span>
                     </span>
                   </th>
-                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[80px]">
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-20">
                     <span className="flex flex-col items-center gap-0.5">
                       <span className="text-yellow-600 dark:text-yellow-500">4,1 – 6,9</span>
                       <span className="text-xs font-normal text-muted-foreground">Regular</span>
                     </span>
                   </th>
-                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[80px]">
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-20">
                     <span className="flex flex-col items-center gap-0.5">
                       <span className="text-green-500 dark:text-green-400">7 – 10</span>
                       <span className="text-xs font-normal text-muted-foreground">Excelente</span>
                     </span>
                   </th>
-                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[90px]">
+                  <th className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-22.5">
                     Total
                   </th>
                 </tr>

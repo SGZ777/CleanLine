@@ -116,7 +116,7 @@ const SimpleBarChart = () => {
   }
 
   return (
-    <div className="w-full max-w-[1000px] mx-auto">
+    <div className="w-full max-w-250 mx-auto">
       {/* Selector premium de visualização */}
       <div className="mb-6 flex justify-end gap-2 pr-2">
         <button
@@ -179,13 +179,13 @@ const SimpleBarChart = () => {
             <table className="w-full caption-bottom text-sm">
               <thead className="[&_tr]:border-b">
                 <tr className="border-b border-border/70 bg-muted/40">
-                  <th className="h-10 px-4 py-4 text-left align-middle font-semibold text-foreground whitespace-nowrap min-w-[120px]">
+                  <th className="h-10 px-4 py-4 text-left align-middle font-semibold text-foreground whitespace-nowrap min-w-30">
                     Setor
                   </th>
                   {meses.map((mes) => (
                     <th
                       key={mes}
-                      className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-[100px]"
+                      className="h-10 px-4 py-4 text-center align-middle font-semibold text-foreground whitespace-nowrap min-w-25"
                     >
                       {formatMes(mes)}
                     </th>
