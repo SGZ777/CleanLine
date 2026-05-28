@@ -34,7 +34,7 @@ export default function Home() {
 
                 <div className="pt-4">
                   <a href="/login" className="inline-block">
-                    <button className="group relative px-8 py-4 bg-gradient-to-r from-[#1c96c2] to-[#24bff6] text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3 text-lg">
+                    <button className="group relative px-8 cursor-pointer py-4 bg-gradient-to-r from-[#1c96c2] to-[#24bff6] text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3 text-lg">
                       <span>Entrar na plataforma</span>
                       <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
