@@ -19,28 +19,29 @@ export default function Indicadores() {
           onClose={() => setIsSidebarOpen(false)}
         />
 
-        <main className="flex-1 overflow-y-auto p-6 md:p-10">
-          <h1 className="font-inter text-2xl md:text-3xl md:ms-35">
+        <main className="flex-1 overflow-y-auto p-4 md:p-10">
+          <h1 className="font-inter text-2xl md:text-3xl md:ms-35 animate-fade-in-up delay-50">
             Painel de indicadores
           </h1>
 
-          <div className="rounded-2xl w-full md:w-7xl bg-white dark:bg-[#0C1D2C] justify-self-center shadow-md mt-10 p-8  flex justify-around">
-            <div className="grid w-full justify-items-center">
-              <h1 className="text-lg mb-5 text-foreground md:text-2xl">
-                Média dos setores no último trimestre
-              </h1>
-              <SimpleBarChart />
+           <div className="flex w-full max-w-7xl transition-all hover:scale-[1.01] justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] animate-fade-in-up delay-200 overflow-hidden">
+            <h1 className="mt-5 md:mt-10 ms-8 md:ms-10 mb-2 md:mb-5 text-lg text-foreground md:text-2xl">
+             Média dos setores no último trimestre
+            </h1>
+            <div className="mb-5 flex justify-center px-4 md:px-6">
+                   <SimpleBarChart />
             </div>
           </div>
 
-          <div className="flex w-full md:w-7xl justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] text-center">
-            <h1 className="mt-16 mb-5 text-lg text-foreground md:text-2xl">
+          <div className="flex w-full max-w-7xl transition-all hover:scale-[1.01] justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] animate-fade-in-up delay-200 overflow-hidden">
+            <h1 className="mt-5 md:mt-10 ms-8 md:ms-10 mb-2 md:mb-5 text-lg text-foreground md:text-2xl">
               Média das equipes no último trimestre
             </h1>
-            <div className="mb-5 flex justify-center">
+            <div className="mb-5 flex justify-center px-4 md:px-6">
               <ChartPieDonutActive />
             </div>
           </div>
+          
         </main>
       </div>
     </div>

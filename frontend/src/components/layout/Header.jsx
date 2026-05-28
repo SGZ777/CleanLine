@@ -9,12 +9,14 @@ export default function Header() {
       ? "/logoCleanlineEscuro.png"
       : "/logoCleanline.png";
   return (
-    <header className="w-auto h-auto flex items-center justify-between p-4">
-          <img
-            src={logoSrc}
-            className="w-80 ps-15 pt-5"
-            alt="Cleanline"
-          />
+    <header className="w-full max-w-7xl mx-auto flex items-center justify-between p-6 lg:px-12 relative z-50">
+      <div className="flex items-center">
+        <img
+          src={logoSrc}
+          className="w-50 md:w-70 "
+          alt="Cleanline"
+        />
+      </div>  
     </header>
   );
 }

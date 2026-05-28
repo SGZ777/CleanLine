@@ -36,8 +36,8 @@ const PERGUNTAS = [
 const getNotaColor = (nota) => {
   if (nota === null || nota === undefined) return "text-muted-foreground";
   const valor = Number(nota);
-  if (valor >= 8) return "text-green-600 font-semibold dark:text-green-400";
-  if (valor >= 6) return "text-yellow-600 font-semibold dark:text-yellow-300";
+  if (valor >= 8) return "text-green-500 font-semibold dark:text-green-400";
+  if (valor >= 6) return "text-yellow-800 font-semibold dark:text-yellow-500";
   return "text-red-500 font-semibold dark:text-red-400";
 };
 
@@ -48,12 +48,12 @@ const getNotaBadgeClass = (nota) => {
 
   const valor = Number(nota);
   if (valor >= 8) {
-    return "border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-300";
+    return "border-green-500/30 bg-green-500 text-green-700 dark:text-green-50";
   }
   if (valor >= 6) {
-    return "border-yellow-500/30 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300";
+    return "border-yellow-500/30 bg-yellow-500 text-yellow-700 dark:text-yellow-50";
   }
-  return "border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-300";
+  return "border-red-500/30 bg-red-500 text-red-600 dark:text-red-50";
 };
 
 const capitalize = (value) => {
@@ -97,7 +97,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     return (
       <Card
         key={task.id ?? task.setor}
-        className="border shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+        className="h-auto shadow-md transition-all hover:scale-102"
       >
         <CardHeader className="gap-2">
           <CardTitle className={`truncate pr-2 ${setorColorClass}`}>
@@ -209,7 +209,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
   return (
     <div className="mx-auto w-full max-w-7xl">
       {filteredTasks.length === 0 ? (
-        <div className="rounded-xl border bg-card p-8 text-center text-muted-foreground shadow-sm">
+        <div className="rounded-xl bg-card p-8 text-center text-muted-foreground shadow-sm">
           Nenhum checklist encontrado.
         </div>
       ) : (

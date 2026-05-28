@@ -424,7 +424,7 @@ export default function SetoresTable({ searchTerm = "" }) {
   if (loading) return <div className="p-6 text-center">Carregando setores...</div>;
 
   return (
-    <div className=" self-center w-full max-w-7xl rounded-xl border bg-card shadow-sm">
+    <div className=" self-center w-full max-w-7xl rounded-xl  bg-card shadow-md transition-all hover:scale-101">
       <Table>
         <TableHeader>
           <TableRow className="border-b hover:bg-transparent">

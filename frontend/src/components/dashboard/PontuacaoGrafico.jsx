@@ -88,7 +88,7 @@ export function PontuacaoGrafico() {
   }
 
   return (
-    <Card className="w-full ms-6 max-w-222 h-95 overflow-visible bg-card shadow-md">
+    <Card className="w-full transition-all hover:scale-103 ms-6 max-w-222 h-95 overflow-visible bg-card shadow-md">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
           Média de pontuação 5S -{" "}
@@ -152,6 +152,9 @@ export function PontuacaoGrafico() {
               dataKey="media"
               fill="var(--color-media)"
               radius={[4, 4, 0, 0]}
+              isAnimationActive={true}
+              animationDuration={1500}
+              animationBegin={200}
             />
           </BarChart>
         </ChartContainer>
