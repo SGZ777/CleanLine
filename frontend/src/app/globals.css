@@ -36,6 +36,7 @@
   --pencil-yellow: #bd9016;
   --btn-bg-trash-red: #fcc9c9;
   --trash-red: #a10808;
+  --degrade-principal: #EEF3F7;
 }
 
 .dark {
@@ -72,6 +73,7 @@
   --pencil-yellow: #ffffff;
   --btn-bg-trash-red: #ff6b6b;
   --trash-red: #ffffff;
+  --degrade-principal: #07131D;
 }
 
 @theme inline {
