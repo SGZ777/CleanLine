@@ -8,7 +8,8 @@ import ChecklistsTable from "@/components/checklists/ChecklistsTable";
 import SearchBar from "@/components/funcionarios/SearchBar";
 import { getChecklistsHoje } from "@/lib/controllers/dashboard";
 
-const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001';
+// Definição da URL do backend (usa a env se existir, ou aponta direto para o Render)
+const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'https://cleanline-4kf1.onrender.com';
 
 export default function Checklists() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -28,16 +29,17 @@ export default function Checklists() {
     }
   }, []);
 
-  // 1. useEffect responsável apenas por carregar os dados iniciais
+  // 1. useEffect responsável apenas por carregar os dados iniciais via HTTP
   useEffect(() => {
     carregarChecklists();
   }, [carregarChecklists]);
 
+  // 2. useEffect responsável pela conexão em tempo real via WebSockets
   useEffect(() => {
-
-    const socket = io('https://cleanline-4kf1.onrender.com', {
+    // Forçando apenas 'websocket' para evitar as falhas de handshake por HTTP (polling) no Render
+    const socket = io(SOCKET_URL, {
       path: '/socket.io/',
-      transports: ['polling'],
+      transports: ['websocket'], 
       reconnectionDelay: 1000
     });
 
