@@ -86,13 +86,13 @@ export default function Home() {
               <div className="relative ms-50 hidden lg:flex items-center justify-center">
                 {/* Glow effect behind phone */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-80 h-96 bg-gradient-to-r from-[#24bff6]/50 to-[#0874CC]/50 rounded-full filter blur-2xl opacity-60 animate-pulse"/>
+                  <div className="w-80 h-96 bg-gradient-to-r from-[#24bff6]/50 to-[#0874CC]/50 rounded-full filter blur-2xl opacity-60 animate-pulse" />
                 </div>
                 {/* Phone container with 3D perspective */}
-                <div className="relative mb-50 z-10 w-80 h-auto perspective">
+                <div className="relative mb-50 z-10 w-80 h-auto perspective phone-shadow-animated">
                   {/* Phone frame */}
                   <div
-                    className="relative w-full h-auto rounded-3xl bg-black overflow-hidden border-8 border-gray-900 hover:scale-105 transition-transform duration-300 phone-shadow-animated"
+                    className="relative w-full h-auto rounded-3xl bg-black overflow-hidden border-8 border-gray-900 hover:scale-105 transition-transform duration-300"
                     style={{
                       transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)',
                     }}
