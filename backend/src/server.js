@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { createServer } from 'http'; // 🔥 ADICIONADO: Necessário para WebSockets estáveis
 
 import { adminMiddleware, authMiddleware } from './middlewares/auth.js';
+import { createRateLimiter } from './middlewares/rateLimit.js';
 import authRoutes from './routes/auth.js';
 import equipesRoutes from './routes/equipes.js';
 import funcionariosRoutes from './routes/funcionarios.js';
@@ -26,6 +27,15 @@ const server = createServer(app); // 🔥 ADICIONADO: Cria o servidor HTTP acopl
 
 app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3001;
+const apiRateLimiter = createRateLimiter({
+  windowMs: process.env.RATE_LIMIT_WINDOW_MS,
+  maxRequests: process.env.RATE_LIMIT_MAX_REQUESTS,
+});
+const authRateLimiter = createRateLimiter({
+  windowMs: process.env.AUTH_RATE_LIMIT_WINDOW_MS || 10 * 60 * 1000,
+  maxRequests: process.env.AUTH_RATE_LIMIT_MAX_REQUESTS || 10,
+  message: 'Muitas tentativas de login. Tente novamente mais tarde.',
+});
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'https://clean-line.vercel.app',
@@ -37,6 +47,10 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true,
 }));
+
+app.use('/api/auth', authRateLimiter);
+app.use('/api/login', authRateLimiter);
+app.use('/api', apiRateLimiter);
 
 app.use(express.json());
 app.use(cookieParser());
