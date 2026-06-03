@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
@@ -21,6 +22,7 @@ const LoginForm = ({
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { mounted, theme } = useTheme();
   const logoSrc =
@@ -31,6 +33,7 @@ const LoginForm = ({
   const handleLogin = async (e) => {
     e.preventDefault();
     setErro("");
+    setLoading(true);
 
     try {
       const res = await apiFetch("/api/auth", {
@@ -52,9 +55,11 @@ const LoginForm = ({
         
       } else {
         setErro(data.erro);
+        setLoading(false);
       }
     } catch {
       setErro("Erro de conexão com o servidor.");
+      setLoading(false);
     }
   };
 
@@ -121,8 +126,8 @@ const LoginForm = ({
             </button>
           </div>
 
-          <Button type="submit" className="h-8 transition-all hover:scale-105 w-45 bg-primary text-md text-primary-foreground hover:brightness-110">
-            {buttonText}
+          <Button type="submit" disabled={loading} className="h-8 transition-all hover:scale-105 w-45 bg-primary text-md text-primary-foreground hover:brightness-110">
+            {loading ? <Spinner className="h-4 w-4 border-primary-foreground/40 border-t-primary-foreground" /> : buttonText}
           </Button>
         </form>
       </div>

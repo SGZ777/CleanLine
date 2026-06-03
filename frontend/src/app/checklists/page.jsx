@@ -6,6 +6,7 @@ import HeaderAdmin from "@/components/layout/HeaderAdmin";
 import Sidebar from "@/components/layout/Sidebar";
 import ChecklistsTable from "@/components/checklists/ChecklistsTable";
 import SearchBar from "@/components/funcionarios/SearchBar";
+import { Spinner } from "@/components/ui/spinner";
 import { getChecklistsHoje } from "@/lib/controllers/dashboard";
 
 // Definição da URL do backend (usa a env se existir, ou aponta direto para o Render)
@@ -82,7 +83,8 @@ export default function Checklists() {
           </div>
 
           {loading && checklists.length === 0 ? (
-            <div className="text-center py-10 text-gray-500">
+            <div className="flex items-center justify-center gap-2 py-10 text-center text-muted-foreground">
+              <Spinner />
               Carregando checklists...
             </div>
           ) : (

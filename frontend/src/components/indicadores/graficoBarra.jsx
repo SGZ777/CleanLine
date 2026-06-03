@@ -21,6 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Spinner } from "@/components/ui/spinner";
 import { BarChart2, TableProperties } from "lucide-react";
 
 const MONTH_COLORS = ["#00afdc", "#2ad7eb", "var(--barra-grafico3)"];
@@ -93,7 +94,8 @@ const SimpleBarChart = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-muted-foreground">
+      <div className="flex items-center justify-center gap-2 p-8 text-center text-muted-foreground">
+        <Spinner />
         Carregando gráfico...
       </div>
     );
