@@ -98,7 +98,7 @@
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-poppins);
 }
 
 @layer base {
@@ -115,7 +115,7 @@
   }
 
   body {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-poppins), sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     letter-spacing: var(--tracking-normal);
@@ -144,9 +144,13 @@
 }
 
 .inter {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.font-inter {
+  font-family: var(--font-poppins), sans-serif;
 }
 
 .login-password-input::-ms-reveal,
