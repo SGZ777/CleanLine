@@ -67,21 +67,46 @@ export function logout(_req, res) {
 export async function loginMobile(req, res) {
   try {
     const { email, senha } = req.body;
+
     const user = await prisma.supervisor.findFirst({
-      where: { Email: email }})
+      where: { Email: email }
+    });
+
     if (!user) {
       return res.status(401).json({ erro: 'Email incorreto' });
     }
+
     const senhaValida = await bcrypt.compare(senha, user.Senha);
-     if (senhaValida) {
-        // Senha correta! Retorna os dados para o Android
-        res.json(user);
+
+    if (senhaValida) {
+      // 1. GERAR O TOKEN JWT (Passando o ID e a role/status para bater com a rota de Perfil)
+      // Usamos getJwtSecret() para garantir que é a MESMA chave do middleware
+      const token = jwt.sign(
+        {
+          id: user.id,
+          role: user.status // Passa o status (ex: 'admin' ou 'supervisor') para validar na rota
+        },
+        getJwtSecret(),
+        { expiresIn: '30d' } // Expira em 30 dias
+      );
+
+      // 2. Injeta o token dentro do próprio objeto de resposta para o Android ler
+      const respostaMobile = {
+        ...user,
+        token: token // Agora o Android vai conseguir salvar o token de verdade!
+      };
+
+      // Remove a senha por segurança antes de mandar para o app
+      delete respostaMobile.Senha;
+
+      return res.json(respostaMobile);
+
     } else {
-        // Senha errada
-        res.status(401).json({ message: "Senha incorreta" });
+      return res.status(401).json({ message: "Senha incorreta" });
     }
-    } catch (error) {
-      console.error('Erro no login mobile:', error);
-      return res.status(500).json({ erro: 'Erro interno no servidor' });
-    }
+
+  } catch (error) {
+    console.error('Erro no login mobile:', error);
+    return res.status(500).json({ erro: 'Erro interno no servidor' });
   }
+}
