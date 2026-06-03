@@ -118,7 +118,7 @@ const LoginForm = ({
             </button>
           </div>
 
-          <Button type="submit" className="h-8 transition-all hover:scale-105 w-50 bg-primary text-lg text-primary-foreground hover:brightness-110">
+          <Button type="submit" className="h-8 transition-all hover:scale-105 w-45 bg-primary text-md text-primary-foreground hover:brightness-110">
             {buttonText}
           </Button>
         </form>
