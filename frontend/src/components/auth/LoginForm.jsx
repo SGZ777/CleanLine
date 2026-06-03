@@ -60,18 +60,21 @@ const LoginForm = ({
 
   return (
     <section className={cn("relative flex min-h-screen justify-center overflow-hidden bg-background", className)}>
-      <img
-        src="home-background-image.png"
-        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
-        alt="background"
-      />
-
+     
+          <img
+            src="home-background-image.png"
+            className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
+            alt="background"
+          />
+     
+     
       <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
+         <a href="/"> 
         <img
           src={logoSrc}
           alt="logo"
           className="h-10 scale-170 justify-self-center" />
-
+          </a>
         <form
           onSubmit={handleLogin}
           className="flex w-full max-w-sm min-w-sm transition-all hover:scale-145 flex-col items-center gap-y-4 rounded-md bg-card px-6 py-8 text-card-foreground shadow-2xl md:scale-120 lg:scale-140">
