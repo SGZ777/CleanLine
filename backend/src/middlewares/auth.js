@@ -38,9 +38,13 @@ export function authMiddleware(req, res, next) {
     const payload = jwt.verify(token, getJwtSecret());
     req.user = payload;
     next();
-  } catch {
+  } catch (error) {
+    // ESSA LINHA NO SEU CONSOLE VAI DIZER O ERRO REAL (JsonWebTokenError ou TokenExpiredError)
+    console.error("ERRO NA VERIFICAÇÃO DO JWT:", error.message);
+
     return res.status(401).json({
       error: 'Token invalido ou expirado',
+      reason: error.message, // Envia para o Android o motivo real
       authDebug: {
         hasCleanlineToken: true,
       },

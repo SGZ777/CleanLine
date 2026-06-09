@@ -9,6 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Spinner } from "@/components/ui/spinner";
 import { BarChart2, TableProperties } from "lucide-react";
 
 export const title = "Distribuição de notas das equipes";
@@ -94,7 +95,8 @@ const ChartPieDonutActive = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-muted-foreground">
+      <div className="flex items-center justify-center gap-2 p-8 text-center text-muted-foreground">
+        <Spinner />
         Carregando gráficos...
       </div>
     );

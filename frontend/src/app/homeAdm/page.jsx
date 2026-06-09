@@ -79,14 +79,14 @@ export default function HomeAdm() {
           onClose={() => setIsSidebarOpen(false)}
         />
 
-        <main className="flex-1 p-6 md:p-10">
-          <h1 className="font-inter text-3xl md:pb-8 md:ms-10 md:text-4xl">
+        <main className="flex-1 p-4 sm:p-6 md:p-10">
+          <h1 className="mx-auto max-w-5xl text-center font-inter text-3xl md:mx-0 md:pb-8 md:ms-10 md:text-left md:text-4xl">
             Olá, {userName}! | Visão Geral do{" "}
             <span className="text-[#24bff6]">5S</span>
           </h1>
-          <div className="flex flex-col lg:flex-row lg:items-start">
-            <div className="lg:grid">
-              <div className="lg:flex">
+          <div className="mx-auto flex w-full max-w-6xl flex-col items-center lg:max-w-none lg:flex-row lg:items-start lg:justify-start">
+            <div className="flex w-full flex-col items-center lg:grid lg:w-auto lg:justify-items-start">
+              <div className="flex w-full flex-col items-center lg:flex lg:flex-row lg:items-start">
                 <PontuacaoMedia />
                 <MaiorNotaDiaria />
               </div>

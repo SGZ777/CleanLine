@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
@@ -21,6 +22,7 @@ const LoginForm = ({
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { mounted, theme } = useTheme();
   const logoSrc =
@@ -31,6 +33,7 @@ const LoginForm = ({
   const handleLogin = async (e) => {
     e.preventDefault();
     setErro("");
+    setLoading(true);
 
     try {
       const res = await apiFetch("/api/auth", {
@@ -40,8 +43,6 @@ const LoginForm = ({
         body: JSON.stringify({ email, senha }),
       });
       
-      
-
       const data = await res.json();
 
       if (res.ok) {
@@ -52,26 +53,30 @@ const LoginForm = ({
         
       } else {
         setErro(data.erro);
+        setLoading(false);
       }
     } catch {
       setErro("Erro de conexão com o servidor.");
+      setLoading(false);
     }
   };
 
   return (
     <section className={cn("relative flex min-h-screen justify-center overflow-hidden bg-background", className)}>
-      <img
-        src="home-background-image.png"
-        className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
-        alt="background"
-      />
-
+     
+          <img
+            src="home-background-image.png"
+            className="absolute z-1 mt-25 w-full opacity-90 dark:opacity-55"
+            alt="background"
+          />
+     
       <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
+         <a href="/"> 
         <img
           src={logoSrc}
           alt="logo"
-          className="h-10 scale-170 justify-self-center" />
-
+          className="h-10 scale-120 md:scale-170 justify-self-center" />
+          </a>
         <form
           onSubmit={handleLogin}
           className="flex w-full max-w-sm min-w-sm transition-all hover:scale-145 flex-col items-center gap-y-4 rounded-md bg-card px-6 py-8 text-card-foreground shadow-2xl md:scale-120 lg:scale-140">
@@ -118,8 +123,8 @@ const LoginForm = ({
             </button>
           </div>
 
-          <Button type="submit" className="h-8 transition-all hover:scale-105 w-50 bg-primary text-lg text-primary-foreground hover:brightness-110">
-            {buttonText}
+          <Button type="submit" disabled={loading} className="h-8 transition-all hover:scale-105 w-45 bg-primary text-md text-primary-foreground hover:brightness-110">
+            {loading ? <Spinner className="h-4 w-4 border-primary-foreground/40 border-t-primary-foreground" /> : buttonText}
           </Button>
         </form>
       </div>

@@ -6,6 +6,7 @@ import { apiFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 
 // Funções de máscara (mantidas como estão)
 const formatCPF = (value) => {
@@ -214,7 +215,10 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
             <div>
               <Label htmlFor="idEquipe">Equipe *</Label>
               {loadingEquipes ? (
-                <p className="text-sm text-gray-500">Carregando equipes...</p>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Spinner className="h-4 w-4" />
+                  Carregando equipes...
+                </div>
               ) : (
                 <select
                   id="idEquipe"
@@ -245,7 +249,7 @@ export default function AdicionarFuncionarioModal({ onClose, onSuccess }) {
               Cancelar
             </Button>
             <Button type="submit" disabled={loading}>
-              {loading ? "Salvando..." : "Salvar"}
+              {loading ? <Spinner className="h-4 w-4" /> : "Salvar"}
             </Button>
           </div>
         </form>

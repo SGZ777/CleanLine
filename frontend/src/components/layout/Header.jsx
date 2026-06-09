@@ -1,6 +1,7 @@
 "use client";
 
 import { useTheme } from "@/components/theme/ThemeProvider";
+import ThemeToggle from "../theme/ThemeToggle";
 
 export default function Header() {
     const { mounted, theme } = useTheme();
@@ -16,7 +17,8 @@ export default function Header() {
           className="w-50 md:w-60 "
           alt="Cleanline"
         />
-      </div>  
+      </div>
+      <ThemeToggle />
     </header>
   );
 }

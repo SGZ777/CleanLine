@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import {
   EyeIcon,
-  Loader2,
   MapPinnedIcon,
   PencilIcon,
   PlusIcon,
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 import {
   Popover,
   PopoverContent,
@@ -256,7 +256,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
                     </Button>
                     <Button onClick={handleSaveEdit} disabled={editPending}>
                       {editPending ? (
-                        <Loader2 className="size-4 animate-spin" />
+                        <Spinner className="h-4 w-4" />
                       ) : (
                         "Salvar"
                       )}
@@ -280,7 +280,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
                     disabled={busy}
                   >
                     {deletePending ? (
-                      <Loader2 className="size-4 animate-spin" />
+                      <Spinner className="h-4 w-4" />
                     ) : (
                       <Trash2Icon className="size-5 text-(--trash-red)" />
                     )}
@@ -306,7 +306,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
                     disabled={deletePending}
                   >
                     {deletePending ? (
-                      <Loader2 className="size-4 animate-spin" />
+                      <Spinner className="h-4 w-4" />
                     ) : (
                       "Excluir"
                     )}
@@ -337,7 +337,12 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
   );
 
   if (loading) {
-    return <div className="p-6 text-center">Carregando rotas...</div>;
+    return (
+      <div className="flex items-center justify-center gap-2 p-6 text-center text-muted-foreground">
+        <Spinner />
+        Carregando rotas...
+      </div>
+    );
   }
 
   return (

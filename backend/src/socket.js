@@ -14,7 +14,9 @@ export const initSocket = (server) => {
       ].filter(Boolean),
       methods: ["GET", "POST"],
       credentials: true
-    }
+    },
+    // Garante que o servidor dê suporte total a WebSockets e Polling se necessário
+    transports: ['websocket', 'polling']
   });
 
   io.on('connection', (socket) => {

@@ -13,7 +13,7 @@ export default function Home() {
         <div className="relative z-10 w-full h-full">
           <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
-              
+
               <div className="flex flex-col h-auto justify-center space-y-8">
 
                 <div className="md:w-200">
@@ -86,16 +86,15 @@ export default function Home() {
               <div className="relative ms-50 hidden lg:flex items-center justify-center">
                 {/* Glow effect behind phone */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-80 h-96 bg-gradient-to-r from-[#24bff6]/30 to-[#1c96c2]/20 rounded-full filter blur-3xl opacity-60 animate-pulse" />
+                  <div className="w-80 h-96 bg-gradient-to-r from-[#24bff6]/50 to-[#0874CC]/50 rounded-full filter blur-2xl opacity-60 animate-pulse" />
                 </div>
-
                 {/* Phone container with 3D perspective */}
-                <div className="relative mb-50 z-10 w-80 h-auto perspective">
+                <div className="relative mb-50 z-10 w-80 h-auto perspective phone-shadow-animated">
                   {/* Phone frame */}
-                  <div className="relative w-full h-auto rounded-3xl bg-black shadow-2xl overflow-hidden border-8 border-gray-900 transform hover:scale-105 transition-transform duration-300"
+                  <div
+                    className="relative w-full h-auto rounded-3xl bg-black overflow-hidden border-8 border-gray-900 hover:scale-105 transition-transform duration-300"
                     style={{
-                      boxShadow: '0 20px 60px rgba(36, 191, 246, 0.3), 0 0 80px rgba(36, 191, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-                      transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)'
+                      transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)',
                     }}
                   >
                     {/* Phone screen content */}
@@ -173,71 +172,71 @@ export default function Home() {
 
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f8fafb] dark:from-[#07131d] to-transparent pointer-events-none" />
 
-      <section className="relative  w-full py-20 px-6 overflow-hidden flex flex-col items-center">
-        <div className="relative transition hover:scale-102 flex w-full md:w-7xl dark:border justify-self-center flex-col rounded-2xl shadow-2xl p-12 bg-popover text-center items-center overflow-hidden">
-          <div className="relative z-10 max-w-5xl text-center">
-            <h2 className="text-4xl mb-5 font-semibold">
-              Sobre a <span className="text-[#24bff6]">Clean</span>Line
-            </h2>
-            <div className="text-xl text-justify leading-relaxed space-y-4">
-              <p>
-                O 5S-Track é um sistema moderno criado para transformar a forma com o as auditorias 5S são
-                realizadas dentro das empresas. Com ele, a verificação de limpeza, organização e segurança deixa
-                de ser feita em papel e passa a ser digital, prática e confiável.
+        <section className="relative  w-full py-20 px-6 overflow-hidden flex flex-col items-center">
+          <div className="relative transition hover:scale-102 flex w-full md:w-7xl dark:border justify-self-center flex-col rounded-2xl shadow-2xl p-12 bg-popover text-center items-center overflow-hidden">
+            <div className="relative z-10 max-w-5xl text-center">
+              <h2 className="text-4xl mb-5 font-semibold">
+                Sobre a <span className="text-[#24bff6]">Clean</span>Line
+              </h2>
+              <div className="text-xl text-justify leading-relaxed space-y-4">
+                <p>
+                  O 5S-Track é um sistema moderno criado para transformar a forma com o as auditorias 5S são
+                  realizadas dentro das empresas. Com ele, a verificação de limpeza, organização e segurança deixa
+                  de ser feita em papel e passa a ser digital, prática e confiável.
+                </p>
+                <p>
+                  Através do aplicativo, os colaboradores realizam checklists diretamente no local da inspeção,
+                  garantindo que cada etapa do processo seja realmente verificada. O sistema também permite
+                  registrar fotos do ambiente e acompanhar os resultados em um painel simples e intuitivo.
+                </p>
+                <p>
+                  Com o 5S-Track, gestores conseguem acompanhar o desempenho dos setores, incentivar boas
+                  práticas e manter o ambiente de trabalho sempre organizado, seguro e produtivo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative w-full py-0  overflow-hidden flex flex-col items-center md:h-190">
+          <img src="home-background-image.png" className="hidden md:block w-full mt-12 absolute" />
+          <h2 className="text-2xl md:text-4xl font-semibold mb-12 mt-20 z-10">
+            Por que somos a melhor opção?
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
+            <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
+              <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
+              <h3 className="text-xl font-bold  mb-2">Checklists</h3>
+              <p className=" text-lg leading-relaxed">
+                Auditorias preenchidas na hora, após a confirmação física.
               </p>
-              <p>
-                Através do aplicativo, os colaboradores realizam checklists diretamente no local da inspeção,
-                garantindo que cada etapa do processo seja realmente verificada. O sistema também permite
-                registrar fotos do ambiente e acompanhar os resultados em um painel simples e intuitivo.
+            </div>
+            <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
+              <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
+              <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>
+              <p className=" text-lg leading-relaxed">
+                Registro fotográfico obrigando a comprovação visual.
               </p>
-              <p>
-                Com o 5S-Track, gestores conseguem acompanhar o desempenho dos setores, incentivar boas
-                práticas e manter o ambiente de trabalho sempre organizado, seguro e produtivo.
+            </div>
+
+            <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
+              <img src="icon_ranking_principal.png" alt="Ranking gamificado" className="w-24 h-24 object-contain mb-4" />
+              <h3 className="text-xl font-bold  mb-2">Ranking gamificado</h3>
+              <p className=" text-lg leading-relaxed">
+                Competição saudável entre equipes e setores.
+              </p>
+            </div>
+
+            <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
+              <img src="icon_painel_principal.webp" alt="Painel online" className="w-24 h-24 object-contain mb-4" />
+              <h3 className="text-xl font-bold  mb-2">Painel online</h3>
+              <p className=" text-lg leading-relaxed">
+                Dashboard atualizado com auditorias em tempo real.
               </p>
             </div>
           </div>
-        </div>
+        </section>
       </section>
-
-      <section className="relative w-full py-0  overflow-hidden flex flex-col items-center md:h-190">
-        <img src="home-background-image.png" className="hidden md:block w-full mt-12 absolute" />
-        <h2 className="text-2xl md:text-4xl font-semibold mb-12 mt-20 z-10">
-          Por que somos a melhor opção?
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full z-10 ">
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
-            <img src="icon_checklist_principal.webp" alt="Checklists" className="w-24 h-24 object-contain mb-4" />
-            <h3 className="text-xl font-bold  mb-2">Checklists</h3>
-            <p className=" text-lg leading-relaxed">
-              Auditorias preenchidas na hora, após a confirmação física.
-            </p>
-          </div>
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
-            <img src="icon_ftsdolocal_principal.png" alt="Fotos do local" className="w-24 h-24 object-contain mb-4" />
-            <h3 className="text-xl font-bold  mb-2">Fotos do local</h3>
-            <p className=" text-lg leading-relaxed">
-              Registro fotográfico obrigando a comprovação visual.
-            </p>
-          </div>
-
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
-            <img src="icon_ranking_principal.png" alt="Ranking gamificado" className="w-24 h-24 object-contain mb-4" />
-            <h3 className="text-xl font-bold  mb-2">Ranking gamificado</h3>
-            <p className=" text-lg leading-relaxed">
-              Competição saudável entre equipes e setores.
-            </p>
-          </div>
-
-          <div className="bg-primary-foreground dark:border transition-all hover:scale-104 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl mx-5 md:mx-0">
-            <img src="icon_painel_principal.webp" alt="Painel online" className="w-24 h-24 object-contain mb-4" />
-            <h3 className="text-xl font-bold  mb-2">Painel online</h3>
-            <p className=" text-lg leading-relaxed">
-              Dashboard atualizado com auditorias em tempo real.
-            </p>
-          </div>
-        </div>
-      </section>
- </section>
     </>
   );
 }

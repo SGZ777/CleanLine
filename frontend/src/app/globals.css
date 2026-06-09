@@ -37,6 +37,7 @@
   --btn-bg-trash-red: #fcc9c9;
   --trash-red: #a10808;
   --degrade-principal: #EEF3F7;
+  --barra-grafico3: #0d005d;
 }
 
 .dark {
@@ -74,6 +75,7 @@
   --btn-bg-trash-red: #ff6b6b;
   --trash-red: #ffffff;
   --degrade-principal: #07131D;
+  --barra-grafico3: #0e58e2;
 }
 
 @theme inline {
@@ -96,7 +98,7 @@
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-poppins);
 }
 
 @layer base {
@@ -113,7 +115,7 @@
   }
 
   body {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-poppins), sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     letter-spacing: var(--tracking-normal);
@@ -142,9 +144,13 @@
 }
 
 .inter {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.font-inter {
+  font-family: var(--font-poppins), sans-serif;
 }
 
 .login-password-input::-ms-reveal,
@@ -247,3 +253,20 @@
   background-color: color-mix(in srgb, var(--muted) 70%, transparent);
 }
 
+/* Animação de sombra do celular na home */
+.phone-shadow-animated {
+  animation: pulse-drop-shadow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-drop-shadow {
+  0%, 100% {
+    filter:
+      drop-shadow(0px 20px 40px rgba(36, 191, 246, 0.3))
+      drop-shadow(0px 0px 60px rgba(36, 191, 246, 0.15));
+  }
+  50% {
+    filter:
+      drop-shadow(0px 20px 60px rgba(36, 191, 246, 0.6))
+      drop-shadow(0px 0px 100px rgba(36, 191, 246, 0.45));
+  }
+} 

@@ -9,6 +9,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { getGraficoPontuacaoMensal } from "@/lib/controllers/dashboard";
+import { Spinner } from "@/components/ui/spinner";
 
 const chartConfig = {
   media: {
@@ -70,7 +71,8 @@ export function PontuacaoGrafico() {
   if (loading) {
     return (
       <Card className="w-full max-w-230 border border-border bg-card shadow-md">
-        <CardContent className="p-6 text-center">
+        <CardContent className="flex items-center justify-center gap-2 p-6 text-center text-muted-foreground">
+          <Spinner />
           Carregando dados do gráfico...
         </CardContent>
       </Card>

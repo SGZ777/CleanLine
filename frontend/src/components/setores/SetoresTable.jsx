@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
 import {
   EyeIcon,
-  Loader2,
   PencilIcon,
   Trash2Icon,
 } from "lucide-react";
@@ -12,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 import {
   Popover,
   PopoverContent,
@@ -297,7 +297,10 @@ export default function SetoresTable({ searchTerm = "" }) {
                     <div className="space-y-2">
                       <Label htmlFor={`edit-equipe-${setor.id}`}>Equipe</Label>
                       {loadingEquipes ? (
-                        <p className="text-sm text-gray-500">Carregando...</p>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Spinner className="h-4 w-4" />
+                          Carregando...
+                        </div>
                       ) : (
                         <select
                           id={`edit-equipe-${setor.id}`}
@@ -321,7 +324,10 @@ export default function SetoresTable({ searchTerm = "" }) {
                     <div className="space-y-2">
                       <Label>Rotas</Label>
                       {loadingRotas ? (
-                        <p className="text-sm text-gray-500">Carregando...</p>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Spinner className="h-4 w-4" />
+                          Carregando...
+                        </div>
                       ) : rotas.length === 0 ? (
                         <p className="text-sm text-gray-500">Nenhuma rota disponível</p>
                       ) : (
@@ -363,7 +369,7 @@ export default function SetoresTable({ searchTerm = "" }) {
                       </Button>
                       <Button onClick={handleSaveEdit} disabled={editPending}>
                         {editPending ? (
-                          <Loader2 className="size-4 animate-spin" />
+                          <Spinner className="h-4 w-4" />
                         ) : (
                           "Salvar"
                         )}
@@ -383,7 +389,7 @@ export default function SetoresTable({ searchTerm = "" }) {
                     disabled={busy}
                   >
                     {deletePending ? (
-                      <Loader2 className="size-4 animate-spin" />
+                      <Spinner className="h-4 w-4" />
                     ) : (
                       <Trash2Icon className="size-5 text-(--trash-red)" />
                     )}
@@ -406,7 +412,7 @@ export default function SetoresTable({ searchTerm = "" }) {
                       disabled={deletePending}
                     >
                       {deletePending ? (
-                        <Loader2 className="size-4 animate-spin" />
+                        <Spinner className="h-4 w-4" />
                       ) : (
                         "Excluir"
                       )}
@@ -421,7 +427,14 @@ export default function SetoresTable({ searchTerm = "" }) {
     );
   };
 
-  if (loading) return <div className="p-6 text-center">Carregando setores...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center gap-2 p-6 text-center text-muted-foreground">
+        <Spinner />
+        Carregando setores...
+      </div>
+    );
+  }
 
   return (
     <div className=" self-center w-full max-w-7xl rounded-xl  bg-card shadow-md transition-all hover:scale-101">

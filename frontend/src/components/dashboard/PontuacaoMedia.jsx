@@ -51,8 +51,8 @@ export default function PontuacaoMedia() {
       <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
         Pontuação média mensal
       </p>
-      <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-2 lg:text-6xl">{formatNota(nota)}/10</p>
+      <div className="flex items-center justify-center gap-4">
+        <p className="text-5xl leading-none lg:text-6xl">{formatNota(nota)}/10</p>
         <img
           src="./icons/icon_green_arrow.png"
           className="w-7 h-11 lg:w-10 lg:h-13"

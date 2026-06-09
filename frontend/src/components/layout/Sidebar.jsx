@@ -7,11 +7,14 @@ import {
   getSidebarItemClass,
   sidebarItems,
 } from "@/lib/scripts/hoverSideBar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
 
 export default function Sidebar({ isOpen = false, onClose = () => {} }) {
   const pathname = usePathname();
   const [isMinimized, setIsMinimized] = useState(false);
+  const isMobile = useIsMobile();
+  const isCollapsed = !isMobile && isMinimized;
 
   return (
     <>
@@ -27,7 +30,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
       <aside
         className={[
           "fixed left-0 top-0 z-40 h-screen bg-[var(--sidebar-background)] pt-5 text-white shadow-2xl transition-all duration-300 md:static md:h-screen md:translate-x-0 md:rounded-r-[20px]",
-          isMinimized ? "w-16" : "w-72 md:w-2xs",
+          isCollapsed ? "w-16" : "w-72 md:w-2xs",
           isOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
       > 
@@ -44,7 +47,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           </button>
         </div>
 
-        <div className={["flex items-center px-3 mb-2", isMinimized ? "justify-center" : "justify-end"].join(" ")}>
+        <div className={["flex items-center px-3 mb-2", isCollapsed ? "justify-center" : "justify-end"].join(" ")}>
           <button
             type="button"
             onClick={() => setIsMinimized(!isMinimized)}
@@ -55,14 +58,14 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           </button>
         </div>
 
-        <ul className={["flex w-full flex-col gap-4", isMinimized ? "px-2 py-4" : "p-4"].join(" ")}>
+        <ul className={["flex w-full flex-col gap-4", isCollapsed ? "px-2 py-4" : "p-4"].join(" ")}>
           {sidebarItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={getSidebarItemClass(pathname, item.href, isMinimized)}
+                className={getSidebarItemClass(pathname, item.href, isCollapsed)}
                 onClick={onClose}
-                title={isMinimized ? item.label : undefined}
+                title={isCollapsed ? item.label : undefined}
               >
                  <span className="flex h-8 w-8 shrink-0 items-center justify-center">
                   <img
@@ -71,7 +74,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                     alt={item.alt}
                   />
                 </span>
-                {!isMinimized && <span>{item.label}</span>}
+                {!isCollapsed && <span>{item.label}</span>}
               </Link>
             </li>
           ))}
