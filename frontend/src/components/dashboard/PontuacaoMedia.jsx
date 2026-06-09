@@ -40,9 +40,7 @@ export default function PontuacaoMedia() {
         }
       }
     }
-
     carregarMedia();
-
     return () => {
       ativo = false;
     };

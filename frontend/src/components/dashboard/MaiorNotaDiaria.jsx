@@ -10,10 +10,9 @@ function formatNota(value) {
   if (notaArredondada >= 10) {
     return "10";
   }
-
+  
   return notaArredondada.toFixed(1);
 }
-
 export default function MaiorNotaDiaria() {
   const [nota, setNota] = useState(0);
   const [setor, setSetor] = useState("—");
