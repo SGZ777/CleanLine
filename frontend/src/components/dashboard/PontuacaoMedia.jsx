@@ -47,8 +47,8 @@ export default function PontuacaoMedia() {
   }, []);
 
   return (
-    <section className="m-6 h-auto transition-all hover:scale-105 w-80 rounded-xl bg-card text-card-foreground shadow-md md:w-105 dark:border">
-      <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
+      <section className="my-4 flex h-40 w-80 flex-col items-center justify-center gap-3 rounded-xl bg-card text-card-foreground shadow-md transition-all hover:scale-105 md:m-6 md:h-44 md:w-105 dark:border">
+      <p className="px-2 text-center text-xl leading-tight lg:text-3xl">
         Pontuação média mensal
       </p>
       <div className="flex items-center justify-center gap-4">
