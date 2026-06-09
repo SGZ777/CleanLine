@@ -97,7 +97,7 @@ export default function ChecklistsTable({ tasks = [], searchTerm = "" }) {
     return (
       <Card
         key={task.id ?? task.setor}
-        className="h-auto shadow-md transition-all hover:scale-102"
+        className="h-auto shadow-md transition-all hover:scale-102 dark:border"
       >
         <CardHeader className="gap-2">
           <CardTitle className={`truncate pr-2 ${setorColorClass}`}>

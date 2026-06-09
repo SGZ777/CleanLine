@@ -130,7 +130,7 @@ export default function RotasTable({ searchTerm = "", onAddClick }) {
     return (
       <Card
         key={rota.id}
-        className="h-full shadow-md transition-all hover:scale-102"
+        className="h-full shadow-md transition-all hover:scale-102 dark:border"
       >
         <CardHeader className="gap-2">
           <CardTitle className="truncate pr-2">{rota.Nome}</CardTitle>
