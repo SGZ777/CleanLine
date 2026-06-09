@@ -24,7 +24,7 @@ export default function Indicadores() {
             Painel de indicadores
           </h1>
 
-           <div className="flex w-full max-w-7xl transition-all hover:scale-[1.01] justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] animate-fade-in-up delay-200 overflow-hidden">
+           <div className="flex w-full max-w-7xl transition-all hover:scale-[1.01] justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] animate-fade-in-up delay-200 overflow-hidden dark:border">
             <h1 className="mt-5 md:mt-10 ms-8 md:ms-10 mb-2 md:mb-5 text-lg text-foreground md:text-2xl">
              Média dos setores no último trimestre
             </h1>
@@ -33,7 +33,7 @@ export default function Indicadores() {
             </div>
           </div>
 
-          <div className="flex w-full max-w-7xl transition-all hover:scale-[1.01] justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] animate-fade-in-up delay-200 overflow-hidden">
+          <div className="flex w-full max-w-7xl transition-all hover:scale-[1.01] justify-self-center flex-col rounded-2xl shadow-md mt-10 bg-white dark:bg-[#0C1D2C] animate-fade-in-up delay-200 overflow-hidden dark:border">
             <h1 className="mt-5 md:mt-10 ms-8 md:ms-10 mb-2 md:mb-5 text-lg text-foreground md:text-2xl">
               Média das equipes no último trimestre
             </h1>

@@ -88,7 +88,7 @@ export function PontuacaoGrafico() {
   }
 
   return (
-    <Card className="w-full transition-all hover:scale-103 ms-6 max-w-222 h-95 overflow-visible bg-card shadow-md">
+    <Card className="w-full transition-all hover:scale-103 ms-6 max-w-222 h-95 overflow-visible bg-card shadow-md dark:border">
       <CardHeader className="flex flex-row items-center justify-between border-b p-4">
         <CardTitle>
           Média de pontuação 5S -{" "}

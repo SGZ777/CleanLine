@@ -48,7 +48,7 @@ const LeaderboardCard = ({ className }) => {
   return (
     <Card
       className={cn(
-        "justify-self-center transition-all hover:scale-105 m-5 h-auto w-full max-w-lg bg-card p-2 pt-10 pb-10 shadow-md",
+        "justify-self-center transition-all hover:scale-105 m-5 h-auto w-full max-w-lg bg-card p-2 pt-10 pb-10 shadow-md dark:border",
         className
       )}
     >
