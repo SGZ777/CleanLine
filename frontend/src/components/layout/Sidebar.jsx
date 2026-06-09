@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
           <button
             type="button"
             onClick={() => setIsMinimized(!isMinimized)}
-            className="hidden md:block rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
+            className="hidden cursor-pointer md:block rounded-lg p-1.5 text-white transition hover:bg-[var(--sidebar-hover)]"
             aria-label={isMinimized ? "Expandir sidebar" : "Minimizar sidebar"}
           >
             {isMinimized ? <PanelLeftOpen className="w-6 h-6" /> : <PanelLeftClose className="w-6 h-6" />}
