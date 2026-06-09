@@ -178,7 +178,7 @@ export default function Home() {
               <h2 className="text-4xl mb-5 font-semibold">
                 Sobre a <span className="text-[#24bff6]">Clean</span>Line
               </h2>
-              <div className="text-xl text-justify leading-relaxed space-y-4">
+              <div className="text-xl text-left leading-relaxed space-y-4">
                 <p>
                   O 5S-Track é um sistema moderno criado para transformar a forma com o as auditorias 5S são
                   realizadas dentro das empresas. Com ele, a verificação de limpeza, organização e segurança deixa
