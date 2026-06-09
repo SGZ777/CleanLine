@@ -43,13 +43,13 @@ export default function MaiorNotaDiaria() {
   }, []);
 
   return (
-    <section className="m-6 transition-all hover:scale-105 h-auto w-80 rounded-xl bg-card pb-2 text-card-foreground shadow-md md:w-105">
-      <p className="text-center pt-2 text-xl ps-2 pe-2 lg:text-2xl mt-4">
+    <section className="my-4 flex h-40 w-80 flex-col items-center justify-center gap-3 rounded-xl bg-card text-card-foreground shadow-md transition-all hover:scale-105 md:m-6 md:h-44 md:w-105">
+      <p className="px-2 text-center text-xl leading-tight lg:text-2xl">
         Maior nota do dia -{" "}
         <span className="text-[#24bff6]">Setor: {setor}</span>
       </p>
-      <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-5 lg:text-6xl">{formatNota(nota)}/10</p>
+      <div className="flex items-center justify-center gap-4">
+        <p className="text-5xl leading-none lg:text-6xl">{formatNota(nota)}/10</p>
         <img
           src="./icons/icon_yellow_star.png"
           className="w-12 h-12 lg:w-14 lg:h-14"

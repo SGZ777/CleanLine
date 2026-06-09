@@ -49,12 +49,12 @@ export default function PontuacaoMedia() {
   }, []);
 
   return (
-    <section className="m-6 h-auto transition-all hover:scale-105 w-80 rounded-xl bg-card text-card-foreground shadow-md md:w-105">
-      <p className="text-center pt-2 text-xl lg:text-3xl mt-4">
+    <section className="my-4 flex h-40 w-80 flex-col items-center justify-center gap-3 rounded-xl bg-card text-card-foreground shadow-md transition-all hover:scale-105 md:m-6 md:h-44 md:w-105">
+      <p className="px-2 text-center text-xl leading-tight lg:text-3xl">
         Pontuação média mensal
       </p>
-      <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-2 lg:text-6xl">{formatNota(nota)}/10</p>
+      <div className="flex items-center justify-center gap-4">
+        <p className="text-5xl leading-none lg:text-6xl">{formatNota(nota)}/10</p>
         <img
           src="./icons/icon_green_arrow.png"
           className="w-7 h-11 lg:w-10 lg:h-13"

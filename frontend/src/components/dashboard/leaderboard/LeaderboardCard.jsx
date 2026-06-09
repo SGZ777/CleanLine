@@ -50,7 +50,7 @@ const LeaderboardCard = ({ className }) => {
   return (
     <Card
       className={cn(
-        "justify-self-center transition-all hover:scale-105 m-5 h-auto w-full max-w-lg bg-card p-2 pt-10 pb-10 shadow-md",
+        "my-4 h-auto w-full max-w-lg justify-self-center bg-card p-2 pt-10 pb-10 shadow-md transition-all hover:scale-105 lg:m-5",
         className
       )}
     >
