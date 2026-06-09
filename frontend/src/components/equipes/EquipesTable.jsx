@@ -323,7 +323,7 @@ export default function EquipesTable({ searchTerm = "", onAddClick }) {
     <button
       type="button"
       onClick={onAddClick}
-      className="flex h-full min-h-82 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-primary/45 bg-card p-6 text-center text-card-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-muted/35 hover:shadow-md focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="flex cursor-pointer h-full min-h-82 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-primary/45 bg-card p-6 text-center text-card-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-muted/35 hover:shadow-md focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
       <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
         <PlusIcon className="size-8" />
