@@ -48,8 +48,8 @@ export default function MaiorNotaDiaria() {
         Maior nota do dia -{" "}
         <span className="text-[#24bff6]">Setor: {setor}</span>
       </p>
-      <div className="justify-self-center flex gap-4 mt-4">
-        <p className="text-5xl pb-5 lg:text-6xl">{formatNota(nota)}/10</p>
+      <div className="flex items-center justify-center gap-4">
+        <p className="text-5xl leading-none lg:text-6xl">{formatNota(nota)}/10</p>
         <img
           src="./icons/icon_yellow_star.png"
           className="w-12 h-12 lg:w-14 lg:h-14"

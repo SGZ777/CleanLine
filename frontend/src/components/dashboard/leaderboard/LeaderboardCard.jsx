@@ -13,6 +13,7 @@ import LeaderboardFirst from "./LeaderboardFirst";
 import LeaderboardSecond from "./LeaderboardSecond";
 import LeaderboardThird from "./LeaderboardThird";
 import { getRankingDoMes } from "@/lib/controllers/dashboard";
+import { Spinner } from "@/components/ui/spinner";
 
 const LeaderboardCard = ({ className }) => {
   const [ranking, setRanking] = useState([]);
@@ -35,8 +36,9 @@ const LeaderboardCard = ({ className }) => {
 
   if (carregando) {
     return (
-      <Card className={cn("flex h-auto w-full max-w-lg items-center justify-center p-10", className)}>
-        <p className="animate-pulse text-muted-foreground">Carregando ranking...</p>
+      <Card className={cn("flex h-auto w-full max-w-lg items-center justify-center gap-2 p-10 text-muted-foreground", className)}>
+        <Spinner />
+        Carregando ranking...
       </Card>
     );
   }

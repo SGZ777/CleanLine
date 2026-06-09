@@ -6,6 +6,7 @@ import { apiFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function AdicionarSetorModal({ onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -136,7 +137,10 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
             <div>
               <Label htmlFor="idEquipe">Equipe *</Label>
               {loadingEquipes ? (
-                <p className="text-sm text-gray-500">Carregando equipes...</p>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Spinner className="h-4 w-4" />
+                  Carregando equipes...
+                </div>
               ) : (
                 <select
                   id="idEquipe"
@@ -161,7 +165,10 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
           <div>
             <Label>Rotas (opcional)</Label>
             {loadingRotas ? (
-              <p className="text-sm text-gray-500">Carregando rotas...</p>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Spinner className="h-4 w-4" />
+                Carregando rotas...
+              </div>
             ) : rotas.length === 0 ? (
               <p className="text-sm text-gray-500">Nenhuma rota disponível</p>
             ) : (
@@ -190,7 +197,7 @@ export default function AdicionarSetorModal({ onClose, onSuccess }) {
               Cancelar
             </Button>
             <Button type="submit" disabled={loading}>
-              {loading ? "Salvando..." : "Salvar"}
+              {loading ? <Spinner className="h-4 w-4" /> : "Salvar"}
             </Button>
           </div>
         </form>

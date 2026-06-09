@@ -21,9 +21,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Spinner } from "@/components/ui/spinner";
 import { BarChart2, TableProperties } from "lucide-react";
 
-const MONTH_COLORS = ["#00afdc", "#2ad7eb", "#0d005d"];
+const MONTH_COLORS = ["#00afdc", "#2ad7eb", "var(--barra-grafico3)"];
 
 const getNotaStyle = (val) => {
   const num = Number(val);
@@ -93,7 +94,8 @@ const SimpleBarChart = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-muted-foreground">
+      <div className="flex items-center justify-center gap-2 p-8 text-center text-muted-foreground">
+        <Spinner />
         Carregando gráfico...
       </div>
     );
@@ -152,9 +154,9 @@ const SimpleBarChart = () => {
                 margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis width={30} domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} />
-                <Tooltip />
+                <XAxis dataKey="name" tick={{ fill: "var(--foreground)" }} />
+                <YAxis width={30} domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: "var(--foreground)" }} />
+                <Tooltip labelStyle={{ color: "#07131D" }} />
                 <Legend className="m-20" content={<CustomLegend meses={meses} />} />
 
                 {meses.map((mes, index) => (
