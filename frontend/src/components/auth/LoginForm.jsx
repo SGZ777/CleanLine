@@ -43,8 +43,6 @@ const LoginForm = ({
         body: JSON.stringify({ email, senha }),
       });
       
-      
-
       const data = await res.json();
 
       if (res.ok) {
@@ -72,13 +70,12 @@ const LoginForm = ({
             alt="background"
           />
      
-     
       <div className="flex flex-col items-center mt-10 justify-self-center md:mt-20 gap-8 md:gap-16 lg:gap-37 lg:justify-start z-2">
          <a href="/"> 
         <img
           src={logoSrc}
           alt="logo"
-          className="h-10 scale-170 justify-self-center" />
+          className="h-10 scale-120 md:scale-170 justify-self-center" />
           </a>
         <form
           onSubmit={handleLogin}
