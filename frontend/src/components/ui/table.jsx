@@ -11,7 +11,7 @@ function Table({
   return (
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto rounded-xl border-border bg-card text-card-foreground shadow-lg shadow-black/5 dark:border"
+      className="relative w-full max-h-[75vh] overflow-x-auto rounded-xl border-border bg-card text-card-foreground shadow-lg shadow-black/5 dark:border"
     >
       <table
         data-slot="table"
