@@ -179,4 +179,4 @@ O schema Prisma (`backend/prisma/schema.prisma`) define as seguintes entidades p
 
 ## Licença
 
-Projeto pessoal/educacional. Defina a licença de sua preferência.
+Projeto educacional.
